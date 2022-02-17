@@ -19,14 +19,12 @@ public class BasicMovment : MonoBehaviour
     void Update()
     {
         Vector2 movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        playerRigidBody.MovePosition(playerRigidBody.position + (movementSpeed * movement) * Time.deltaTime);
-        //Moving using Rigidbody2D.MovePosition so that propper collision detection works. 
-        //old method of transform.position doesn't work well with collision detection
-
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Magnitute", movement.magnitude);
-
+        if (collidingWithStaticObject == false)
+        {
+            //Moving using Rigidbody2D.MovePosition so that propper collision detection works. 
+            //old method of transform.position doesn't work well with collision detection
+            playerRigidBody.MovePosition(playerRigidBody.position + (movementSpeed * movement) * Time.deltaTime);
+        }
         
 
 

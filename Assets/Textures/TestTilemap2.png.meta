@@ -95,42 +95,6 @@ TextureImporter:
   - first:
       213: -1074852967660617871
     second: TestTilemap2_30
-  - first:
-      213: -805914031610478601
-    second: TestTilemap2_31
-  - first:
-      213: -7859145015826717238
-    second: TestTilemap2_32
-  - first:
-      213: 2944048005573423990
-    second: TestTilemap2_33
-  - first:
-      213: -4990159250582771331
-    second: TestTilemap2_34
-  - first:
-      213: 1272193414853675749
-    second: TestTilemap2_35
-  - first:
-      213: -2869605346495166140
-    second: TestTilemap2_36
-  - first:
-      213: -7664559149327046184
-    second: TestTilemap2_37
-  - first:
-      213: 54971768726786048
-    second: TestTilemap2_38
-  - first:
-      213: -1139269971144471382
-    second: TestTilemap2_39
-  - first:
-      213: -369459787813109518
-    second: TestTilemap2_40
-  - first:
-      213: -8246734845533074764
-    second: TestTilemap2_41
-  - first:
-      213: -7056207138870798639
-    second: TestTilemap2_42
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -718,7 +682,7 @@ TextureImporter:
       name: TestTilemap2_23
       rect:
         serializedVersion: 2
-        x: 0
+        x: 128
         y: 160
         width: 32
         height: 32
@@ -739,7 +703,7 @@ TextureImporter:
       name: TestTilemap2_24
       rect:
         serializedVersion: 2
-        x: 32
+        x: 160
         y: 160
         width: 32
         height: 32
@@ -760,7 +724,7 @@ TextureImporter:
       name: TestTilemap2_25
       rect:
         serializedVersion: 2
-        x: 128
+        x: 192
         y: 160
         width: 32
         height: 32
@@ -781,8 +745,8 @@ TextureImporter:
       name: TestTilemap2_26
       rect:
         serializedVersion: 2
-        x: 160
-        y: 160
+        x: 128
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -803,7 +767,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 160
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -823,8 +787,8 @@ TextureImporter:
       name: TestTilemap2_28
       rect:
         serializedVersion: 2
-        x: 256
-        y: 160
+        x: 128
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -844,8 +808,8 @@ TextureImporter:
       name: TestTilemap2_29
       rect:
         serializedVersion: 2
-        x: 288
-        y: 160
+        x: 160
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -865,8 +829,8 @@ TextureImporter:
       name: TestTilemap2_30
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 192
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -878,258 +842,6 @@ TextureImporter:
       bones: []
       spriteID: 17f70d4bbea5511f0800000000000000
       internalID: -1074852967660617871
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap2_31
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7ffba5a4571d0d4f0800000000000000
-      internalID: -805914031610478601
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap2_32
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ac5ed556f35bee290800000000000000
-      internalID: -7859145015826717238
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap2_33
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 673b6e5101c5bd820800000000000000
-      internalID: 2944048005573423990
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap2_34
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d796260c9946fbab0800000000000000
-      internalID: -4990159250582771331
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap2_35
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 128
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5eac1f1ab2db7a110800000000000000
-      internalID: 1272193414853675749
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap2_36
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4490894242d1d28d0800000000000000
-      internalID: -2869605346495166140
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap2_37
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8d92460ff0402a590800000000000000
-      internalID: -7664559149327046184
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap2_38
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 00092ab488c43c000800000000000000
-      internalID: 54971768726786048
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap2_39
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aac0aa25fff7030f0800000000000000
-      internalID: -1139269971144471382
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap2_40
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2f0cb9cc74a6fdaf0800000000000000
-      internalID: -369459787813109518
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap2_41
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4ba4a2fd956bd8d80800000000000000
-      internalID: -8246734845533074764
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap2_42
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1d6d70a1ef0531e90800000000000000
-      internalID: -7056207138870798639
       vertices: []
       indices: 
       edges: []
