@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BasicMovment : MonoBehaviour
 {
+
     [SerializeField] bool collidingWithStaticObject = false;
     [SerializeField] private Rigidbody2D playerRigidBody = null;
     [SerializeField] float movementSpeed = 5.0f;
@@ -13,9 +14,14 @@ public class BasicMovment : MonoBehaviour
         playerRigidBody = this.GetComponent<Rigidbody2D>();
     }
 
+
+    public Animator animator;
+
+
     // Update is called once per frame
     void Update()
     {
+
         Vector2 movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (collidingWithStaticObject == false)
         {
@@ -23,7 +29,18 @@ public class BasicMovment : MonoBehaviour
             //old method of transform.position doesn't work well with collision detection
             playerRigidBody.MovePosition(playerRigidBody.position + (movementSpeed * movement) * Time.deltaTime);
         }
+
+
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Magnitute", movement.magnitude);
+
+
         
+
+
+
+        /*
         //flips the characters sprite so they face the direction they're walking
         if (movement.x < 0)
         {
@@ -35,6 +52,8 @@ public class BasicMovment : MonoBehaviour
             GameObject.Find("Jeremy").GetComponent<SpriteRenderer>().flipX = false;
             GameObject.Find("Jeremy").GetComponent<BoxCollider2D>().offset = new Vector2(-0.02473149f, -0.1402018f);
         }
+
+        */
     }
     
     //private void OnTriggerEnter2D(Collider2D collider)
