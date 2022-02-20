@@ -18,18 +18,25 @@ public class TaskListController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (TaskListObject == null)
+        {
+            TaskListObject = GameObject.Find("TaskList"); TaskListObject = GameObject.Find("TaskList");
+        }
     }
 
     public int addItemToList(GameObject prefab, string name, string description)
     {
         int TaskID;
         GameObject prefabToSpawn = Instantiate(prefab);
-
+        while (TaskListObject == null)
+        {
+            TaskListObject = GameObject.Find("TaskList"); TaskListObject = GameObject.Find("TaskList");
+        }
         if (TaskList.Count() == 0)
         {
             TaskID = 0;
             TaskList.Add(prefabToSpawn);
+            print("TaskListObject:" + TaskListObject);
             prefabToSpawn.transform.parent = TaskListObject.transform.GetChild(0);
             prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
             prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
