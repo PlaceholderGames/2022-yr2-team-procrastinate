@@ -7,25 +7,33 @@ public class BasicMovment : MonoBehaviour
 
     public Animator animator;
 
-    [SerializeField] bool collidingWithStaticObject = false;
-    [SerializeField] private Rigidbody2D playerRigidBody = null;
-    [SerializeField] float movementSpeed = 5.0f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        playerRigidBody = this.GetComponent<Rigidbody2D>();
-    }
-
     // Update is called once per frame
     void Update()
     {
 
-        Vector2 movement = new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
-        playerRigidBody.MovePosition(playerRigidBody.position + (movementSpeed * movement) * Time.deltaTime);
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"), 0.0f);
 
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Magnitute", movement.magnitude);
+
+        transform.position = transform.position + movement * Time.deltaTime;
+        
+
+
+
+        /*
+        //flips the characters sprite so they face the direction they're walking
+        if (movement.x < 0)
+        {
+            GameObject.Find("Jeremy").GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (movement.x > 0)
+        {
+            GameObject.Find("Jeremy").GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        */
     }
 
     //private void OnTriggerExit2D(Collider2D collider)
