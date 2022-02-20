@@ -18,12 +18,10 @@ public class MoveableObjectLayerScript : MonoBehaviour
         if (this.transform.position.y > Player.transform.position.y)
         {
             this.GetComponent<SpriteRenderer>().sortingOrder = 4;
-            print("Setting sorting order to 4");
         }
         else if (this.transform.position.y < Player.transform.position.y)
         {
             this.GetComponent<SpriteRenderer>().sortingOrder = 6;
-            print("Setting sorting order to 6");
         }
     }
 }
