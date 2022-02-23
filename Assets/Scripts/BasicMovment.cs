@@ -28,13 +28,4 @@ public class BasicMovment : MonoBehaviour
         animator.SetFloat("Magnitute", movement.magnitude);
     }
 
-    //private void OnTriggerExit2D(Collider2D collider)
-    //{
-    //    print("Not Colliding with object!");
-    //    if (collider.transform.parent.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static)
-    //    {
-    //        print("Not Colliding with wall!");
-    //        collidingWithStaticObject = false;
-    //    }
-    //}
 }
