@@ -16,24 +16,6 @@ public class BasicMovment : MonoBehaviour
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Magnitute", movement.magnitude);
-
-        transform.position = transform.position + movement * Time.deltaTime;
-        
-
-
-
-        /*
-        //flips the characters sprite so they face the direction they're walking
-        if (movement.x < 0)
-        {
-            GameObject.Find("Jeremy").GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else if (movement.x > 0)
-        {
-            GameObject.Find("Jeremy").GetComponent<SpriteRenderer>().flipX = false;
-        }
-
-        */
     }
 
     //private void OnTriggerExit2D(Collider2D collider)
