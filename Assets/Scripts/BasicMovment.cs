@@ -27,6 +27,6 @@ public class BasicMovment : MonoBehaviour
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Magnitute", movement.magnitude);
-
+    }
 
 }
