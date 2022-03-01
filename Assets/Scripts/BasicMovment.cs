@@ -8,20 +8,24 @@ public class BasicMovment : MonoBehaviour
     public Animator animator;
 
     [SerializeField] bool collidingWithStaticObject = false;
-    [SerializeField] private Rigidbody2D playerRigidBody = null;
+    [SerializeField] public Rigidbody2D playerRigidBody = null;
     [SerializeField] float movementSpeed = 5.0f;
     // Start is called before the first frame update
     void Start()
     {
-        playerRigidBody = this.GetComponent<Rigidbody2D>();
+        playerRigidBody = GameObject.Find("Jeremy").GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
+        if (playerRigidBody == null)
+        {
+            playerRigidBody = GameObject.Find("Jeremy").GetComponent<Rigidbody2D>();
+        }
+        print("Rigid body: " + playerRigidBody);
         Vector2 movement = new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
-        playerRigidBody.MovePosition(playerRigidBody.position + (movementSpeed * movement) * Time.deltaTime);
+        playerRigidBody.MovePosition(playerRigidBody.position + (movementSpeed * movement) * Time.fixedDeltaTime);
 
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
