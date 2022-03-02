@@ -141,7 +141,10 @@ public class BasicMovment : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        NearbyCratesList.Add(collision.transform.gameObject);
+        if (collision.tag != "StaticDeliveryShelf" && collision.tag != "Wall")
+        {
+            NearbyCratesList.Add(collision.transform.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
