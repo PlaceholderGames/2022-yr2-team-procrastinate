@@ -27,8 +27,11 @@ public class TaskController : MonoBehaviour
         completed = false;
         totalItemsDelivered = 0;
         TaskList = GameObject.Find("TaskList");
+        print("TaskList: " + TaskList);
         TaskListScript = TaskList.GetComponent("TaskListController") as TaskListController;
+        print("TaskListScript: " + TaskListScript);
         TaskID = TaskListScript.addItemToList(TestTaskTextPrefab, taskName, taskDescription);
+        print("TaskID: " + TaskID);
         //GameObject TestTaskTextObject = Instantiate(TestTaskTextPrefab);
         //should set the parent of the new prefab to the Content part of the scroll view for the tasklist
         //TestTaskTextObject.transform.parent = TaskList.transform.GetChild(0);
