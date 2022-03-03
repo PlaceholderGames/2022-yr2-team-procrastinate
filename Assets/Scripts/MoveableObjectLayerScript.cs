@@ -9,7 +9,6 @@ public class MoveableObjectLayerScript : MonoBehaviour
     void Start()
     {
         Player = GameObject.Find("Jeremy");
-        
     }
 
     // Update is called once per frame
@@ -17,11 +16,19 @@ public class MoveableObjectLayerScript : MonoBehaviour
     {
         if (this.transform.position.y > Player.transform.position.y)
         {
-            this.GetComponent<SpriteRenderer>().sortingOrder = 4;
+            this.GetComponent<SpriteRenderer>().sortingOrder = 3;
+            if(this.transform.childCount > 0)
+            {
+                this.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 4;
+            }
         }
         else if (this.transform.position.y < Player.transform.position.y)
         {
             this.GetComponent<SpriteRenderer>().sortingOrder = 6;
+            if (this.transform.childCount > 0)
+            {
+                this.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 7;
+            }
         }
     }
 }

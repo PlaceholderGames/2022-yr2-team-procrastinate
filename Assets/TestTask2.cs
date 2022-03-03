@@ -22,7 +22,7 @@ public class TestTask2 : MonoBehaviour
     void Start()
     {
         taskName = "Deliver Toiletries";
-        taskDescription = "Deliver Toiletries Wearhouse!";
+        taskDescription = "Deliver crates of Toiletries to the delivery zone!";
         taskProgress = 0.0f;
         completed = false;
         totalItemsDelivered = 0;
