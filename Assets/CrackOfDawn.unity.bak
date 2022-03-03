@@ -15967,8 +15967,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 462240065}
   m_HandleRect: {fileID: 462240064}
   m_Direction: 2
+<<<<<<< Updated upstream
+  m_Value: 1
+  m_Size: 0.66666675
+=======
   m_Value: 0.9999997
   m_Size: 0.6666666
+>>>>>>> Stashed changes
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
