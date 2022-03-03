@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SuppliesToys
   - StaticDeliveryShelf
+  - SuppliesT&C
   layers:
   - Default
   - TransparentFX
