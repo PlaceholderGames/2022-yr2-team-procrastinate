@@ -6,7 +6,6 @@ public class BasicMovment : MonoBehaviour
 {
 
     public Animator animator;
-    private bool interactPressed = false;
 
     [SerializeField] bool collidingWithStaticObject = false;
     [SerializeField] public GameObject playerGameObject = null;
@@ -29,18 +28,6 @@ public class BasicMovment : MonoBehaviour
         minimapCameraObject = GameObject.Find("MiniMapCamera").GetComponent<Camera>();
         minimapCanvasObject = minimapCameraObject.transform.GetChild(0).GetComponent<Canvas>();
         //connectedObject = playerGameObject.transform.GetChild(1).gameObject;
-    }
-
-    public static BasicMovment GetInstance()
-    {
-        return GetInstance();
-    }
-
-    public bool GetInteractPressed()
-    {
-        bool result = interactPressed;
-        interactPressed = false;
-        return result;
     }
 
     //This is used here because checking for key presses like below is very unreliable in FixedUpdate()
