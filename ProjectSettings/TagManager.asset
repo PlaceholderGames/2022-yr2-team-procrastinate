@@ -8,6 +8,7 @@ TagManager:
   - StaticDeliveryShelf
   - SuppliesT&C
   - SuppliesToiletries
+  - Wall
   layers:
   - Default
   - TransparentFX

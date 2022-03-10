@@ -17,6 +17,9 @@ public class TaskController : MonoBehaviour
     [SerializeField] float taskProgress;
     [SerializeField] int TaskID = 0;
 
+    [SerializeField] public AudioSource audioSource;
+    [SerializeField] public AudioClip ping;
+
     GameObject TaskList = null;
     // Start is called before the first frame update
     void Start()
@@ -32,6 +35,11 @@ public class TaskController : MonoBehaviour
         print("TaskListScript: " + TaskListScript);
         TaskID = TaskListScript.addItemToList(TestTaskTextPrefab, taskName, taskDescription);
         print("TaskID: " + TaskID);
+
+        //Adds an audio source then loads the audio clip
+        audioSource = this.gameObject.GetComponent<AudioSource>();
+
+
         //GameObject TestTaskTextObject = Instantiate(TestTaskTextPrefab);
         //should set the parent of the new prefab to the Content part of the scroll view for the tasklist
         //TestTaskTextObject.transform.parent = TaskList.transform.GetChild(0);
@@ -48,7 +56,6 @@ public class TaskController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -61,6 +68,8 @@ public class TaskController : MonoBehaviour
             //This task has 5 progress points so it's (totalItemsDelivered * 100) / 5
             TotalItemsDeliveredText.text = "Progress: " + ((totalItemsDelivered * 100) / 5) + "%";
             Destroy(collider.gameObject);
+            audioSource.Play();
+            print("Playing audio");
             if (totalItemsDelivered == 5)
             {
                 completed = true;
@@ -80,4 +89,5 @@ public class TaskController : MonoBehaviour
     {
         print(collider + " with tag{" + collider.tag + "} Exited the box!");
     }
+
 }
