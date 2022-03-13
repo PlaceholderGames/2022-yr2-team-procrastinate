@@ -16,9 +16,10 @@ public class TaskController : MonoBehaviour
     [SerializeField] string taskDescription;
     [SerializeField] float taskProgress;
     [SerializeField] int TaskID = 0;
+    [SerializeField] AudioClip wrongDeliveryZone = null;
+    [SerializeField] AudioClip correctDeliveryZone = null;
 
     [SerializeField] public AudioSource audioSource;
-    [SerializeField] public AudioClip ping;
 
     GameObject TaskList = null;
     // Start is called before the first frame update
@@ -39,6 +40,9 @@ public class TaskController : MonoBehaviour
         //Adds an audio source then loads the audio clip
         audioSource = this.gameObject.GetComponent<AudioSource>();
 
+        wrongDeliveryZone = Resources.Load("Audio/WrongDeliveryZone") as AudioClip;
+        correctDeliveryZone = Resources.Load("Audio/528730__alexhanj__ping") as AudioClip;
+
 
         //GameObject TestTaskTextObject = Instantiate(TestTaskTextPrefab);
         //should set the parent of the new prefab to the Content part of the scroll view for the tasklist
@@ -56,6 +60,12 @@ public class TaskController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (wrongDeliveryZone == null)
+        {
+            print("WrongDeliveryZone is null");
+            wrongDeliveryZone = Resources.Load("Audio/WrongDeliveryZone") as AudioClip;
+            //wrongDeliveryZone = Resources.Load("F:/Unity/Projects/2022-yr2-team-procrastinate/Assets/Audio/WrongDeliveryZone.wav") as AudioClip;
+        }
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -68,12 +78,19 @@ public class TaskController : MonoBehaviour
             //This task has 5 progress points so it's (totalItemsDelivered * 100) / 5
             TotalItemsDeliveredText.text = "Progress: " + ((totalItemsDelivered * 100) / 5) + "%";
             Destroy(collider.gameObject);
+            audioSource.clip = (AudioClip)correctDeliveryZone;
             audioSource.Play();
             print("Playing audio");
             if (totalItemsDelivered == 5)
             {
                 completed = true;
             }
+        }
+        else if (collider.tag != "SuppliesToys" && collider.tag != "Player")
+        {
+            //audioSource.clip = Resources.Load("Assets/Audio/WrongDeliveryZone.wav") as AudioClip;
+            audioSource.clip = (AudioClip)wrongDeliveryZone;
+            audioSource.Play();
         }
 
         if (completed == true)
