@@ -41,7 +41,7 @@ public class TaskListController : MonoBehaviour
             prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
             prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
             prefabToSpawn.transform.localScale = new Vector3(1, 0.5f, 0.5f);
-            prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(1, -15, 0);
+            prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(1, -25, 0);
             prefabToSpawn.name = "Task" + TaskID;
             prefabToSpawn.transform.GetChild(1).GetComponent<TMP_Text>().text = name;
             prefabToSpawn.transform.GetChild(2).GetComponent<TMP_Text>().text = description;
@@ -55,7 +55,15 @@ public class TaskListController : MonoBehaviour
             prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
             prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
             prefabToSpawn.transform.localScale = new Vector3(1, 0.5f, 0.5f);
-            prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(1, -45, 0);
+            if(TaskID == 1)
+            {
+                prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(1, (-70), 0);
+            }
+            else
+            {
+                prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(1, (-39f + (-39f * (TaskID))), 0);
+            }
+            
             prefabToSpawn.name = "Task" + TaskID;
             prefabToSpawn.transform.GetChild(1).GetComponent<TMP_Text>().text = name;
             prefabToSpawn.transform.GetChild(2).GetComponent<TMP_Text>().text = description;
