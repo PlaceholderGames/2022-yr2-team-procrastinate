@@ -6,6 +6,9 @@ TagManager:
   tags:
   - SuppliesToys
   - StaticDeliveryShelf
+  - SuppliesT&C
+  - SuppliesToiletries
+  - Wall
   layers:
   - Default
   - TransparentFX

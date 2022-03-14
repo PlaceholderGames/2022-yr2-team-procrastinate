@@ -26,7 +26,7 @@ public class TaskListController : MonoBehaviour
 
     public int addItemToList(GameObject prefab, string name, string description)
     {
-        int TaskID;
+        int TaskID = 0;
         GameObject prefabToSpawn = Instantiate(prefab);
         while (TaskListObject == null)
         {
@@ -41,26 +41,49 @@ public class TaskListController : MonoBehaviour
             prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
             prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
             prefabToSpawn.transform.localScale = new Vector3(1, 0.5f, 0.5f);
-            prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(1, -15, 0);
+            prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(1, -25, 0);
             prefabToSpawn.name = "Task" + TaskID;
             prefabToSpawn.transform.GetChild(1).GetComponent<TMP_Text>().text = name;
             prefabToSpawn.transform.GetChild(2).GetComponent<TMP_Text>().text = description;
         }
-        else
+        else if (TaskList.Count() >= 0)
         {
             TaskID = TaskList.Count();
             TaskList.Add(prefabToSpawn);
+            print("TaskListObject:" + TaskListObject);
             prefabToSpawn.transform.parent = TaskListObject.transform.GetChild(0);
             prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
             prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
-            prefabToSpawn.transform.localScale = new Vector3(1, 1, 1);
-            prefabToSpawn.transform.localPosition = TaskList[(TaskID-1)].transform.localPosition + new Vector3(0, -25, 0);
+            prefabToSpawn.transform.localScale = new Vector3(1, 0.5f, 0.5f);
+            if(TaskID == 1)
+            {
+                prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(1, (-70), 0);
+            }
+            else
+            {
+                prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(1, (-39f + (-39f * (TaskID))), 0);
+            }
+            
             prefabToSpawn.name = "Task" + TaskID;
             prefabToSpawn.transform.GetChild(1).GetComponent<TMP_Text>().text = name;
             prefabToSpawn.transform.GetChild(2).GetComponent<TMP_Text>().text = description;
         }
+        //else if (TaskList.Count() > 0)
+        //{
+        //    TaskID = TaskList.Count();
+        //    TaskList.Add(prefabToSpawn);
+        //    prefabToSpawn.transform.parent = TaskListObject.transform.GetChild(0);
+        //    prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
+        //    prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
+        //    prefabToSpawn.transform.localScale = new Vector3(1, 1, 1);
+        //    prefabToSpawn.transform.localPosition = TaskList[(TaskID - 1)].transform.localPosition + new Vector3(0, -25, 0);
+        //    prefabToSpawn.name = "Task" + TaskID;
+        //    prefabToSpawn.transform.GetChild(1).GetComponent<TMP_Text>().text = name;
+        //    prefabToSpawn.transform.GetChild(2).GetComponent<TMP_Text>().text = description;
+        //}
 
         print(TaskID);
         return TaskID;
     }
+
 }

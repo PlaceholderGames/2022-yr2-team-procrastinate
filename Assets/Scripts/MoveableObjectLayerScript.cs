@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class MoveableObjectLayerScript : MonoBehaviour
 {
-    GameObject Player = null; 
+    GameObject Player = null;
+    [SerializeField] int orderInLayerModifier = 0;
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.Find("Jeremy");
-        
     }
 
     // Update is called once per frame
@@ -17,11 +17,19 @@ public class MoveableObjectLayerScript : MonoBehaviour
     {
         if (this.transform.position.y > Player.transform.position.y)
         {
-            this.GetComponent<SpriteRenderer>().sortingOrder = 4;
+            this.GetComponent<SpriteRenderer>().sortingOrder = (43 - orderInLayerModifier);
+            if(this.transform.childCount > 0)
+            {
+                this.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = (44 - orderInLayerModifier);
+            }
         }
         else if (this.transform.position.y < Player.transform.position.y)
         {
-            this.GetComponent<SpriteRenderer>().sortingOrder = 6;
+            this.GetComponent<SpriteRenderer>().sortingOrder = (56 - orderInLayerModifier);
+            if (this.transform.childCount > 0)
+            {
+                this.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = (57 - orderInLayerModifier);
+            }
         }
     }
 }

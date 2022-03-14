@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TaskController : MonoBehaviour
+public class TestTask2 : MonoBehaviour
 {
     [SerializeField] GameObject TaskObject = null;
     [SerializeField] TMP_Text TotalItemsDeliveredText;
@@ -15,7 +15,7 @@ public class TaskController : MonoBehaviour
     [SerializeField] string taskName;
     [SerializeField] string taskDescription;
     [SerializeField] float taskProgress;
-    [SerializeField] int TaskID = 0;
+    [SerializeField] int TaskID = 1;
     [SerializeField] AudioClip wrongDeliveryZone = null;
     [SerializeField] AudioClip correctDeliveryZone = null;
 
@@ -25,8 +25,8 @@ public class TaskController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        taskName = "Deliver Toys";
-        taskDescription = "Deliver crates of toys to the delivery zone!";
+        taskName = "Deliver Toiletries";
+        taskDescription = "Deliver crates of Toiletries to the delivery zone!";
         taskProgress = 0.0f;
         completed = false;
         totalItemsDelivered = 0;
@@ -36,14 +36,11 @@ public class TaskController : MonoBehaviour
         print("TaskListScript: " + TaskListScript);
         TaskID = TaskListScript.addItemToList(TestTaskTextPrefab, taskName, taskDescription);
         print("TaskID: " + TaskID);
-
-        //Adds an audio source then loads the audio clip
-        audioSource = this.gameObject.GetComponent<AudioSource>();
-
         wrongDeliveryZone = Resources.Load("Audio/WrongDeliveryZone") as AudioClip;
         correctDeliveryZone = Resources.Load("Audio/528730__alexhanj__ping") as AudioClip;
 
 
+        audioSource = this.gameObject.GetComponent<AudioSource>();
         //GameObject TestTaskTextObject = Instantiate(TestTaskTextPrefab);
         //should set the parent of the new prefab to the Content part of the scroll view for the tasklist
         //TestTaskTextObject.transform.parent = TaskList.transform.GetChild(0);
@@ -70,23 +67,24 @@ public class TaskController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         print(collider + " with tag{" + collider.tag + "} Entered the box!");
-        if (completed != true && collider.tag == "SuppliesToys")
+        if (completed != true && collider.tag == "SuppliesToiletries")
         {
             //destroys the box that collided with the task area
             print("Succesfully delivered " + collider.name);
             totalItemsDelivered++;
             //This task has 5 progress points so it's (totalItemsDelivered * 100) / 5
             TotalItemsDeliveredText.text = "Progress: " + ((totalItemsDelivered * 100) / 5) + "%";
-            Destroy(collider.gameObject);
             audioSource.clip = (AudioClip)correctDeliveryZone;
             audioSource.Play();
-            print("Playing audio");
+            print("AudioClip " + audioSource.clip);
+            Destroy(collider.gameObject);
+            
             if (totalItemsDelivered == 5)
             {
                 completed = true;
             }
         }
-        else if (collider.tag != "SuppliesToys" && collider.tag != "Player")
+        else if (collider.tag != "SuppliesToiletries" && collider.tag != "Player")
         {
             //audioSource.clip = Resources.Load("Assets/Audio/WrongDeliveryZone.wav") as AudioClip;
             audioSource.clip = (AudioClip)wrongDeliveryZone;
@@ -106,5 +104,4 @@ public class TaskController : MonoBehaviour
     {
         print(collider + " with tag{" + collider.tag + "} Exited the box!");
     }
-
 }

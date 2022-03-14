@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7313152347162877363}
   m_Layer: 0
   m_Name: Jeremy
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,6 +97,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7313152347162877363}
+  collidingWithStaticObject: 0
+  playerGameObject: {fileID: 0}
+  playerRigidBody: {fileID: 0}
+  playerCollider: {fileID: 0}
+  crateDetectorCollider: {fileID: 0}
+  connectedObject: {fileID: 0}
+  movementSpeed: 2
+  NearbyCratesList: []
+  minimapCameraObject: {fileID: 0}
 --- !u!95 &7313152347162877363
 Animator:
   serializedVersion: 3
