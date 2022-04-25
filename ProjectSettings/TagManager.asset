@@ -9,6 +9,8 @@ TagManager:
   - SuppliesT&C
   - SuppliesToiletries
   - Wall
+  - bullet
+  - enemy
   layers:
   - Default
   - TransparentFX
