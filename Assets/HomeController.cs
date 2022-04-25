@@ -24,19 +24,15 @@ public class HomeController : MonoBehaviour
     void Update()
     {
 
-        print("ClosedSprite: " + homeClosedTexture);
         distanceToPlayer = Vector3.Distance(player.transform.position, home.transform.position);
 
         if (distanceToPlayer <= 10.1)
         {
             home.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(homeOpenTexture);
-            print("Home Sprite = Open");
         }
         else
         {
             home.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(homeClosedTexture);
-            //homeSprite.sprite = homeClosedTexture;
-            print("Home Sprite = Closed");
         }
     }
 }
