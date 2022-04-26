@@ -162,6 +162,10 @@ public class AIController : MonoBehaviour
             playerControllerScript.damagePlayer(AIDamage);
             StartCoroutine(rechargeAttack());
         }
+        else if (collision.gameObject.tag == "Player" && canAttack == false)
+        {
+            print("Following Player");
+        }
         else
         {
             targetPosition = GetRandomPosition();
