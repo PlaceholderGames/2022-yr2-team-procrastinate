@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class bulletController : MonoBehaviour
 {
-    float damage = 34.0f;
+    float damage = 20.0f;
 
     // Start is called before the first frame update
     void Start()
