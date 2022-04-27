@@ -236,7 +236,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1401505985}
   m_HandleRect: {fileID: 1401505984}
   m_Direction: 2
-  m_Value: 1.0000004
+  m_Value: 1
   m_Size: 0.6666667
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -559,7 +559,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -678.00006, y: 432.8}
+  m_AnchoredPosition: {x: -678.0002, y: 432.8}
   m_SizeDelta: {x: -1677.39, y: -1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &69241362
@@ -993,6 +993,8 @@ MonoBehaviour:
   playerPosition: {x: 0, y: 0, z: 0}
   playerIsTarget: 0
   distanceToPlayer: 0
+  AIHealth: 0
+  animator: {fileID: 0}
 --- !u!70 &98337482
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7915,6 +7917,8 @@ MonoBehaviour:
   playerPosition: {x: 0, y: 0, z: 0}
   playerIsTarget: 0
   distanceToPlayer: 0
+  AIHealth: 0
+  animator: {fileID: 0}
 --- !u!70 &458319217
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -17628,6 +17632,8 @@ MonoBehaviour:
   playerPosition: {x: 0, y: 0, z: 0}
   playerIsTarget: 0
   distanceToPlayer: 0
+  AIHealth: 0
+  animator: {fileID: 0}
 --- !u!50 &1005306968
 Rigidbody2D:
   serializedVersion: 4
@@ -22292,6 +22298,8 @@ MonoBehaviour:
   playerPosition: {x: 0, y: 0, z: 0}
   playerIsTarget: 0
   distanceToPlayer: 0
+  AIHealth: 0
+  animator: {fileID: 0}
 --- !u!70 &2132417285
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -22359,3 +22367,60 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1010606729320378086
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1010606729706119833, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010606729706119833, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010606729706119833, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010606729706119833, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010606729706119833, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010606729706119833, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010606729706119833, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010606729706119833, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010606729706119833, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010606729706119833, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010606729706119833, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010606729706119834, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}
+      propertyPath: m_Name
+      value: Alcoholic
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4d7eca8688602ca4aaf74fd15c3b1d49, type: 3}

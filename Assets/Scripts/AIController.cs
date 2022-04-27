@@ -38,6 +38,8 @@ public class AIController : MonoBehaviour
         AIHealth = 100.0f;
     }
 
+    public Animator animator;
+
     // Update is called once per frame
     void Update()
     {
@@ -71,10 +73,18 @@ public class AIController : MonoBehaviour
         }
         currentPosition = this.transform.position;
         distanceToPlayer = Vector2.Distance(this.transform.position, playerPosition);
+
+
+        Vector2 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+  
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Magnitute", movement.magnitude);
+
+
     }
 
-
-
+        
 
     IEnumerator goToTargetPosition()
     {
