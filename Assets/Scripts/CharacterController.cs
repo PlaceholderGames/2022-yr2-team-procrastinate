@@ -170,4 +170,13 @@ public class CharacterController : MonoBehaviour
     {
         healthM -= (decimal)damage;
     }
+
+    public void healPlayer(float healing)
+    {
+        healthM += (decimal)healing;
+        if (healthM > maxHealthM)
+        {
+            healthM = maxHealthM;
+        }
+    }
 }
