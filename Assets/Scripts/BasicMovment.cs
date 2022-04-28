@@ -163,6 +163,10 @@ public class BasicMovment : MonoBehaviour
         {
             NearbyCratesList.Add(collision.transform.gameObject);
         }
+        //if (collision.gameObject.GetComponent<CircleCollider2D>())
+        //{
+        //    Physics2D.IgnoreCollision(collision.gameObject.GetComponent<CircleCollider2D>(), this.GetComponent<Collider2D>());
+        //}
     }
 
     private void OnTriggerExit2D(Collider2D collision)

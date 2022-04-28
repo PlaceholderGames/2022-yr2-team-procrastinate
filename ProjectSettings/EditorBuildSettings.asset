@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/CrackOfDawn.unity
     guid: 4c607415d5cdfb1468b43f8c0fdeee19
+  - enabled: 1
+    path: Assets/Level2.unity
+    guid: 42d4e3735893d6940984089ef6dab881
   m_configObjects: {}

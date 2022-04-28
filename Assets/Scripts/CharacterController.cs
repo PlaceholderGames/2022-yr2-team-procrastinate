@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class CharacterController : MonoBehaviour
 {
+    gameController GameController;
+
     //High precision used for calculating health and other bits
     [SerializeField] decimal healthM;
     [SerializeField] decimal maxHealthM;
@@ -32,6 +34,8 @@ public class CharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameController = GameObject.Find("GameController").GetComponent<gameController>();
+
         healthM = 90.0M;
         maxHealthM = 100.0M;
         healingSpeedM = 0.1M;
@@ -55,6 +59,11 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //The player is dead
+        if (healthM <= 0.0M)
+        {
+            GameController.playerDied();
+        }
         if (healthM != maxHealthM && !healed)
         {
             healthM += healingSpeedM;

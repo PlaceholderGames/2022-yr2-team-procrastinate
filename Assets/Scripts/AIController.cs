@@ -127,8 +127,13 @@ public class AIController : MonoBehaviour
             playerControllerScript.damagePlayer(AIDamage);
             StartCoroutine(rechargeAttack());
         }
+        else if (collision.gameObject.tag == "Player" && canAttack != true)
+        {
+            print("Waiting to attack player!");
+        }
         else if (collision.gameObject.tag != "bullet" && collision.gameObject.tag != "Player")
         {
+            print("Finding new target!");
             targetPosition = GetRandomPosition();
         }
         else if (collision.gameObject.tag == "bullet")
