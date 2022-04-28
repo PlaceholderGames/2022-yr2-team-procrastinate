@@ -46,7 +46,6 @@ public class AIController : MonoBehaviour
 
     
 
-    public Animator animator;
     // Update is called once per frame
     void Update()
     {
@@ -92,16 +91,6 @@ public class AIController : MonoBehaviour
         movementSpeedlocal = movementSpeed;
         
         this.GetComponent<Rigidbody2D>().MovePosition(new Vector2(this.transform.position.x, this.transform.position.y) + direction.normalized * movementSpeed * Time.deltaTime);
-
-
-        Vector2 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-  
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Magnitute", movement.magnitude);
-
-
-    }
 
         yield return new WaitForSeconds(0.01f);
         canMove = true;
