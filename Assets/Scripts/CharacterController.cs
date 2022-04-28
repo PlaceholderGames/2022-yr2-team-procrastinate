@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterController : MonoBehaviour
 {
+    gameController GameController;
+
     //High precision used for calculating health and other bits
     [SerializeField] decimal healthM;
     [SerializeField] decimal maxHealthM;
@@ -13,6 +16,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float healthF;
     [SerializeField] float maxHealthF;
     [SerializeField] float healingSpeedF;
+    Slider healthBarSlider;
 
 
     [SerializeField] float damage;
@@ -30,15 +34,19 @@ public class CharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameController = GameObject.Find("GameController").GetComponent<gameController>();
+
         healthM = 90.0M;
         maxHealthM = 100.0M;
         healingSpeedM = 0.1M;
         damage = 34.0f;
-        rateOfFire = 200.0f;
+        rateOfFire = 30.0f;
         healed = false;
         aimDirection = 5;
         readyToFire = true;
         projectileSpeed = 300;
+
+        healthBarSlider = GameObject.Find("HealthBarSlider").GetComponent<Slider>();
     }
 
 
@@ -51,6 +59,11 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //The player is dead
+        if (healthM <= 0.0M)
+        {
+            GameController.playerDied();
+        }
         if (healthM != maxHealthM && !healed)
         {
             healthM += healingSpeedM;
@@ -84,6 +97,8 @@ public class CharacterController : MonoBehaviour
             fire();
         }
 
+        healthBarSlider.value = (float)healthM;
+
 
 
         //if (Input.GetKeyUp(KeyCode.W) && aimDirection == 0)
@@ -108,6 +123,7 @@ public class CharacterController : MonoBehaviour
     {
         if (readyToFire == true)
         {
+            readyToFire = false;
             Rigidbody2D bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation) as Rigidbody2D;
             Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), this.GetComponent<Collider2D>(), true);
             if (aimDirection == 0)
@@ -126,12 +142,8 @@ public class CharacterController : MonoBehaviour
             {
                 bullet.GetComponent<Rigidbody2D>().AddForce(transform.right * -projectileSpeed);
             }
-
+            StartCoroutine(weaponCooldown());
         }
-        
-
-
-        StartCoroutine(weaponCooldown());
     }
 
 
@@ -152,5 +164,10 @@ public class CharacterController : MonoBehaviour
         healthF = (float)healthM;
         maxHealthF = (float)maxHealthM;
         healingSpeedF = (float)healingSpeedM;
+    }
+
+    public void damagePlayer(float damage)
+    {
+        healthM -= (decimal)damage;
     }
 }

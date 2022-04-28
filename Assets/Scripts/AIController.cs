@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
-    [SerializeField] Vector3 startingPosition;
-    [SerializeField] Vector3 targetPosition;//Target position to walk towards
+    [SerializeField] Vector2 startingPosition;
+    [SerializeField] Vector2 targetPosition;//Target position to walk towards
     [SerializeField] Vector3 currentPosition;//Target position to walk towards
     [SerializeField] float movementSpeed;
     [SerializeField] bool canMove;
@@ -19,13 +19,16 @@ public class AIController : MonoBehaviour
     [SerializeField] Vector3 playerPosition;
     [SerializeField] bool playerIsTarget;
     [SerializeField] float distanceToPlayer;
+    CharacterController playerControllerScript;
 
 
     [SerializeField] float AIHealth;
+    [SerializeField] float AIDamage;
+    [SerializeField] bool canAttack;
     // Start is called before the first frame update
     void Start()
     {
-        startingPosition = this.transform.position;
+        startingPosition = new Vector2(this.transform.position.x, this.transform.position.y);
         targetPosition = GetRandomPosition();
         movementSpeed = 0.02f;
         canMove = true;
@@ -36,10 +39,14 @@ public class AIController : MonoBehaviour
         playerIsTarget = false;
 
         AIHealth = 100.0f;
+        AIDamage = 10.0f;
+        playerControllerScript = GameObject.Find("Jeremy").GetComponent<CharacterController>();
+        canAttack = true;
     }
 
-    public Animator animator;
+    
 
+    public Animator animator;
     // Update is called once per frame
     void Update()
     {
@@ -52,27 +59,39 @@ public class AIController : MonoBehaviour
         {
             if (Vector2.Distance(this.transform.position, targetPosition) < 0.5f)
             {
-                movementSpeed = 0.02f;
+                movementSpeed = 2.0f;
                 playerIsTarget = false;
                 targetPosition = GetRandomPosition();
                 moves++;
             }
             else if (Vector2.Distance(this.transform.position, playerPosition) > 3.3f)
             {
-                movementSpeed = 0.02f;
+                movementSpeed = 2.0f;
                 playerIsTarget = false;
                 StartCoroutine(goToTargetPosition());
             }
             else if(Vector2.Distance(this.transform.position, playerPosition) < 3.3f)
             {
-                movementSpeed = 0.1f;
+                movementSpeed = 2.0f;
                 playerIsTarget = true;
-                targetPosition = playerPosition;
+                targetPosition = new Vector2(playerPosition.x, playerPosition.y);
                 StartCoroutine(goToTargetPosition());
             }
         }
         currentPosition = this.transform.position;
         distanceToPlayer = Vector2.Distance(this.transform.position, playerPosition);
+
+    }
+
+    IEnumerator goToTargetPosition()
+    {
+        canMove = false;
+        Vector2 direction = new Vector2(targetPosition.x, targetPosition.y) - new Vector2(this.transform.position.x, this.transform.position.y);
+        float speedMultiplier = 3.3f - distanceToPlayer;
+        float movementSpeedlocal;
+        movementSpeedlocal = movementSpeed;
+        
+        this.GetComponent<Rigidbody2D>().MovePosition(new Vector2(this.transform.position.x, this.transform.position.y) + direction.normalized * movementSpeed * Time.deltaTime);
 
 
         Vector2 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -84,13 +103,6 @@ public class AIController : MonoBehaviour
 
     }
 
-        
-
-    IEnumerator goToTargetPosition()
-    {
-        canMove = false;
-        var direction = targetPosition - this.transform.position;
-        this.GetComponent<Rigidbody2D>().MovePosition(this.transform.position + direction.normalized * movementSpeed);
         yield return new WaitForSeconds(0.01f);
         canMove = true;
     }
@@ -106,13 +118,14 @@ public class AIController : MonoBehaviour
     }
 
     //Gets a random direction to walk in
-    public static Vector3 GetRandomDirection()
+
+    public static Vector2 GetRandomDirection()
     {
-        return new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
+        return new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
     }
 
     //Gets a random position to walk to
-    Vector3 GetRandomPosition()
+    Vector2 GetRandomPosition()
     {
         return startingPosition + GetRandomDirection() * Random.Range(1f, 3f);
     }
@@ -120,8 +133,20 @@ public class AIController : MonoBehaviour
     //If the AI hits an object it will find a new target to head towards
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag != "bullet")
+        if (collision.gameObject.tag == "Player" && canAttack == true)
         {
+            print("Attacking Player!");
+            canAttack = false;
+            playerControllerScript.damagePlayer(AIDamage);
+            StartCoroutine(rechargeAttack());
+        }
+        else if (collision.gameObject.tag == "Player" && canAttack != true)
+        {
+            print("Waiting to attack player!");
+        }
+        else if (collision.gameObject.tag != "bullet" && collision.gameObject.tag != "Player")
+        {
+            print("Finding new target!");
             targetPosition = GetRandomPosition();
         }
         else if (collision.gameObject.tag == "bullet")
@@ -133,12 +158,35 @@ public class AIController : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+
+        
+    }
+
+    IEnumerator rechargeAttack()
+    {
+        yield return new WaitForSeconds(1);
+        canAttack = true;
     }
 
     //sometimes the AI's new target, after hitting something, is still towards the object
     //so to prevent it getting stuck there this function checks if it stays in the collider for too long then gives it a new target
     private void OnCollisionStay2D(Collision2D collision)
     {
-        targetPosition = GetRandomPosition();
+        
+        if (collision.gameObject.tag == "Player" && canAttack == true)
+        {
+            print("Attacking Player!");
+            canAttack = false;
+            playerControllerScript.damagePlayer(AIDamage);
+            StartCoroutine(rechargeAttack());
+        }
+        else if (collision.gameObject.tag == "Player" && canAttack == false)
+        {
+            print("Following Player");
+        }
+        else
+        {
+            targetPosition = GetRandomPosition();
+        }
     }
 }
