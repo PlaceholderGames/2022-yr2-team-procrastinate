@@ -11,6 +11,7 @@ public class Dialog : MonoBehaviour
     public float typingSpeed;
 
     public GameObject continueButton;
+    public GameObject talkingSprite;
 
     void Start()
     {
@@ -19,9 +20,12 @@ public class Dialog : MonoBehaviour
 
     void Update()
     {
+        
+
         if(textDisplay.text == sentences[index])
         {
             continueButton.SetActive(true);
+            
         }
     }
 
@@ -43,10 +47,12 @@ public class Dialog : MonoBehaviour
             index++;
             textDisplay.text = "";
             StartCoroutine(Type());
+            talkingSprite.SetActive(true);
         }
         else
         {
             textDisplay.text = "";
+            talkingSprite.SetActive(false);
         }
     }
 }
