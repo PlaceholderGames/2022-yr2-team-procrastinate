@@ -65,7 +65,7 @@ public class interactableObjectController : MonoBehaviour
             foodItem = 0;
             foodItemRenderer.sprite = null;
         }
-        else
+        else if (foodItem > 0)
         {
             foodItemRenderer.sprite = foodSpriteList[foodItem-1];
         }
@@ -119,14 +119,15 @@ public class interactableObjectController : MonoBehaviour
     {
         yield return new WaitForSeconds(30);
         foodItem = generateFoodItem();
+        print("FoodItem: " + foodItem);
         if (foodItem > (int)foodType.PIZZASLICE)
         {
             foodItem = 0;
             foodItemRenderer.sprite = null;
         }
-        else
+        else if (foodItem > 0)
         {
-            foodItemRenderer.sprite = foodSpriteList[foodItem];
+            foodItemRenderer.sprite = foodSpriteList[foodItem-1];
         }
         foodRecharging = false;
     }
