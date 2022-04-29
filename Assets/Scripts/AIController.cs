@@ -67,7 +67,7 @@ public class AIController : MonoBehaviour
             //Tank
             case enemyType.Alcoholic:
                 AIHealth = 200.0f;
-                AIDamage = 15.0f;
+                AIDamage = 30.0f;
                 movementSpeed = 1.5f;
                 attackCooldown = 2.5f;
                 break;
