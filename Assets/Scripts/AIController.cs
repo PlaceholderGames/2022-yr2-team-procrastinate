@@ -236,6 +236,7 @@ public class AIController : MonoBehaviour
             if (AIHealth <= 0.0f)
             {
                 Destroy(this.gameObject);
+                CharacterController.enemyDied((CharacterController.enemyType)AIType);
             }
         }
 

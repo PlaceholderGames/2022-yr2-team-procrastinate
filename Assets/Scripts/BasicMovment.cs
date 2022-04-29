@@ -40,11 +40,11 @@ public class BasicMovment : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             print("G");
-            if (!connectedObject)
+            if (!connectedObject && NearbyCratesList.Count > 0)
             {
                 grabObject();
             }
-            else
+            else if (connectedObject != null)
             {
                 releaseObject();
             }

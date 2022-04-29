@@ -20,9 +20,9 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField] bool healed;
 
-
-
-
+    //Audio
+    [SerializeField] public AudioSource audioSource;
+    [SerializeField] AudioClip fireGun = null;
 
 
 
@@ -37,7 +37,7 @@ public class CharacterController : MonoBehaviour
 
     //Money Related
     //Paycheck is money paid to the player at the end of each instance of the day levels
-    [SerializeField] float paycheck;
+    [SerializeField] float paycheque;
     [SerializeField] float money;
 
 
@@ -76,15 +76,26 @@ public class CharacterController : MonoBehaviour
         healed = false;
         aimDirection = 5;
         readyToFire = true;
-        projectileSpeed = 300;
+        projectileSpeed = 30;
 
         healthBarSlider = GameObject.Find("HealthBarSlider").GetComponent<Slider>();
+
+        enemyDied = addToPaycheque;
+
+
+
+        //Adds an audio source then loads the audio clip
+        //fireGun = Resources.Load("Audio/nameHere") as AudioClip;
+        //audioSource = this.gameObject.GetComponent<AudioSource>();
+        //audioSource.clip = fireGun;
+
+
     }
 
 
     //void FixedUpdate()
     //{
-        
+
     //}
 
 
@@ -152,24 +163,47 @@ public class CharacterController : MonoBehaviour
         //}
     }
 
-    void addPoints(enemyType type)
+    void addToPaycheque(enemyType type)
     {
         switch(type)
         {
             case enemyType.Alcoholic:
-                paycheck += 30;
+                paycheque += 30;
+                break;
+            case enemyType.CokeHead:
+                paycheque += 30;
+                break;
+            case enemyType.CrackHead:
+                paycheque += 20;
+                break;
+            case enemyType.PotHead:
+                paycheque += 40;
+                break;
+            case enemyType.SmackHead:
+                paycheque += 60;
                 break;
         }
+    }
+
+    public void payPlayer()
+    {
+        money += paycheque;
+        paycheque = 0;
     }
 
     void fire()
     {
         if (readyToFire == true)
         {
+            //audioSource.Play();
+
             readyToFire = false;
+
+            //Spawning the bullet
             Rigidbody2D bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation) as Rigidbody2D;
-            //bullet.GetComponent<SpriteRenderer>().flipX = false;
-            Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), this.GetComponent<Collider2D>(), true);
+            //Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), this.GetComponent<Collider2D>(), true);
+            
+            //Adding force to the bullet in a certain direction
             if (aimDirection == (int)direction.UP)
             {
                 bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * projectileSpeed);
@@ -189,6 +223,8 @@ public class CharacterController : MonoBehaviour
                 bullet.GetComponent<Rigidbody2D>().AddForce(transform.right * -projectileSpeed);
                 bullet.GetComponent<SpriteRenderer>().flipX = true;
             }
+
+
             StartCoroutine(weaponCooldown());
         }
     }

@@ -6,6 +6,7 @@ public class GameControllerLevel1 : MonoBehaviour
 {
     CharacterController characterController;
     TaskListController taskListController;
+    FrontDoorController frontDoorController;
     [SerializeField] int tasksCompleted;
     [SerializeField] int totalTasks;
 
@@ -15,6 +16,7 @@ public class GameControllerLevel1 : MonoBehaviour
     {
         characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
         taskListController = GameObject.Find("TaskList").GetComponent<TaskListController>();
+        frontDoorController = GameObject.Find("FrontDoor").GetComponent<FrontDoorController>();
 
         tasksCompleted = 0;
         totalTasks = GameObject.Find("TaskList").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).childCount;
@@ -29,7 +31,8 @@ public class GameControllerLevel1 : MonoBehaviour
         }
         if (tasksCompleted == totalTasks)
         {
-            //call a function in the FrontDoor wall of the shop that makes it load the next level when the player touches it!
+            frontDoorController.unlockDoor();
+            characterController.payPlayer();
         }
     }
 
