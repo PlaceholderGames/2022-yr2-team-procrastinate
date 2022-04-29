@@ -12,7 +12,15 @@ public class bulletController : MonoBehaviour
     void Start()
     {
         characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
-        damage = characterController.getPlayerDamage();
+        if(this.tag == "bullet")
+        {
+            damage = characterController.getPlayerDamage();
+        }
+        else if (this.tag == "AIBullet")
+        {
+            damage = 10.0f;
+        }
+        
         StartCoroutine(destroyBullet());
     }
 
@@ -32,7 +40,7 @@ public class bulletController : MonoBehaviour
     //Used to check what the bullet has hit
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "bullet")
+        if (collision.gameObject.tag == "AIBullet")
         {
             Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), this.GetComponent<Collider2D>());
         }

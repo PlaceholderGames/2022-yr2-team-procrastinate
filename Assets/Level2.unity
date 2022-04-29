@@ -1237,7 +1237,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 207732913}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.66, y: 11.13, z: 98}
+  m_LocalPosition: {x: 0.89, y: -1.86, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 644841712}
@@ -1292,6 +1292,11 @@ MonoBehaviour:
   AIDamage: 0
   canAttack: 0
   attackCooldown: 0
+  rangedAttackCooldown: 0
+  readyToFire: 0
+  projectileSpeed: 0
+  bulletPrefab: {fileID: 7795732786644953245, guid: 1f7af498588845e4a88b6acd4c439ce2, type: 3}
+  damage: 0
   AIType: 3
 --- !u!70 &207732917
 CapsuleCollider2D:
@@ -1459,7 +1464,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295729252}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.1080475, y: 1.1922152, z: -1.9624327}
+  m_LocalPosition: {x: 6.1080475, y: 1.1922152, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 128599}
@@ -8198,7 +8203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7313152347162877364, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7313152347162877364, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
       propertyPath: m_LocalRotation.x
@@ -9046,7 +9051,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644841711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.292751, y: -4.286373, z: -98.14663}
+  m_LocalPosition: {x: -19.292751, y: -4.286373, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1005306965}
@@ -9218,7 +9223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 741830453}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -70.768, y: -9.498, z: 1.9624327}
+  m_LocalPosition: {x: -70.768, y: -9.498, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0}
   m_Children:
   - {fileID: 108057366}
@@ -20588,7 +20593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126800956}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 23.56, y: 5.087, z: 98}
+  m_LocalPosition: {x: 23.56, y: 5.087, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 644841712}
@@ -20643,6 +20648,11 @@ MonoBehaviour:
   AIDamage: 0
   canAttack: 0
   attackCooldown: 0
+  rangedAttackCooldown: 0
+  readyToFire: 0
+  projectileSpeed: 0
+  bulletPrefab: {fileID: 0}
+  damage: 0
   AIType: 1
 --- !u!70 &1126800960
 CapsuleCollider2D:
@@ -20902,7 +20912,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179745091}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.119227, y: 1.7719831, z: -9.735528}
+  m_LocalPosition: {x: -10.119227, y: 1.7719831, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 838439015}
@@ -22647,7 +22657,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512212794}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.19, y: 0.25, z: 1.9624327}
+  m_LocalPosition: {x: -16.19, y: 0.25, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0}
   m_Children:
   - {fileID: 1646490545}
@@ -23377,7 +23387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1630234634}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.701, y: 3.22, z: 1.9624327}
+  m_LocalPosition: {x: 0.701, y: 3.22, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0}
   m_Children:
   - {fileID: 1275888655}
@@ -23621,7 +23631,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637313860}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25.18, y: 9.65, z: 98}
+  m_LocalPosition: {x: 25.18, y: 9.65, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 644841712}
@@ -23676,6 +23686,11 @@ MonoBehaviour:
   AIDamage: 0
   canAttack: 0
   attackCooldown: 0
+  rangedAttackCooldown: 0
+  readyToFire: 0
+  projectileSpeed: 0
+  bulletPrefab: {fileID: 0}
+  damage: 0
   AIType: 4
 --- !u!70 &1637313864
 CapsuleCollider2D:
@@ -25042,7 +25057,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2042936608}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.66, y: 5.087, z: 98}
+  m_LocalPosition: {x: 21.66, y: 5.087, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 644841712}
@@ -25097,6 +25112,11 @@ MonoBehaviour:
   AIDamage: 0
   canAttack: 0
   attackCooldown: 0
+  rangedAttackCooldown: 0
+  readyToFire: 0
+  projectileSpeed: 0
+  bulletPrefab: {fileID: 0}
+  damage: 0
   AIType: 2
 --- !u!70 &2042936612
 CapsuleCollider2D:
@@ -25400,7 +25420,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128740496}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.91, y: -20.19, z: 1.9624327}
+  m_LocalPosition: {x: -5.91, y: -20.19, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0}
   m_Children:
   - {fileID: 635019250}
@@ -25665,6 +25685,11 @@ MonoBehaviour:
   AIDamage: 0
   canAttack: 0
   attackCooldown: 0
+  rangedAttackCooldown: 0
+  readyToFire: 0
+  projectileSpeed: 0
+  bulletPrefab: {fileID: 0}
+  damage: 0
   AIType: 0
 --- !u!70 &1564171100415252937
 CapsuleCollider2D:
@@ -25690,7 +25715,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1564171100415252940}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.65, y: 5.087, z: 98}
+  m_LocalPosition: {x: 18.65, y: 5.087, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 644841712}

@@ -197,4 +197,13 @@ public class CharacterController : MonoBehaviour
     {
         return damage;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "AIBullet")
+        {
+            damagePlayer(collision.gameObject.GetComponent<bulletController>().getDamage());
+            print("Health: " + healthM + "/100");
+        }
+    }
 }

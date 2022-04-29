@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - bullet
   - enemy
+  - AIBullet
   layers:
   - Default
   - TransparentFX
