@@ -31,6 +31,15 @@ public class CharacterController : MonoBehaviour
     [SerializeField] int projectileSpeed;
     [SerializeField] Rigidbody2D bulletPrefab;
 
+
+    enum direction
+    {
+        UP,
+        RIGHT,
+        DOWN,
+        LEFT
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +48,7 @@ public class CharacterController : MonoBehaviour
         healthM = 90.0M;
         maxHealthM = 100.0M;
         healingSpeedM = 0.1M;
-        damage = 34.0f;
+        damage = 20.0f;
         rateOfFire = 30.0f;
         healed = false;
         aimDirection = 5;
@@ -77,19 +86,19 @@ public class CharacterController : MonoBehaviour
         //Aim direction used for shooting
         if (Input.GetKeyDown(KeyCode.W))
         {
-            aimDirection = 0;
+            aimDirection = (int)direction.UP;
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            aimDirection = 1;
+            aimDirection = (int)direction.RIGHT;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            aimDirection = 2;
+            aimDirection = (int)direction.DOWN;
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            aimDirection = 3;
+            aimDirection = (int)direction.LEFT;
         }
         
         if (Input.GetKeyDown(KeyCode.Space))
@@ -125,22 +134,26 @@ public class CharacterController : MonoBehaviour
         {
             readyToFire = false;
             Rigidbody2D bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation) as Rigidbody2D;
+            //bullet.GetComponent<SpriteRenderer>().flipX = false;
             Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), this.GetComponent<Collider2D>(), true);
-            if (aimDirection == 0)
+            if (aimDirection == (int)direction.UP)
             {
                 bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * projectileSpeed);
+                bullet.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
             }
-            else if (aimDirection == 1)
+            else if (aimDirection == (int)direction.RIGHT)
             {
                 bullet.GetComponent<Rigidbody2D>().AddForce(transform.right * projectileSpeed);
             }
-            else if (aimDirection == 2)
+            else if (aimDirection == (int)direction.DOWN)
             {
                 bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * -projectileSpeed);
+                bullet.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -90f));
             }
-            else if (aimDirection == 3)
+            else if (aimDirection == (int)direction.LEFT)
             {
                 bullet.GetComponent<Rigidbody2D>().AddForce(transform.right * -projectileSpeed);
+                bullet.GetComponent<SpriteRenderer>().flipX = true;
             }
             StartCoroutine(weaponCooldown());
         }
@@ -169,5 +182,28 @@ public class CharacterController : MonoBehaviour
     public void damagePlayer(float damage)
     {
         healthM -= (decimal)damage;
+    }
+
+    public void healPlayer(float healing)
+    {
+        healthM += (decimal)healing;
+        if (healthM > maxHealthM)
+        {
+            healthM = maxHealthM;
+        }
+    }
+
+    public float getPlayerDamage()
+    {
+        return damage;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "AIBullet")
+        {
+            damagePlayer(collision.gameObject.GetComponent<bulletController>().getDamage());
+            print("Health: " + healthM + "/100");
+        }
     }
 }

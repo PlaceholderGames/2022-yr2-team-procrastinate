@@ -25,12 +25,31 @@ public class AIController : MonoBehaviour
     [SerializeField] float AIHealth;
     [SerializeField] float AIDamage;
     [SerializeField] bool canAttack;
+    [SerializeField] float attackCooldown;
+    [SerializeField] float rangedAttackCooldown;
+
+    [SerializeField] bool readyToFire;
+    [SerializeField] int projectileSpeed;
+    [SerializeField] Rigidbody2D bulletPrefab;
+    [SerializeField] float damage;
+
+    //This line below, and the enum "enemyType" below it are what creates the drop down in the inspector
+    public enemyType AIType = new enemyType();
+    public enum enemyType
+    {
+        Alcoholic,
+        CrackHead,
+        CokeHead,
+        SmackHead,
+        PotHead
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         startingPosition = new Vector2(this.transform.position.x, this.transform.position.y);
         targetPosition = GetRandomPosition();
-        movementSpeed = 0.02f;
+        
         canMove = true;
         movesBeforeSleep = Random.Range(1, 10);
         isSleeping = false;
@@ -38,15 +57,57 @@ public class AIController : MonoBehaviour
         playerPosition = GameObject.Find("Jeremy").transform.position;
         playerIsTarget = false;
 
-        AIHealth = 100.0f;
-        AIDamage = 10.0f;
+        rangedAttackCooldown = 2.0f;
+        readyToFire = true;
+        projectileSpeed = 450;//450
+        damage = 10.0f;
+
+        switch (AIType)
+        {
+            //Tank
+            case enemyType.Alcoholic:
+                AIHealth = 200.0f;
+                AIDamage = 30.0f;
+                movementSpeed = 1.5f;
+                attackCooldown = 2.5f;
+                break;
+            //Basic
+            case enemyType.CrackHead:
+                AIHealth = 100.0f;
+                AIDamage = 10.0f;
+                movementSpeed = 2.0f;
+                attackCooldown = 1.5f;
+                break;
+            //Speed
+            case enemyType.CokeHead:
+                AIHealth = 75.0f;
+                AIDamage = 10.0f;
+                movementSpeed = 6.0f;
+                attackCooldown = 1f;
+                break;
+            //Shooting
+            case enemyType.SmackHead:
+                AIHealth = 100.0f;
+                AIDamage = 10.0f;
+                movementSpeed = 1.5f;
+                attackCooldown = 2f;
+                rangedAttackCooldown = 3f;
+                break;
+            //Status Effect
+            case enemyType.PotHead:
+                AIHealth = 100.0f;
+                AIDamage = 10.0f;
+                movementSpeed = 2.0f;
+                attackCooldown = 2f;
+                break;
+        }
+
         playerControllerScript = GameObject.Find("Jeremy").GetComponent<CharacterController>();
         canAttack = true;
     }
 
     
 
-    public Animator animator;
     // Update is called once per frame
     void Update()
     {
@@ -59,20 +120,17 @@ public class AIController : MonoBehaviour
         {
             if (Vector2.Distance(this.transform.position, targetPosition) < 0.5f)
             {
-                movementSpeed = 2.0f;
                 playerIsTarget = false;
                 targetPosition = GetRandomPosition();
                 moves++;
             }
             else if (Vector2.Distance(this.transform.position, playerPosition) > 3.3f)
             {
-                movementSpeed = 2.0f;
                 playerIsTarget = false;
                 StartCoroutine(goToTargetPosition());
             }
             else if(Vector2.Distance(this.transform.position, playerPosition) < 3.3f)
             {
-                movementSpeed = 2.0f;
                 playerIsTarget = true;
                 targetPosition = new Vector2(playerPosition.x, playerPosition.y);
                 StartCoroutine(goToTargetPosition());
@@ -80,6 +138,14 @@ public class AIController : MonoBehaviour
         }
         currentPosition = this.transform.position;
         distanceToPlayer = Vector2.Distance(this.transform.position, playerPosition);
+
+        if(playerIsTarget && readyToFire)
+        {
+            rangedAttack();
+            
+
+            
+        }
 
     }
 
@@ -92,16 +158,6 @@ public class AIController : MonoBehaviour
         movementSpeedlocal = movementSpeed;
         
         this.GetComponent<Rigidbody2D>().MovePosition(new Vector2(this.transform.position.x, this.transform.position.y) + direction.normalized * movementSpeed * Time.deltaTime);
-
-
-        Vector2 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-  
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Magnitute", movement.magnitude);
-
-
-    }
 
         yield return new WaitForSeconds(0.01f);
         canMove = true;
@@ -117,8 +173,35 @@ public class AIController : MonoBehaviour
         sleepTime = Random.Range(1, 5);
     }
 
-    //Gets a random direction to walk in
 
+    void rangedAttack()
+    {
+        Vector2 direction = new Vector2(targetPosition.x, targetPosition.y) - new Vector2(this.transform.position.x, this.transform.position.y);
+
+        Rigidbody2D bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation) as Rigidbody2D;
+        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), this.GetComponent<Collider2D>(), true);
+
+        bullet.GetComponent<Rigidbody2D>().AddForce(direction * projectileSpeed);
+
+
+        //This code makes a 2D object rotate to face another
+        Vector3 targ = playerPosition;
+        targ.z = 0f;
+
+        Vector3 objectPos = bullet.transform.position;
+        targ.x = targ.x - objectPos.x;
+        targ.y = targ.y - objectPos.y;
+
+        float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
+        bullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+
+        readyToFire = false;
+        StartCoroutine(rechargeRangedAttack());
+    }
+
+
+    //Gets a random direction to walk in
     public static Vector2 GetRandomDirection()
     {
         return new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
@@ -164,8 +247,13 @@ public class AIController : MonoBehaviour
 
     IEnumerator rechargeAttack()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
+    }
+    IEnumerator rechargeRangedAttack()
+    {
+        yield return new WaitForSeconds(rangedAttackCooldown);
+        readyToFire = true;
     }
 
     //sometimes the AI's new target, after hitting something, is still towards the object
