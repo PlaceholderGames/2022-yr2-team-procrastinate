@@ -25,12 +25,25 @@ public class AIController : MonoBehaviour
     [SerializeField] float AIHealth;
     [SerializeField] float AIDamage;
     [SerializeField] bool canAttack;
+    [SerializeField] float attackCooldown;
+
+    //This line below, and the enum "enemyType" below it are what creates the drop down in the inspector
+    public enemyType AIType = new enemyType();
+    public enum enemyType
+    {
+        Alcoholic,
+        CrackHead,
+        CokeHead,
+        SmackHead,
+        PotHead
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         startingPosition = new Vector2(this.transform.position.x, this.transform.position.y);
         targetPosition = GetRandomPosition();
-        movementSpeed = 0.02f;
+        
         canMove = true;
         movesBeforeSleep = Random.Range(1, 10);
         isSleeping = false;
@@ -38,8 +51,45 @@ public class AIController : MonoBehaviour
         playerPosition = GameObject.Find("Jeremy").transform.position;
         playerIsTarget = false;
 
-        AIHealth = 100.0f;
-        AIDamage = 10.0f;
+        switch(AIType)
+        {
+            //Tank
+            case enemyType.Alcoholic:
+                AIHealth = 200.0f;
+                AIDamage = 15.0f;
+                movementSpeed = 1.5f;
+                attackCooldown = 2.5f;
+                break;
+            //Basic
+            case enemyType.CrackHead:
+                AIHealth = 100.0f;
+                AIDamage = 10.0f;
+                movementSpeed = 2.0f;
+                attackCooldown = 1.5f;
+                break;
+            //Speed
+            case enemyType.CokeHead:
+                AIHealth = 125.0f;
+                AIDamage = 10.0f;
+                movementSpeed = 6.0f;
+                attackCooldown = 1f;
+                break;
+            //Shooting
+            case enemyType.SmackHead:
+                AIHealth = 100.0f;
+                AIDamage = 10.0f;
+                movementSpeed = 2.0f;
+                attackCooldown = 2f;
+                break;
+            //Status Effect
+            case enemyType.PotHead:
+                AIHealth = 100.0f;
+                AIDamage = 10.0f;
+                movementSpeed = 2.0f;
+                attackCooldown = 2f;
+                break;
+        }
+
         playerControllerScript = GameObject.Find("Jeremy").GetComponent<CharacterController>();
         canAttack = true;
     }
@@ -58,20 +108,17 @@ public class AIController : MonoBehaviour
         {
             if (Vector2.Distance(this.transform.position, targetPosition) < 0.5f)
             {
-                movementSpeed = 2.0f;
                 playerIsTarget = false;
                 targetPosition = GetRandomPosition();
                 moves++;
             }
             else if (Vector2.Distance(this.transform.position, playerPosition) > 3.3f)
             {
-                movementSpeed = 2.0f;
                 playerIsTarget = false;
                 StartCoroutine(goToTargetPosition());
             }
             else if(Vector2.Distance(this.transform.position, playerPosition) < 3.3f)
             {
-                movementSpeed = 2.0f;
                 playerIsTarget = true;
                 targetPosition = new Vector2(playerPosition.x, playerPosition.y);
                 StartCoroutine(goToTargetPosition());
@@ -153,7 +200,7 @@ public class AIController : MonoBehaviour
 
     IEnumerator rechargeAttack()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
 

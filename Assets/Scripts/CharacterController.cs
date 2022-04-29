@@ -48,7 +48,7 @@ public class CharacterController : MonoBehaviour
         healthM = 90.0M;
         maxHealthM = 100.0M;
         healingSpeedM = 0.1M;
-        damage = 34.0f;
+        damage = 20.0f;
         rateOfFire = 30.0f;
         healed = false;
         aimDirection = 5;
@@ -191,5 +191,10 @@ public class CharacterController : MonoBehaviour
         {
             healthM = maxHealthM;
         }
+    }
+
+    public float getPlayerDamage()
+    {
+        return damage;
     }
 }

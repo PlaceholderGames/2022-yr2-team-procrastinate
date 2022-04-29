@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class bulletController : MonoBehaviour
 {
-    float damage = 20.0f;
+    CharacterController characterController;
+    //gets damage from the character controller script on the player
+    float damage;
 
     // Start is called before the first frame update
     void Start()
     {
+        characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
+        damage = characterController.getPlayerDamage();
         StartCoroutine(destroyBullet());
     }
 
