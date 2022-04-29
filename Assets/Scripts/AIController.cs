@@ -139,12 +139,9 @@ public class AIController : MonoBehaviour
         currentPosition = this.transform.position;
         distanceToPlayer = Vector2.Distance(this.transform.position, playerPosition);
 
-        if(playerIsTarget && readyToFire)
+        if(playerIsTarget && readyToFire && AIType == enemyType.SmackHead)
         {
             rangedAttack();
-            
-
-            
         }
 
     }
@@ -218,18 +215,18 @@ public class AIController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && canAttack == true)
         {
-            print("Attacking Player!");
+            //print("Attacking Player!");
             canAttack = false;
             playerControllerScript.damagePlayer(AIDamage);
             StartCoroutine(rechargeAttack());
         }
         else if (collision.gameObject.tag == "Player" && canAttack != true)
         {
-            print("Waiting to attack player!");
+            //print("Waiting to attack player!");
         }
         else if (collision.gameObject.tag != "bullet" && collision.gameObject.tag != "Player")
         {
-            print("Finding new target!");
+            //print("Finding new target!");
             targetPosition = GetRandomPosition();
         }
         else if (collision.gameObject.tag == "bullet")

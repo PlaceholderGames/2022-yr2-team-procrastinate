@@ -12,6 +12,7 @@ public class TestTask2 : MonoBehaviour
     [SerializeField] bool completed;
     [SerializeField] GameObject TestTaskTextPrefab;
     TaskListController TaskListScript = null;
+    GameControllerLevel1 GameController = null;
     [SerializeField] string taskName;
     [SerializeField] string taskDescription;
     [SerializeField] float taskProgress;
@@ -25,6 +26,8 @@ public class TestTask2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameController = GameObject.Find("GameController").GetComponent<GameControllerLevel1>();
+
         taskName = "Deliver Toiletries";
         taskDescription = "Deliver crates of Toiletries to the delivery zone!";
         taskProgress = 0.0f;
@@ -62,6 +65,7 @@ public class TestTask2 : MonoBehaviour
             print("WrongDeliveryZone is null");
             wrongDeliveryZone = Resources.Load("Audio/WrongDeliveryZone") as AudioClip;
             //wrongDeliveryZone = Resources.Load("F:/Unity/Projects/2022-yr2-team-procrastinate/Assets/Audio/WrongDeliveryZone.wav") as AudioClip;
+            
         }
     }
     private void OnTriggerEnter2D(Collider2D collider)
@@ -97,6 +101,8 @@ public class TestTask2 : MonoBehaviour
             TaskObject.transform.GetChild(1).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
             TaskObject.transform.GetChild(2).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
             TaskObject.transform.GetChild(4).GetComponent<Image>().color = new Color(0, 255, 0);
+            GameController.taskComplete();
+            this.GetComponent<TestTask2>().enabled = false;
         }
     }
 

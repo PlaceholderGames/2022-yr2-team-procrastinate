@@ -18,19 +18,42 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float healingSpeedF;
     Slider healthBarSlider;
 
-
-    [SerializeField] float damage;
-    [SerializeField] float rateOfFire;
-
-
     [SerializeField] bool healed;
 
 
+
+
+
+
+
+    //Shooting
     [SerializeField] int aimDirection;
     [SerializeField] bool readyToFire;
     [SerializeField] int projectileSpeed;
     [SerializeField] Rigidbody2D bulletPrefab;
+    [SerializeField] float damage;
+    [SerializeField] float rateOfFire;
 
+
+    //Money Related
+    //Paycheck is money paid to the player at the end of each instance of the day levels
+    [SerializeField] float paycheck;
+    [SerializeField] float money;
+
+
+    //Enums
+    public enum enemyType
+    {
+        Alcoholic,
+        CrackHead,
+        CokeHead,
+        SmackHead,
+        PotHead
+    }
+
+    //Delegates
+    public delegate void EnemyDied(enemyType deadEnemyType);
+    public static EnemyDied enemyDied;
 
     enum direction
     {
@@ -78,7 +101,7 @@ public class CharacterController : MonoBehaviour
             healthM += healingSpeedM;
             healed = true;
             StartCoroutine(healCoolDown());
-            print("Health: " + healthM);
+            //print("Health: " + healthM + "/100");
         }
         //Updates the health variable floats, this is for debugging in the editor
         updateHealthVariables();
@@ -103,6 +126,7 @@ public class CharacterController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            print("Shooting!");
             fire();
         }
 
@@ -126,6 +150,16 @@ public class CharacterController : MonoBehaviour
         //{
         //    aimDirection = 5;
         //}
+    }
+
+    void addPoints(enemyType type)
+    {
+        switch(type)
+        {
+            case enemyType.Alcoholic:
+                paycheck += 30;
+                break;
+        }
     }
 
     void fire()

@@ -29,6 +29,10 @@ public class BasicMovment : MonoBehaviour
         minimapCanvasObject = minimapCameraObject.transform.GetChild(0).GetComponent<Canvas>();
         //connectedObject = playerGameObject.transform.GetChild(1).gameObject;
     }
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     //This is used here because checking for key presses like below is very unreliable in FixedUpdate()
     private void Update()
