@@ -7,6 +7,7 @@ public class AIController : MonoBehaviour
     [SerializeField] Vector2 startingPosition;
     [SerializeField] Vector2 targetPosition;//Target position to walk towards
     [SerializeField] Vector3 currentPosition;//Target position to walk towards
+    [SerializeField] Vector2 direction;
     [SerializeField] float movementSpeed;
     [SerializeField] bool canMove;
 
@@ -33,6 +34,10 @@ public class AIController : MonoBehaviour
     [SerializeField] Rigidbody2D bulletPrefab;
     [SerializeField] float damage;
 
+
+    public Animator animator;
+    [SerializeField] bool attackAnimationFinished;
+
     //This line below, and the enum "enemyType" below it are what creates the drop down in the inspector
     public enemyType AIType = new enemyType();
     public enum enemyType
@@ -56,6 +61,8 @@ public class AIController : MonoBehaviour
         sleepTime = Random.Range(1, 4);
         playerPosition = GameObject.Find("Jeremy").transform.position;
         playerIsTarget = false;
+
+        attackAnimationFinished = true;
 
         rangedAttackCooldown = 2.0f;
         readyToFire = true;
@@ -148,12 +155,22 @@ public class AIController : MonoBehaviour
 
     IEnumerator goToTargetPosition()
     {
+        if (attackAnimationFinished)
+        {
+            animator.SetBool("Attacking", false);
+        }
+        
         canMove = false;
-        Vector2 direction = new Vector2(targetPosition.x, targetPosition.y) - new Vector2(this.transform.position.x, this.transform.position.y);
+        direction = new Vector2(targetPosition.x, targetPosition.y) - new Vector2(this.transform.position.x, this.transform.position.y);
         float speedMultiplier = 3.3f - distanceToPlayer;
         float movementSpeedlocal;
         movementSpeedlocal = movementSpeed;
+
+        animator.SetFloat("Horizontal", direction.x);
+        animator.SetFloat("Vertical", direction.y);
+        animator.SetFloat("Magnitute", direction.magnitude);
         
+
         this.GetComponent<Rigidbody2D>().MovePosition(new Vector2(this.transform.position.x, this.transform.position.y) + direction.normalized * movementSpeed * Time.deltaTime);
 
         yield return new WaitForSeconds(0.01f);
@@ -173,6 +190,8 @@ public class AIController : MonoBehaviour
 
     void rangedAttack()
     {
+        animator.SetBool("Attacking", true);
+        attackAnimationFinished = false;
         Vector2 direction = new Vector2(targetPosition.x, targetPosition.y) - new Vector2(this.transform.position.x, this.transform.position.y);
 
         Rigidbody2D bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation) as Rigidbody2D;
@@ -194,6 +213,7 @@ public class AIController : MonoBehaviour
 
 
         readyToFire = false;
+        StartCoroutine(stopAttackAnimation());
         StartCoroutine(rechargeRangedAttack());
     }
 
@@ -215,9 +235,12 @@ public class AIController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && canAttack == true)
         {
-            //print("Attacking Player!");
+            print("Attacking Player!");
+            animator.SetBool("Attacking", true);
+            attackAnimationFinished = false;
             canAttack = false;
             playerControllerScript.damagePlayer(AIDamage);
+            StartCoroutine(stopAttackAnimation());
             StartCoroutine(rechargeAttack());
         }
         else if (collision.gameObject.tag == "Player" && canAttack != true)
@@ -241,6 +264,13 @@ public class AIController : MonoBehaviour
         }
     }
 
+    IEnumerator stopAttackAnimation()
+    {
+        yield return new WaitForSeconds(0.517f);
+        attackAnimationFinished = true;
+        animator.SetBool("Attacking", false);
+    }
+
     IEnumerator rechargeAttack()
     {
         yield return new WaitForSeconds(attackCooldown);
@@ -259,10 +289,13 @@ public class AIController : MonoBehaviour
         
         if (collision.gameObject.tag == "Player" && canAttack == true)
         {
-            print("Attacking Player!");
+            print("Attacking Player Continued!");
+            animator.SetBool("Attacking", true);
+            attackAnimationFinished = false;
             canAttack = false;
             playerControllerScript.damagePlayer(AIDamage);
             StartCoroutine(rechargeAttack());
+            StartCoroutine(stopAttackAnimation());
         }
         else if (collision.gameObject.tag == "Player" && canAttack == false)
         {

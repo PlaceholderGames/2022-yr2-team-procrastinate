@@ -242,7 +242,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1401505984}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.6666667
+  m_Size: 0.66666675
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -876,7 +876,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -678.00024, y: 432.8}
+  m_AnchoredPosition: {x: -678.0003, y: 432.8}
   m_SizeDelta: {x: -1677.39, y: -1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &69241362
@@ -4893,6 +4893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d106ca1fd81e8e3469752b40f094b097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameController: {fileID: 0}
   healthF: 0
   maxHealthF: 0
   healingSpeedF: 0
@@ -5133,6 +5134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d106ca1fd81e8e3469752b40f094b097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameController: {fileID: 0}
   healthF: 0
   maxHealthF: 0
   healingSpeedF: 0
@@ -28701,7 +28703,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2024350609
 GameObject:
@@ -30063,7 +30065,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 299407664919408992, guid: bfea2fdcce288814b8a2f2bd7af05234, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 299407664919408992, guid: bfea2fdcce288814b8a2f2bd7af05234, type: 3}
       propertyPath: m_LocalPosition.x
