@@ -42,17 +42,9 @@ public class CharacterController : MonoBehaviour
 
 
     //Enums
-    public enum enemyType
-    {
-        Alcoholic,
-        CrackHead,
-        CokeHead,
-        SmackHead,
-        PotHead
-    }
 
     //Delegates
-    public delegate void EnemyDied(enemyType deadEnemyType);
+    public delegate void EnemyDied(AIController.enemyType deadEnemyType);
     public static EnemyDied enemyDied;
 
     enum direction
@@ -163,23 +155,23 @@ public class CharacterController : MonoBehaviour
         //}
     }
 
-    void addToPaycheque(enemyType type)
+    void addToPaycheque(AIController.enemyType type)
     {
         switch(type)
         {
-            case enemyType.Alcoholic:
+            case AIController.enemyType.Alcoholic:
                 paycheque += 30;
                 break;
-            case enemyType.CokeHead:
+            case AIController.enemyType.CokeHead:
                 paycheque += 30;
                 break;
-            case enemyType.CrackHead:
+            case AIController.enemyType.CrackHead:
                 paycheque += 20;
                 break;
-            case enemyType.PotHead:
+            case AIController.enemyType.PotHead:
                 paycheque += 40;
                 break;
-            case enemyType.SmackHead:
+            case AIController.enemyType.SmackHead:
                 paycheque += 60;
                 break;
         }
