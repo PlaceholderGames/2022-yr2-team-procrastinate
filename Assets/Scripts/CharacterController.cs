@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CharacterController : MonoBehaviour
 {
-    gameController GameController;
+    [SerializeField] gameController GameController;
 
     //High precision used for calculating health and other bits
     [SerializeField] decimal healthM;
@@ -94,6 +95,10 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            GameController = GameObject.Find("GameController").GetComponent<gameController>();
+        }
         //The player is dead
         if (healthM <= 0.0M)
         {
@@ -259,6 +264,14 @@ public class CharacterController : MonoBehaviour
     {
         return damage;
     }
+
+    //Respawns the player by resetting their health and sending them back to spawn
+    public void respawnPlayer(Vector3 location)
+    {
+        healthM = maxHealthM;
+        this.transform.position = location; 
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

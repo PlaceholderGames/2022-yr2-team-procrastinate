@@ -239,8 +239,6 @@ public class AIController : MonoBehaviour
                 CharacterController.enemyDied(AIType);
             }
         }
-
-        
     }
 
     IEnumerator rechargeAttack()

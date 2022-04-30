@@ -11,6 +11,8 @@ public class gameController : MonoBehaviour
 
     [SerializeField] bool playerDead;
 
+    CharacterController characterController;
+
     Canvas deathScreenCanvas;
     GameObject buttons;
     // Start is called before the first frame update
@@ -21,6 +23,7 @@ public class gameController : MonoBehaviour
         playerDead = false;
         deathScreenCanvas = GameObject.Find("DeathScreenCanvas").GetComponent<Canvas>();
         buttons = GameObject.Find("Buttons");
+        characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -31,6 +34,7 @@ public class gameController : MonoBehaviour
 
     public void playerDied()
     {
+
         playerDead = true;
         //Pauses the game in the background
         Time.timeScale = 0;
@@ -49,9 +53,16 @@ public class gameController : MonoBehaviour
     //Reloads the scene
     public void respawnPlayer()
     {
+        characterController.respawnPlayer(new Vector3(-26.5f, 0.5f, 0f));
         Time.timeScale = 1;
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
         
+    }
+
+
+    void spawnEnemies()
+    {
+
     }
 }
