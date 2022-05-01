@@ -42,6 +42,18 @@ public class CharacterController : MonoBehaviour
     [SerializeField] float money;
 
 
+    //PauseMenu
+    //These scripts will be used to open the pause menu and then pause the game
+    //The rest will be done in the pause menu script
+    [SerializeField] public bool gamePaused;
+
+
+    //MiniMap
+    [SerializeField] Camera minimapCameraObject = null;
+    Canvas minimapCanvasObject = null;
+    [SerializeField] public bool miniMapOpen;
+
+
     //Enums
 
     //Delegates
@@ -75,7 +87,11 @@ public class CharacterController : MonoBehaviour
 
         enemyDied = addToPaycheque;
 
+        minimapCameraObject = GameObject.Find("MiniMapCamera").GetComponent<Camera>();
+        minimapCanvasObject = minimapCameraObject.transform.GetChild(0).GetComponent<Canvas>();
 
+        gamePaused = false;
+        miniMapOpen = true;
 
         //Adds an audio source then loads the audio clip
         //fireGun = Resources.Load("Audio/nameHere") as AudioClip;
@@ -85,6 +101,11 @@ public class CharacterController : MonoBehaviour
 
     }
 
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     //void FixedUpdate()
     //{
@@ -131,7 +152,14 @@ public class CharacterController : MonoBehaviour
         {
             aimDirection = (int)direction.LEFT;
         }
-        
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            //Using the ternary ?; operator to compress the if else function into one statement/line
+            miniMapOpen = miniMapOpen == true ? false : true;
+            
+            toggleMinimap();
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             print("Shooting!");
@@ -159,6 +187,22 @@ public class CharacterController : MonoBehaviour
         //    aimDirection = 5;
         //}
     }
+
+    public void toggleMinimap()
+    {
+        //Makeing sure the game isn't paused before allowing the minimap to open
+        if (minimapCameraObject.enabled)
+        {
+            minimapCameraObject.enabled = false;
+            minimapCanvasObject.enabled = false;
+        }
+        else if (!gamePaused)
+        {
+            minimapCameraObject.enabled = true;
+            minimapCanvasObject.enabled = true;
+        }
+    }
+
 
     void addToPaycheque(AIController.enemyType type)
     {

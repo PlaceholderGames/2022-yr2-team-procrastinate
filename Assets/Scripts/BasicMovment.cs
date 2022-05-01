@@ -15,8 +15,8 @@ public class BasicMovment : MonoBehaviour
     [SerializeField] public GameObject connectedObject = null;//this will be what the player pulls
     [SerializeField] float movementSpeed = 2.0f;
     [SerializeField] List<GameObject> NearbyCratesList = new List<GameObject>();
-    [SerializeField] Camera minimapCameraObject = null;
-    Canvas minimapCanvasObject = null;
+    
+    
 
     // Start is called before the first frame update
     void Start()
@@ -25,14 +25,9 @@ public class BasicMovment : MonoBehaviour
         playerRigidBody = playerGameObject.GetComponent<Rigidbody2D>();
         playerCollider = playerGameObject.GetComponent<BoxCollider2D>();
         crateDetectorCollider = playerGameObject.GetComponent<CapsuleCollider2D>();
-        minimapCameraObject = GameObject.Find("MiniMapCamera").GetComponent<Camera>();
-        minimapCanvasObject = minimapCameraObject.transform.GetChild(0).GetComponent<Canvas>();
         //connectedObject = playerGameObject.transform.GetChild(1).gameObject;
     }
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+    
 
     //This is used here because checking for key presses like below is very unreliable in FixedUpdate()
     private void Update()
@@ -49,19 +44,7 @@ public class BasicMovment : MonoBehaviour
                 releaseObject();
             }
         }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            if (minimapCameraObject.enabled)
-            {
-                minimapCameraObject.enabled = false;
-                minimapCanvasObject.enabled = false;
-            }
-            else
-            {
-                minimapCameraObject.enabled = true;
-                minimapCanvasObject.enabled = true;
-            }
-        }
+        
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -149,6 +132,8 @@ public class BasicMovment : MonoBehaviour
             
         
     }
+
+    
 
     private void grabObject()
     {
