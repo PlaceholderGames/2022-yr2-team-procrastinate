@@ -77,7 +77,7 @@ public class CharacterController : MonoBehaviour
         maxHealthM = 100.0M;
         healingSpeedM = 0.1M;
         damage = 20.0f;
-        rateOfFire = 30.0f;
+        rateOfFire = 60.0f;
         healed = false;
         aimDirection = 5;
         readyToFire = true;
@@ -91,7 +91,7 @@ public class CharacterController : MonoBehaviour
         minimapCanvasObject = minimapCameraObject.transform.GetChild(0).GetComponent<Canvas>();
 
         gamePaused = false;
-        miniMapOpen = true;
+        miniMapOpen = false;
 
         //Adds an audio source then loads the audio clip
         //fireGun = Resources.Load("Audio/nameHere") as AudioClip;
@@ -161,6 +161,12 @@ public class CharacterController : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
+        {
+            print("Shooting!");
+            fire();
+        }
+
+        if (Input.GetKey(KeyCode.Space))
         {
             print("Shooting!");
             fire();

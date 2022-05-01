@@ -20,6 +20,8 @@ public class GameControllerLevel1 : MonoBehaviour
 
         tasksCompleted = 0;
         totalTasks = GameObject.Find("TaskList").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).childCount;
+
+        GameObject.Find("Jif_Bozos").transform.GetChild(0).GetComponent<Canvas>().worldCamera = GameObject.Find("Jeremy").transform.GetChild(0).GetComponent<Camera>();
     }
 
     // Update is called once per frame

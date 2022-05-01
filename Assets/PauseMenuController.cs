@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class PauseMenuController : MonoBehaviour
     Canvas pauseMenuCanvas;
     Button resumeButton;
     Button exitButton;
+
+    //Controls
+    Canvas controlsCanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +26,7 @@ public class PauseMenuController : MonoBehaviour
         resumeButton = pauseMenuGameObject.transform.GetChild(1).transform.GetChild(1).GetComponent<Button>();
         exitButton = pauseMenuGameObject.transform.GetChild(1).transform.GetChild(2).GetComponent<Button>();
 
-
+        controlsCanvas = pauseMenuCanvas.transform.GetChild(2).GetComponent<Canvas>();
     }
 
     private void Awake()
@@ -47,6 +51,7 @@ public class PauseMenuController : MonoBehaviour
         }
     }
 
+    //Unpauses the game
     public void resumeGame()
     {
         Time.timeScale = 1;
@@ -59,6 +64,26 @@ public class PauseMenuController : MonoBehaviour
         }
     }
 
+    //Restarts the level
+    //Loads Level1 scene to avoid duplicating Jeremy
+    public void retryLevel()
+    {
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+    }
+
+    //Opens the controls menu
+    public void openControls()
+    {
+        controlsCanvas.enabled = true;
+    }
+
+    //Exits the controls menu
+    public void menuControlsBack()
+    {
+        controlsCanvas.enabled = false;
+    }
+
+    //Exits the game
     public void exitGame()
     {
         Application.Quit();
