@@ -694,7 +694,7 @@ TextureImporter:
       name: TestTilemap3_18
       rect:
         serializedVersion: 2
-        x: 160
+        x: 192
         y: 576
         width: 32
         height: 32
@@ -715,7 +715,7 @@ TextureImporter:
       name: TestTilemap3_19
       rect:
         serializedVersion: 2
-        x: 192
+        x: 256
         y: 576
         width: 32
         height: 32
@@ -736,7 +736,7 @@ TextureImporter:
       name: TestTilemap3_20
       rect:
         serializedVersion: 2
-        x: 256
+        x: 288
         y: 576
         width: 32
         height: 32
@@ -757,7 +757,7 @@ TextureImporter:
       name: TestTilemap3_21
       rect:
         serializedVersion: 2
-        x: 288
+        x: 416
         y: 576
         width: 32
         height: 32
@@ -778,7 +778,7 @@ TextureImporter:
       name: TestTilemap3_22
       rect:
         serializedVersion: 2
-        x: 416
+        x: 448
         y: 576
         width: 32
         height: 32
@@ -799,7 +799,7 @@ TextureImporter:
       name: TestTilemap3_23
       rect:
         serializedVersion: 2
-        x: 448
+        x: 512
         y: 576
         width: 32
         height: 32
@@ -820,8 +820,8 @@ TextureImporter:
       name: TestTilemap3_24
       rect:
         serializedVersion: 2
-        x: 512
-        y: 576
+        x: 0
+        y: 544
         width: 32
         height: 32
       alignment: 0
@@ -841,7 +841,7 @@ TextureImporter:
       name: TestTilemap3_25
       rect:
         serializedVersion: 2
-        x: 0
+        x: 32
         y: 544
         width: 32
         height: 32
@@ -862,7 +862,7 @@ TextureImporter:
       name: TestTilemap3_26
       rect:
         serializedVersion: 2
-        x: 32
+        x: 64
         y: 544
         width: 32
         height: 32
@@ -883,7 +883,7 @@ TextureImporter:
       name: TestTilemap3_27
       rect:
         serializedVersion: 2
-        x: 64
+        x: 128
         y: 544
         width: 32
         height: 32
@@ -904,7 +904,7 @@ TextureImporter:
       name: TestTilemap3_28
       rect:
         serializedVersion: 2
-        x: 128
+        x: 160
         y: 544
         width: 32
         height: 32
@@ -925,7 +925,7 @@ TextureImporter:
       name: TestTilemap3_29
       rect:
         serializedVersion: 2
-        x: 160
+        x: 192
         y: 544
         width: 32
         height: 32
@@ -946,7 +946,7 @@ TextureImporter:
       name: TestTilemap3_30
       rect:
         serializedVersion: 2
-        x: 192
+        x: 256
         y: 544
         width: 32
         height: 32
@@ -967,7 +967,7 @@ TextureImporter:
       name: TestTilemap3_31
       rect:
         serializedVersion: 2
-        x: 256
+        x: 288
         y: 544
         width: 32
         height: 32
@@ -988,8 +988,8 @@ TextureImporter:
       name: TestTilemap3_32
       rect:
         serializedVersion: 2
-        x: 288
-        y: 544
+        x: 416
+        y: 512
         width: 32
         height: 32
       alignment: 0
@@ -1009,7 +1009,7 @@ TextureImporter:
       name: TestTilemap3_33
       rect:
         serializedVersion: 2
-        x: 416
+        x: 448
         y: 512
         width: 32
         height: 32
@@ -1030,7 +1030,7 @@ TextureImporter:
       name: TestTilemap3_34
       rect:
         serializedVersion: 2
-        x: 448
+        x: 480
         y: 512
         width: 32
         height: 32
@@ -1051,8 +1051,8 @@ TextureImporter:
       name: TestTilemap3_35
       rect:
         serializedVersion: 2
-        x: 480
-        y: 512
+        x: 0
+        y: 480
         width: 32
         height: 32
       alignment: 0
@@ -1072,7 +1072,7 @@ TextureImporter:
       name: TestTilemap3_36
       rect:
         serializedVersion: 2
-        x: 0
+        x: 32
         y: 480
         width: 32
         height: 32
@@ -1093,7 +1093,7 @@ TextureImporter:
       name: TestTilemap3_37
       rect:
         serializedVersion: 2
-        x: 32
+        x: 128
         y: 480
         width: 32
         height: 32
@@ -1114,7 +1114,7 @@ TextureImporter:
       name: TestTilemap3_38
       rect:
         serializedVersion: 2
-        x: 128
+        x: 160
         y: 480
         width: 32
         height: 32
@@ -1135,7 +1135,7 @@ TextureImporter:
       name: TestTilemap3_39
       rect:
         serializedVersion: 2
-        x: 160
+        x: 192
         y: 480
         width: 32
         height: 32
@@ -1156,7 +1156,7 @@ TextureImporter:
       name: TestTilemap3_40
       rect:
         serializedVersion: 2
-        x: 192
+        x: 256
         y: 480
         width: 32
         height: 32
@@ -1177,7 +1177,7 @@ TextureImporter:
       name: TestTilemap3_41
       rect:
         serializedVersion: 2
-        x: 256
+        x: 288
         y: 480
         width: 32
         height: 32
@@ -1198,7 +1198,7 @@ TextureImporter:
       name: TestTilemap3_42
       rect:
         serializedVersion: 2
-        x: 288
+        x: 320
         y: 480
         width: 32
         height: 32
@@ -1219,7 +1219,7 @@ TextureImporter:
       name: TestTilemap3_43
       rect:
         serializedVersion: 2
-        x: 320
+        x: 352
         y: 480
         width: 32
         height: 32
@@ -1240,7 +1240,7 @@ TextureImporter:
       name: TestTilemap3_44
       rect:
         serializedVersion: 2
-        x: 352
+        x: 416
         y: 480
         width: 32
         height: 32
@@ -1261,7 +1261,7 @@ TextureImporter:
       name: TestTilemap3_45
       rect:
         serializedVersion: 2
-        x: 416
+        x: 480
         y: 480
         width: 32
         height: 32
@@ -1282,8 +1282,8 @@ TextureImporter:
       name: TestTilemap3_46
       rect:
         serializedVersion: 2
-        x: 448
-        y: 480
+        x: 0
+        y: 448
         width: 32
         height: 32
       alignment: 0
@@ -1303,8 +1303,8 @@ TextureImporter:
       name: TestTilemap3_47
       rect:
         serializedVersion: 2
-        x: 480
-        y: 480
+        x: 32
+        y: 448
         width: 32
         height: 32
       alignment: 0
@@ -1324,7 +1324,7 @@ TextureImporter:
       name: TestTilemap3_48
       rect:
         serializedVersion: 2
-        x: 0
+        x: 128
         y: 448
         width: 32
         height: 32
@@ -1345,7 +1345,7 @@ TextureImporter:
       name: TestTilemap3_49
       rect:
         serializedVersion: 2
-        x: 32
+        x: 256
         y: 448
         width: 32
         height: 32
@@ -1366,7 +1366,7 @@ TextureImporter:
       name: TestTilemap3_50
       rect:
         serializedVersion: 2
-        x: 128
+        x: 288
         y: 448
         width: 32
         height: 32
@@ -1387,7 +1387,7 @@ TextureImporter:
       name: TestTilemap3_51
       rect:
         serializedVersion: 2
-        x: 256
+        x: 320
         y: 448
         width: 32
         height: 32
@@ -1408,7 +1408,7 @@ TextureImporter:
       name: TestTilemap3_52
       rect:
         serializedVersion: 2
-        x: 288
+        x: 352
         y: 448
         width: 32
         height: 32
@@ -1429,7 +1429,7 @@ TextureImporter:
       name: TestTilemap3_53
       rect:
         serializedVersion: 2
-        x: 320
+        x: 416
         y: 448
         width: 32
         height: 32
@@ -1450,7 +1450,7 @@ TextureImporter:
       name: TestTilemap3_54
       rect:
         serializedVersion: 2
-        x: 352
+        x: 448
         y: 448
         width: 32
         height: 32
@@ -1471,7 +1471,7 @@ TextureImporter:
       name: TestTilemap3_55
       rect:
         serializedVersion: 2
-        x: 416
+        x: 480
         y: 448
         width: 32
         height: 32
@@ -1492,8 +1492,8 @@ TextureImporter:
       name: TestTilemap3_56
       rect:
         serializedVersion: 2
-        x: 448
-        y: 448
+        x: 0
+        y: 384
         width: 32
         height: 32
       alignment: 0
@@ -1513,8 +1513,8 @@ TextureImporter:
       name: TestTilemap3_57
       rect:
         serializedVersion: 2
-        x: 480
-        y: 448
+        x: 32
+        y: 384
         width: 32
         height: 32
       alignment: 0
@@ -1534,7 +1534,7 @@ TextureImporter:
       name: TestTilemap3_58
       rect:
         serializedVersion: 2
-        x: 0
+        x: 128
         y: 384
         width: 32
         height: 32
@@ -1555,7 +1555,7 @@ TextureImporter:
       name: TestTilemap3_59
       rect:
         serializedVersion: 2
-        x: 32
+        x: 160
         y: 384
         width: 32
         height: 32
@@ -1576,7 +1576,7 @@ TextureImporter:
       name: TestTilemap3_60
       rect:
         serializedVersion: 2
-        x: 128
+        x: 192
         y: 384
         width: 32
         height: 32
@@ -1597,8 +1597,8 @@ TextureImporter:
       name: TestTilemap3_61
       rect:
         serializedVersion: 2
-        x: 160
-        y: 384
+        x: 0
+        y: 352
         width: 32
         height: 32
       alignment: 0
@@ -1618,8 +1618,8 @@ TextureImporter:
       name: TestTilemap3_62
       rect:
         serializedVersion: 2
-        x: 192
-        y: 384
+        x: 32
+        y: 352
         width: 32
         height: 32
       alignment: 0
@@ -1639,7 +1639,7 @@ TextureImporter:
       name: TestTilemap3_63
       rect:
         serializedVersion: 2
-        x: 0
+        x: 128
         y: 352
         width: 32
         height: 32
@@ -1660,7 +1660,7 @@ TextureImporter:
       name: TestTilemap3_64
       rect:
         serializedVersion: 2
-        x: 32
+        x: 192
         y: 352
         width: 32
         height: 32
@@ -1682,7 +1682,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 352
+        y: 320
         width: 32
         height: 32
       alignment: 0
@@ -1702,8 +1702,8 @@ TextureImporter:
       name: TestTilemap3_66
       rect:
         serializedVersion: 2
-        x: 192
-        y: 352
+        x: 160
+        y: 320
         width: 32
         height: 32
       alignment: 0
@@ -1723,7 +1723,7 @@ TextureImporter:
       name: TestTilemap3_67
       rect:
         serializedVersion: 2
-        x: 128
+        x: 192
         y: 320
         width: 32
         height: 32
@@ -1736,48 +1736,6 @@ TextureImporter:
       bones: []
       spriteID: befeb8283c7242750800000000000000
       internalID: 6279187501123629035
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap3_68
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 320
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a345a8c8c87817ed0800000000000000
-      internalID: -2418002487198198726
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TestTilemap3_69
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 320
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b1e7cc294d78dcd30800000000000000
-      internalID: 4453364953604980251
       vertices: []
       indices: 
       edges: []

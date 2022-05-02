@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BasicMovment : MonoBehaviour
 {
@@ -34,14 +35,17 @@ public class BasicMovment : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            print("G");
-            if (!connectedObject && NearbyCratesList.Count > 0)
+            if (SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "CrackOfDawn")
             {
-                grabObject();
-            }
-            else if (connectedObject != null)
-            {
-                releaseObject();
+                print("G");
+                if (!connectedObject && NearbyCratesList.Count > 0)
+                {
+                    grabObject();
+                }
+                else if (connectedObject != null)
+                {
+                    releaseObject();
+                }
             }
         }
         

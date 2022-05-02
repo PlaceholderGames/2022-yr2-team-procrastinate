@@ -34,6 +34,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] Rigidbody2D bulletPrefab;
     [SerializeField] float damage;
     [SerializeField] float rateOfFire;
+    [SerializeField] bool canFire;
 
 
     //Money Related
@@ -82,6 +83,7 @@ public class CharacterController : MonoBehaviour
         aimDirection = 5;
         readyToFire = true;
         projectileSpeed = 30;
+        canFire = false;
 
         healthBarSlider = GameObject.Find("HealthBarSlider").GetComponent<Slider>();
 
@@ -119,6 +121,7 @@ public class CharacterController : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Level2")
         {
             GameController = GameObject.Find("GameController").GetComponent<gameController>();
+            canFire = true;
         }
         //The player is dead
         if (healthM <= 0.0M)
@@ -162,14 +165,20 @@ public class CharacterController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            print("Shooting!");
-            fire();
+            if (canFire)
+            {
+                print("Shooting!");
+                fire();
+            }
         }
 
         if (Input.GetKey(KeyCode.Space))
         {
-            print("Shooting!");
-            fire();
+            if (canFire)
+            {
+                print("Shooting!");
+                fire();
+            };
         }
 
         healthBarSlider.value = (float)healthM;
