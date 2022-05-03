@@ -4,35 +4,46 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
+    //Locations
     [SerializeField] Vector2 startingPosition;
     [SerializeField] Vector2 targetPosition;//Target position to walk towards
     [SerializeField] Vector3 currentPosition;//Target position to walk towards
     [SerializeField] Vector2 direction;
-    [SerializeField] float movementSpeed;
-    [SerializeField] bool canMove;
 
+    //Movement
     [SerializeField] int movesBeforeSleep;
     [SerializeField] bool isSleeping;
     [SerializeField] int sleepTime;
     [SerializeField] int moves;
+    [SerializeField] float movementSpeed;
+    [SerializeField] bool canMove;
 
-
+    //Player data
     [SerializeField] Vector3 playerPosition;
     [SerializeField] bool playerIsTarget;
     [SerializeField] float distanceToPlayer;
     CharacterController playerControllerScript;
 
-
+    //Stats
     [SerializeField] float AIHealth;
     [SerializeField] float AIDamage;
     [SerializeField] bool canAttack;
     [SerializeField] float attackCooldown;
     [SerializeField] float rangedAttackCooldown;
 
+    //Projectile
     [SerializeField] bool readyToFire;
     [SerializeField] int projectileSpeed;
     [SerializeField] Rigidbody2D bulletPrefab;
     [SerializeField] float damage;
+    [SerializeField] float radius;
+    CircleCollider2D circleCollider;
+
+    //Smoke
+    [SerializeField] GameObject AOESmokePrefab;
+    [SerializeField] bool readyToSmoke;
+    [SerializeField] float smokeAttackCooldown;
+
 
 
     public Animator animator;
@@ -68,6 +79,13 @@ public class AIController : MonoBehaviour
         readyToFire = true;
         projectileSpeed = 450;//450
         damage = 10.0f;
+
+        //For Sphere Collider 2D
+        radius = 2.0f;
+
+        //Smoke
+        readyToSmoke = true;
+        smokeAttackCooldown = 15.0f;
 
         switch (AIType)
         {
@@ -106,6 +124,9 @@ public class AIController : MonoBehaviour
                 AIDamage = 10.0f;
                 movementSpeed = 2.0f;
                 attackCooldown = 2f;
+                circleCollider = this.gameObject.AddComponent<CircleCollider2D>();
+                circleCollider.radius = radius;
+                circleCollider.isTrigger = true;
                 break;
         }
 
@@ -149,6 +170,10 @@ public class AIController : MonoBehaviour
         if(playerIsTarget && readyToFire && AIType == enemyType.SmackHead)
         {
             rangedAttack();
+        }
+        if(playerIsTarget && readyToFire && AIType == enemyType.PotHead)
+        {
+            smokeAttack();
         }
 
     }
@@ -217,6 +242,20 @@ public class AIController : MonoBehaviour
         StartCoroutine(rechargeRangedAttack());
     }
 
+    void smokeAttack()
+    {
+        animator.SetBool("Attacking", true);
+        attackAnimationFinished = false;
+        GameObject AOESmoke = Instantiate(AOESmokePrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation) as GameObject;
+        AOESmoke.GetComponent<AOESmoke>().radius = radius;
+
+        readyToSmoke = false;
+
+        StartCoroutine(stopAttackAnimation());
+        StartCoroutine(rechargeSmokeAttack());
+    }
+
+
 
     //Gets a random direction to walk in
     public static Vector2 GetRandomDirection()
@@ -280,6 +319,12 @@ public class AIController : MonoBehaviour
     {
         yield return new WaitForSeconds(rangedAttackCooldown);
         readyToFire = true;
+    }
+
+    IEnumerator rechargeSmokeAttack()
+    {
+        yield return new WaitForSeconds(smokeAttackCooldown);
+        readyToSmoke = true;
     }
 
     //sometimes the AI's new target, after hitting something, is still towards the object

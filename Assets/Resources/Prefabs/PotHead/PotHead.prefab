@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5103101924199182750}
   - component: {fileID: 5103101924199182751}
   m_Layer: 0
-  m_Name: Alcoholic
+  m_Name: PotHead
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,6 +140,9 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7795732786644953245, guid: 1f7af498588845e4a88b6acd4c439ce2, type: 3}
   damage: 0
   radius: 0
+  AOESmokePrefab: {fileID: 7063804122062219151, guid: 1a80d0a0bb2da324397d0c02e490d069, type: 3}
+  readyToSmoke: 0
+  smokeAttackCooldown: 0
   animator: {fileID: 5103101924199182690}
   attackAnimationFinished: 0
   AIType: 0

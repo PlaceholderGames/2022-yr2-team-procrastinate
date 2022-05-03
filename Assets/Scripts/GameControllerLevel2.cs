@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class gameController : MonoBehaviour
+public class GameControllerLevel2 : MonoBehaviour
 {
     [SerializeField] int enemiesToSpawn;
     [SerializeField] int enemiesSpawned;
