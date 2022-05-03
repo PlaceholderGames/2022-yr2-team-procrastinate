@@ -15,6 +15,8 @@ public class GameControllerLevel2 : MonoBehaviour
 
     Canvas deathScreenCanvas;
     GameObject buttons;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,8 @@ public class GameControllerLevel2 : MonoBehaviour
         deathScreenCanvas = GameObject.Find("DeathScreenCanvas").GetComponent<Canvas>();
         buttons = GameObject.Find("Buttons");
         characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
+
+        CharacterController.enemyDied += enemyDied;
     }
 
     // Update is called once per frame
@@ -51,6 +55,12 @@ public class GameControllerLevel2 : MonoBehaviour
     }
     //This is what the rehab button activates.
     //Reloads the scene
+
+    public void enemyDied(AIController.enemyType type)
+    {
+
+    }
+
     public void respawnPlayer()
     {
         characterController.respawnPlayer(new Vector3(-26.5f, 0.5f, 0f));

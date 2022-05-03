@@ -26,6 +26,7 @@ public class AIController : MonoBehaviour
 
     //Stats
     [SerializeField] float AIHealth;
+    [SerializeField] float AIMaxHealth;
     [SerializeField] float AIDamage;
     [SerializeField] bool canAttack;
     [SerializeField] float attackCooldown;
@@ -91,6 +92,7 @@ public class AIController : MonoBehaviour
         {
             //Tank
             case enemyType.Alcoholic:
+                AIMaxHealth = 200.0f;
                 AIHealth = 200.0f;
                 AIDamage = 30.0f;
                 movementSpeed = 1.5f;
@@ -98,6 +100,7 @@ public class AIController : MonoBehaviour
                 break;
             //Basic
             case enemyType.CrackHead:
+                AIMaxHealth = 100.0f;
                 AIHealth = 100.0f;
                 AIDamage = 10.0f;
                 movementSpeed = 2.0f;
@@ -105,6 +108,7 @@ public class AIController : MonoBehaviour
                 break;
             //Speed
             case enemyType.CokeHead:
+                AIMaxHealth = 75.0f;
                 AIHealth = 75.0f;
                 AIDamage = 10.0f;
                 movementSpeed = 6.0f;
@@ -112,6 +116,7 @@ public class AIController : MonoBehaviour
                 break;
             //Shooting
             case enemyType.SmackHead:
+                AIMaxHealth = 100.0f;
                 AIHealth = 100.0f;
                 AIDamage = 10.0f;
                 movementSpeed = 1.5f;
@@ -120,6 +125,7 @@ public class AIController : MonoBehaviour
                 break;
             //Status Effect
             case enemyType.PotHead:
+                AIMaxHealth = 100.0f;
                 AIHealth = 100.0f;
                 AIDamage = 10.0f;
                 movementSpeed = 2.0f;
@@ -134,7 +140,7 @@ public class AIController : MonoBehaviour
         canAttack = true;
     }
 
-    
+
 
     // Update is called once per frame
     void Update()
@@ -157,7 +163,7 @@ public class AIController : MonoBehaviour
                 playerIsTarget = false;
                 StartCoroutine(goToTargetPosition());
             }
-            else if(Vector2.Distance(this.transform.position, playerPosition) < 3.3f)
+            else if (Vector2.Distance(this.transform.position, playerPosition) < 3.3f)
             {
                 playerIsTarget = true;
                 targetPosition = new Vector2(playerPosition.x, playerPosition.y);
@@ -167,11 +173,11 @@ public class AIController : MonoBehaviour
         currentPosition = this.transform.position;
         distanceToPlayer = Vector2.Distance(this.transform.position, playerPosition);
 
-        if(playerIsTarget && readyToFire && AIType == enemyType.SmackHead)
+        if (playerIsTarget && readyToFire && AIType == enemyType.SmackHead)
         {
             rangedAttack();
         }
-        if(playerIsTarget && readyToFire && AIType == enemyType.PotHead)
+        if (playerIsTarget && readyToSmoke && AIType == enemyType.PotHead)
         {
             smokeAttack();
         }
@@ -294,11 +300,11 @@ public class AIController : MonoBehaviour
         else if (collision.gameObject.tag == "bullet")
         {
             AIHealth -= collision.gameObject.GetComponent<bulletController>().getDamage();
-            print("Health: " + AIHealth + "/100");
+            print("Health: " + AIHealth + "/" + AIMaxHealth);
             if (AIHealth <= 0.0f)
             {
-                Destroy(this.gameObject);
                 CharacterController.enemyDied(AIType);
+                Destroy(this.gameObject);
             }
         }
     }

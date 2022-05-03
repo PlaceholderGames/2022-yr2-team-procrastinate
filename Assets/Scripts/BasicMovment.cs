@@ -16,7 +16,8 @@ public class BasicMovment : MonoBehaviour
     [SerializeField] public GameObject connectedObject = null;//this will be what the player pulls
     [SerializeField] float movementSpeed = 2.0f;
     [SerializeField] List<GameObject> NearbyCratesList = new List<GameObject>();
-    
+
+    [SerializeField] public bool speedDebuffed;
     
 
     // Start is called before the first frame update
@@ -26,6 +27,8 @@ public class BasicMovment : MonoBehaviour
         playerRigidBody = playerGameObject.GetComponent<Rigidbody2D>();
         playerCollider = playerGameObject.GetComponent<BoxCollider2D>();
         crateDetectorCollider = playerGameObject.GetComponent<CapsuleCollider2D>();
+
+        speedDebuffed = false;
         //connectedObject = playerGameObject.transform.GetChild(1).gameObject;
     }
     
@@ -91,7 +94,7 @@ public class BasicMovment : MonoBehaviour
         {
             movementSpeed = 0.5f;
         }
-        else
+        else if (!speedDebuffed)
         {
             movementSpeed = 2.0f;
         }
@@ -150,6 +153,11 @@ public class BasicMovment : MonoBehaviour
         //releases the object attached to the player
         connectedObject.transform.parent = GameObject.Find("Crates").transform;
         connectedObject = null;
+    }
+
+    public void setMovementSpeed(float Speed)
+    {
+        movementSpeed = Speed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

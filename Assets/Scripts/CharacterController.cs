@@ -8,10 +8,13 @@ public class CharacterController : MonoBehaviour
 {
     [SerializeField] GameControllerLevel2 GameControllerLevel2;
 
+    [SerializeField] BasicMovment movementController;
+
     //High precision used for calculating health and other bits
     [SerializeField] decimal healthM;
     [SerializeField] decimal maxHealthM;
     [SerializeField] decimal healingSpeedM;
+    [SerializeField] bool unkillable;
 
     //Low precision versions used for displaying in the inspector without using editor voodoo.
     [SerializeField] float healthF;
@@ -55,6 +58,12 @@ public class CharacterController : MonoBehaviour
     [SerializeField] public bool miniMapOpen;
 
 
+    //Movement
+    [SerializeField] float potHeadDebuffSpeed;
+    [SerializeField] float potHeadDebuffTime;
+    [SerializeField] float currentPotHeadDebuffTime;
+    [SerializeField] float movementSpeed;//Default 2.0f
+
     //Enums
 
     //Delegates
@@ -73,6 +82,7 @@ public class CharacterController : MonoBehaviour
     void Start()
     {
         GameControllerLevel2 = GameObject.Find("GameController").GetComponent<GameControllerLevel2>();
+        movementController = this.gameObject.GetComponent<BasicMovment>();
 
         healthM = 90.0M;
         maxHealthM = 100.0M;
@@ -84,6 +94,11 @@ public class CharacterController : MonoBehaviour
         readyToFire = true;
         projectileSpeed = 30;
         canFire = false;
+
+        potHeadDebuffSpeed = 0.75f;
+        potHeadDebuffTime = 10.0f;
+        currentPotHeadDebuffTime = 0.0f;
+        movementSpeed = 2.0f;
 
         healthBarSlider = GameObject.Find("HealthBarSlider").GetComponent<Slider>();
 
@@ -124,7 +139,7 @@ public class CharacterController : MonoBehaviour
             canFire = true;
         }
         //The player is dead
-        if (healthM <= 0.0M)
+        if (healthM <= 0.0M && !unkillable)
         {
             GameControllerLevel2.playerDied();
         }
@@ -135,6 +150,17 @@ public class CharacterController : MonoBehaviour
             StartCoroutine(healCoolDown());
             //print("Health: " + healthM + "/100");
         }
+
+        if (currentPotHeadDebuffTime > 0.0f)
+        {
+            currentPotHeadDebuffTime -= Time.deltaTime;
+        }
+        else
+        {
+            //movementController.setMovementSpeed(movementSpeed);
+            movementController.speedDebuffed = false;
+        }
+
         //Updates the health variable floats, this is for debugging in the editor
         updateHealthVariables();
 
@@ -165,7 +191,7 @@ public class CharacterController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (canFire)
+            if (readyToFire && canFire)
             {
                 print("Shooting!");
                 fire();
@@ -174,7 +200,7 @@ public class CharacterController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            if (canFire)
+            if (readyToFire && canFire)
             {
                 print("Shooting!");
                 fire();
@@ -329,6 +355,15 @@ public class CharacterController : MonoBehaviour
     {
         healthM = maxHealthM;
         this.transform.position = location; 
+    }
+
+
+    //debuff the players speed when they walk into the pot heads smoke
+    public void potHeadDebuff()
+    {
+        currentPotHeadDebuffTime = potHeadDebuffTime;
+        movementController.setMovementSpeed(potHeadDebuffSpeed);
+        movementController.speedDebuffed = true;
     }
 
 

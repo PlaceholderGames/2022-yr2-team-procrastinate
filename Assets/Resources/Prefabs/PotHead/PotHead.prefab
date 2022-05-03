@@ -131,6 +131,7 @@ MonoBehaviour:
   playerIsTarget: 0
   distanceToPlayer: 0
   AIHealth: 0
+  AIMaxHealth: 0
   AIDamage: 0
   canAttack: 0
   attackCooldown: 0
@@ -145,7 +146,7 @@ MonoBehaviour:
   smokeAttackCooldown: 0
   animator: {fileID: 5103101924199182690}
   attackAnimationFinished: 0
-  AIType: 0
+  AIType: 4
 --- !u!50 &5103101924199182750
 Rigidbody2D:
   serializedVersion: 4

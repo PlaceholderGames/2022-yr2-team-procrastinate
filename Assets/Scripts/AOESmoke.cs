@@ -43,8 +43,8 @@ public class AOESmoke : MonoBehaviour
     {
         degrees += 0.025f;
         layer1.transform.rotation = Quaternion.Euler(Vector3.forward * degrees);
-        layer2.transform.rotation = Quaternion.Euler(Vector3.forward * -degrees);
-        layer3.transform.rotation = Quaternion.Euler(Vector3.forward * degrees);
+        layer2.transform.rotation = Quaternion.Euler(Vector3.forward * -degrees*1.5f);
+        layer3.transform.rotation = Quaternion.Euler(Vector3.forward * -degrees*1.1f);
     }
 
     IEnumerator rechargeDamage()
@@ -63,6 +63,7 @@ public class AOESmoke : MonoBehaviour
     {
         if (collision.tag == "Player" && canDamage)
         {
+            characterController.potHeadDebuff();
             characterController.damagePlayer(10.0f);
             canDamage = false;
             StartCoroutine(rechargeDamage());
@@ -73,6 +74,7 @@ public class AOESmoke : MonoBehaviour
     {
         if (collision.tag == "Player" && canDamage)
         {
+            characterController.potHeadDebuff();
             characterController.damagePlayer(10.0f);
             canDamage = false;
             StartCoroutine(rechargeDamage());
