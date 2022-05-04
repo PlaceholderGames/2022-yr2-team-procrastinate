@@ -36,6 +36,16 @@ public class killTaskController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (TaskObject == null)
+        {
+            TaskObject = GameObject.Find("Task" + TaskID);
+        }
+        if (TotalEnemiesKilledText == null)
+        {
+            TotalEnemiesKilledText = GameObject.Find("Task" + TaskID).transform.GetChild(3).GetComponent<TMP_Text>();
+        }
+
+
         if (completed == true)
         {
             print("Completed!");
@@ -68,6 +78,7 @@ public class killTaskController : MonoBehaviour
         audioSource = this.gameObject.GetComponent<AudioSource>();
 
 
+
         TaskObject = GameObject.Find("Task" + TaskID);
         TotalEnemiesKilledText = GameObject.Find("Task" + TaskID).transform.GetChild(3).GetComponent<TMP_Text>();
     }
@@ -76,6 +87,7 @@ public class killTaskController : MonoBehaviour
     {
         if (type == AIType)
         {
+            Debug.LogWarning("Enemy killed: " + AIType);
             taskProgress++;
             totalEnemiesKilled++;
             TotalEnemiesKilledText.text = "Progress: " + (totalEnemiesKilled + "/" + taskTarget);
