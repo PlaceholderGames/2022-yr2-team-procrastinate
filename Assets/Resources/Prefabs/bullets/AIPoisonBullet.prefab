@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7038455434981223975}
   - component: {fileID: 1918258578573105640}
-  - component: {fileID: 503769386691961208}
   - component: {fileID: 7795732786644953245}
   - component: {fileID: 6673933078758786459}
+  - component: {fileID: 3254314093963559434}
   m_Layer: 7
-  m_Name: AIBullet
-  m_TagString: AIBullet
+  m_Name: AIPoisonBullet
+  m_TagString: AIPoisonBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,33 +74,17 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 8fa418258d4102a47b22c830f257afa1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ea488b57942f1a14997647775a76d85a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.13, y: 0.03}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &503769386691961208
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5967601104957530264}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0105, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.05
 --- !u!50 &7795732786644953245
 Rigidbody2D:
   serializedVersion: 4
@@ -134,3 +118,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70078d96b300aec459b1b4ef4cd44192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &3254314093963559434
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967601104957530264}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.13, y: 0.03}
+    newSize: {x: 0.13, y: 0.03}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.13, y: 0.03}
+  m_EdgeRadius: 0

@@ -60,9 +60,25 @@ public class CharacterController : MonoBehaviour
 
     //Movement
     [SerializeField] float potHeadDebuffSpeed;
+    
+    [SerializeField] float movementSpeed;//Default 2.0f
+
+    //Status Effects
+    StatusEffectBarController statusEffectBarController;
+
+    GameObject potHeadStatusEffectObject;
     [SerializeField] float potHeadDebuffTime;
     [SerializeField] float currentPotHeadDebuffTime;
-    [SerializeField] float movementSpeed;//Default 2.0f
+    bool potHeadDebuffIconAdded;
+    bool potHeadDebuffIconFlashing;
+
+    GameObject smackHeadStatusEffectObject;
+    [SerializeField] float smackHeadDebuffTime;
+    [SerializeField] float currentSmackHeadDebuffTime;
+    bool smackHeadDebuffIconAdded;
+    bool smackHeadDebuffIconFlashing;
+    [SerializeField] bool poisonCanDamage;
+    [SerializeField] decimal poisonDamage;
 
     //Enums
 
@@ -83,6 +99,7 @@ public class CharacterController : MonoBehaviour
     {
         GameControllerLevel2 = GameObject.Find("GameController").GetComponent<GameControllerLevel2>();
         movementController = this.gameObject.GetComponent<BasicMovment>();
+        statusEffectBarController = GameObject.Find("StatusEffects").GetComponent<StatusEffectBarController>();
 
         healthM = 90.0M;
         maxHealthM = 100.0M;
@@ -100,6 +117,12 @@ public class CharacterController : MonoBehaviour
         currentPotHeadDebuffTime = 0.0f;
         movementSpeed = 2.0f;
 
+        smackHeadDebuffTime = 20.0f;
+        poisonCanDamage = false;
+        poisonDamage = 1.0M;
+        smackHeadDebuffIconFlashing = false;
+
+
         healthBarSlider = GameObject.Find("HealthBarSlider").GetComponent<Slider>();
 
         enemyDied = addToPaycheque;
@@ -109,6 +132,9 @@ public class CharacterController : MonoBehaviour
 
         gamePaused = false;
         miniMapOpen = false;
+
+        potHeadDebuffIconAdded = false;
+        potHeadDebuffIconFlashing = false;
 
         //Adds an audio source then loads the audio clip
         //fireGun = Resources.Load("Audio/nameHere") as AudioClip;
@@ -151,14 +177,65 @@ public class CharacterController : MonoBehaviour
             //print("Health: " + healthM + "/100");
         }
 
+        //Pot Head debuff stuff
         if (currentPotHeadDebuffTime > 0.0f)
         {
             currentPotHeadDebuffTime -= Time.deltaTime;
+            if (!potHeadDebuffIconAdded)
+            {
+                potHeadStatusEffectObject = statusEffectBarController.addStatusEffect("Textures/iconPotHeadSmokeDebuff");
+                potHeadDebuffIconAdded = true;
+            }
         }
         else
         {
-            //movementController.setMovementSpeed(movementSpeed);
             movementController.speedDebuffed = false;
+
+            if (potHeadDebuffIconAdded)
+            {
+                potHeadDebuffIconAdded = false;
+                statusEffectBarController.removeStatusEffect(potHeadStatusEffectObject);
+            }
+            
+        }
+        if (currentPotHeadDebuffTime < potHeadDebuffTime * 0.25f && !potHeadDebuffIconFlashing && currentPotHeadDebuffTime > 0)
+        {
+            print("Flashing pot head effect");
+            potHeadDebuffIconFlashing = true;
+            statusEffectBarController.flashEffect(potHeadStatusEffectObject);
+        }
+
+        //Smack Head debuff stuff
+        if (currentSmackHeadDebuffTime > 0.0f)
+        {
+            if (poisonCanDamage)
+            {
+                healthM -= poisonDamage;
+                poisonCanDamage = false;
+                StartCoroutine(resetPoisonDamage());
+            }
+            
+            currentSmackHeadDebuffTime -= Time.deltaTime;
+            if (!smackHeadDebuffIconAdded)
+            {
+                smackHeadStatusEffectObject = statusEffectBarController.addStatusEffect("Textures/iconSmackHeadPoisonDebuff");
+                smackHeadDebuffIconAdded = true;
+            }
+        }
+        else
+        {
+            if (smackHeadDebuffIconAdded)
+            {
+                smackHeadDebuffIconAdded = false;
+                statusEffectBarController.removeStatusEffect(smackHeadStatusEffectObject);
+            }
+
+        }
+        if (currentSmackHeadDebuffTime < smackHeadDebuffTime * 0.25f && !smackHeadDebuffIconFlashing && currentSmackHeadDebuffTime > 0)
+        {
+            print("Flashing pot head effect");
+            smackHeadDebuffIconFlashing = true;
+            statusEffectBarController.flashEffect(smackHeadStatusEffectObject);
         }
 
         //Updates the health variable floats, this is for debugging in the editor
@@ -312,6 +389,12 @@ public class CharacterController : MonoBehaviour
     }
 
 
+    IEnumerator resetPoisonDamage()
+    {
+        yield return new WaitForSeconds(1);
+        poisonCanDamage = true;
+    }
+
     IEnumerator healCoolDown()
     {
         yield return new WaitForSeconds(1);
@@ -364,6 +447,7 @@ public class CharacterController : MonoBehaviour
         currentPotHeadDebuffTime = potHeadDebuffTime;
         movementController.setMovementSpeed(potHeadDebuffSpeed);
         movementController.speedDebuffed = true;
+        potHeadDebuffIconFlashing = false;
     }
 
 
@@ -371,6 +455,13 @@ public class CharacterController : MonoBehaviour
     {
         if (collision.gameObject.tag == "AIBullet")
         {
+            damagePlayer(collision.gameObject.GetComponent<bulletController>().getDamage());
+            print("Health: " + healthM + "/100");
+        }
+        else if (collision.gameObject.tag == "AIPoisonBullet")
+        {
+            poisonCanDamage = true;
+            currentSmackHeadDebuffTime = smackHeadDebuffTime;
             damagePlayer(collision.gameObject.GetComponent<bulletController>().getDamage());
             print("Health: " + healthM + "/100");
         }

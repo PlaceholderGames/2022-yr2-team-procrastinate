@@ -34,6 +34,9 @@ public class spawnerController : MonoBehaviour
             case AIController.enemyType.PotHead:
                 enemyPrefab = Resources.Load("Prefabs/PotHead/PotHead", typeof(GameObject)) as GameObject;
                 break;
+            case AIController.enemyType.SmackHead:
+                enemyPrefab = Resources.Load("Prefabs/SmackHead/SmackHead", typeof(GameObject)) as GameObject;
+                break;
         }
     }
 
