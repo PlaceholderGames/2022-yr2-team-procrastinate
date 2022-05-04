@@ -16960,7 +16960,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1171578591
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26110,13 +26110,21 @@ PrefabInstance:
       propertyPath: m_margin.w
       value: -7.0477753
       objectReference: {fileID: 0}
+    - target: {fileID: 299407664279238608, guid: bfea2fdcce288814b8a2f2bd7af05234, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 299407664279238608, guid: bfea2fdcce288814b8a2f2bd7af05234, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 299407664279238609, guid: bfea2fdcce288814b8a2f2bd7af05234, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 895
+      value: 404
       objectReference: {fileID: 0}
     - target: {fileID: 299407664279238609, guid: bfea2fdcce288814b8a2f2bd7af05234, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -234
+      value: -405
       objectReference: {fileID: 0}
     - target: {fileID: 299407664407411631, guid: bfea2fdcce288814b8a2f2bd7af05234, type: 3}
       propertyPath: m_Camera
