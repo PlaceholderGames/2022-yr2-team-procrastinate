@@ -22,11 +22,14 @@ public class TestTask2 : MonoBehaviour
 
     [SerializeField] public AudioSource audioSource;
 
+    CharacterController characterController;
+
     GameObject TaskList = null;
     // Start is called before the first frame update
     void Start()
     {
         GameController = GameObject.Find("GameController").GetComponent<GameControllerLevel1>();
+        characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
 
         taskName = "Deliver Toiletries";
         taskDescription = "Deliver crates of Toiletries to the delivery zone!";
@@ -101,13 +104,18 @@ public class TestTask2 : MonoBehaviour
             TaskObject.transform.GetChild(1).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
             TaskObject.transform.GetChild(2).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
             TaskObject.transform.GetChild(4).GetComponent<Image>().color = new Color(0, 255, 0);
+
             GameController.taskComplete();
+            characterController.addToPaycheque(totalItemsDelivered * 15);
+            Debug.LogWarning("Adding to Paycheque!");
+
             this.GetComponent<TestTask2>().enabled = false;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        print(collider + " with tag{" + collider.tag + "} Exited the box!");
+        Debug.LogWarning(collider + " with tag{" + collider.tag + "} Exited the box!");
+        //print(collider + " with tag{" + collider.tag + "} Exited the box!");
     }
 }

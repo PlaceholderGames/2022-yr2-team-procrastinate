@@ -16,6 +16,13 @@ public class GameControllerLevel2 : MonoBehaviour
     Canvas deathScreenCanvas;
     GameObject buttons;
 
+    [SerializeField] int tasksComplete;
+    [SerializeField] int totalTasks;
+
+    //How many times this level has been played
+    //the game loops between level 1 and 2 with increasing difficulty so this is what will track it
+    [SerializeField] int levelIteration;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +35,17 @@ public class GameControllerLevel2 : MonoBehaviour
         characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
 
         CharacterController.enemyDied += enemyDied;
+
+        tasksComplete = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (tasksComplete == totalTasks)
+        {
+            characterController.level2Complete();
+        }
     }
 
     public void playerDied()
@@ -70,6 +82,11 @@ public class GameControllerLevel2 : MonoBehaviour
         
     }
 
+
+    public void taskComplete()
+    {
+        tasksComplete++;
+    }
 
     void spawnEnemies()
     {

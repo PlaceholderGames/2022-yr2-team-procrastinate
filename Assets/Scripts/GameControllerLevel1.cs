@@ -31,10 +31,11 @@ public class GameControllerLevel1 : MonoBehaviour
         {
             totalTasks = GameObject.Find("TaskList").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).childCount;
         }
-        if (tasksCompleted == totalTasks)
+        if (tasksCompleted >= totalTasks)
         {
+            characterController.level1Complete();
             frontDoorController.unlockDoor();
-            characterController.payPlayer();
+            //characterController.payPlayer();
         }
     }
 

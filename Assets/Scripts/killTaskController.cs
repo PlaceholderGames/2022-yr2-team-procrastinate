@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class killTaskController : MonoBehaviour
@@ -35,7 +36,14 @@ public class killTaskController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (completed == true)
+        {
+            print("Completed!");
+            TaskObject.transform.GetChild(1).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
+            TaskObject.transform.GetChild(2).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
+            TaskObject.transform.GetChild(4).GetComponent<Image>().color = new Color(0, 255, 0);
+            GameController.taskComplete();
+        }
     }
 
     public void setupTask()
@@ -71,6 +79,10 @@ public class killTaskController : MonoBehaviour
             taskProgress++;
             totalEnemiesKilled++;
             TotalEnemiesKilledText.text = "Progress: " + (totalEnemiesKilled + "/" + taskTarget);
+        }
+        if (totalEnemiesKilled >= taskTarget)
+        {
+            completed = true;
         }
         
     }

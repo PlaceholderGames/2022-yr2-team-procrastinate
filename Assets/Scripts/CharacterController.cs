@@ -80,7 +80,10 @@ public class CharacterController : MonoBehaviour
     [SerializeField] bool poisonCanDamage;
     [SerializeField] decimal poisonDamage;
 
-    //Enums
+    //Levels
+    [SerializeField] public int level1Iteration;
+    [SerializeField] public int level2Iteration;
+
 
     //Delegates
     public delegate void EnemyDied(AIController.enemyType deadEnemyType);
@@ -100,6 +103,9 @@ public class CharacterController : MonoBehaviour
         GameControllerLevel2 = GameObject.Find("GameController").GetComponent<GameControllerLevel2>();
         movementController = this.gameObject.GetComponent<BasicMovment>();
         statusEffectBarController = GameObject.Find("StatusEffects").GetComponent<StatusEffectBarController>();
+
+        level1Iteration = 0;
+        level2Iteration = 0;
 
         healthM = 90.0M;
         maxHealthM = 100.0M;
@@ -125,7 +131,7 @@ public class CharacterController : MonoBehaviour
 
         healthBarSlider = GameObject.Find("HealthBarSlider").GetComponent<Slider>();
 
-        enemyDied = addToPaycheque;
+        enemyDied = addToBloodMoney;
 
         minimapCameraObject = GameObject.Find("MiniMapCamera").GetComponent<Camera>();
         minimapCanvasObject = minimapCameraObject.transform.GetChild(0).GetComponent<Canvas>();
@@ -322,26 +328,31 @@ public class CharacterController : MonoBehaviour
     }
 
 
-    void addToPaycheque(AIController.enemyType type)
+    void addToBloodMoney(AIController.enemyType type)
     {
         switch(type)
         {
             case AIController.enemyType.Alcoholic:
-                paycheque += 30;
+                money += 30;
                 break;
             case AIController.enemyType.CokeHead:
-                paycheque += 30;
+                money += 30;
                 break;
             case AIController.enemyType.CrackHead:
-                paycheque += 20;
+                money += 20;
                 break;
             case AIController.enemyType.PotHead:
-                paycheque += 40;
+                money += 40;
                 break;
             case AIController.enemyType.SmackHead:
-                paycheque += 60;
+                money += 60;
                 break;
         }
+    }
+
+    public void addToPaycheque(float income)
+    {
+        paycheque += income;
     }
 
     public void payPlayer()
@@ -450,6 +461,18 @@ public class CharacterController : MonoBehaviour
         potHeadDebuffIconFlashing = false;
     }
 
+    //called when level 1 is completed so that the progress can be tracked
+    public void level1Complete()
+    {
+        level1Iteration++;
+        payPlayer();
+    }
+
+    //called when level 2 is completed so that the progress can be tracked
+    public void level2Complete()
+    {
+        level2Iteration++;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -460,7 +483,11 @@ public class CharacterController : MonoBehaviour
         }
         else if (collision.gameObject.tag == "AIPoisonBullet")
         {
-            poisonCanDamage = true;
+            
+            if (currentSmackHeadDebuffTime <= 0)
+            {
+                poisonCanDamage = true;
+            }
             currentSmackHeadDebuffTime = smackHeadDebuffTime;
             damagePlayer(collision.gameObject.GetComponent<bulletController>().getDamage());
             print("Health: " + healthM + "/100");

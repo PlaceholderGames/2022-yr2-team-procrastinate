@@ -49,6 +49,7 @@ public class spawnerController : MonoBehaviour
             forceSpawn = false;
             spawnedEnemy = Instantiate(enemyPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation) as GameObject;
             spawnedEnemy.transform.parent = GameObject.Find("Enemies").transform;
+            Debug.LogWarning("Spawning enemy: " + spawnedEnemy.name + " at: " + spawnedEnemy.transform.position);
         }
 
         if (spawnedEnemy == null && !timerStarted)

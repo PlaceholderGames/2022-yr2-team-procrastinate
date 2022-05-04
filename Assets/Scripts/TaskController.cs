@@ -20,6 +20,8 @@ public class TaskController : MonoBehaviour
     [SerializeField] AudioClip wrongDeliveryZone = null;
     [SerializeField] AudioClip correctDeliveryZone = null;
 
+    CharacterController characterController;
+
     [SerializeField] public AudioSource audioSource;
 
     GameObject TaskList = null;
@@ -27,6 +29,7 @@ public class TaskController : MonoBehaviour
     void Start()
     {
         GameController = GameObject.Find("GameController").GetComponent<GameControllerLevel1>();
+        characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
 
         taskName = "Deliver Toys";
         taskDescription = "Deliver crates of toys to the delivery zone!";
@@ -103,12 +106,16 @@ public class TaskController : MonoBehaviour
             TaskObject.transform.GetChild(2).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
             TaskObject.transform.GetChild(4).GetComponent<Image>().color = new Color(0, 255, 0);
             GameController.taskComplete();
+            characterController.addToPaycheque(totalItemsDelivered * 15);
+            Debug.LogWarning("Adding to Paycheque!");
+            //print("Adding to Paycheque!");
+            this.GetComponent<TaskController>().enabled = false;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        print(collider + " with tag{" + collider.tag + "} Exited the box!");
+        Debug.LogWarning(collider + " with tag{" + collider.tag + "} Exited the box!");
     }
 
 }
