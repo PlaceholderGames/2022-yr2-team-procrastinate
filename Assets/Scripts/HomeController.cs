@@ -13,6 +13,8 @@ public class HomeController : MonoBehaviour
     [SerializeField] float distanceToPlayer = 0;
     Level2End endLevelCollider;
 
+
+
     [SerializeField] bool doorUnlocked;
     // Start is called before the first frame update
     void Start()

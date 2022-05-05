@@ -7,12 +7,16 @@ public class Level2End : MonoBehaviour
 {
     [SerializeField] public bool doorUnlocked;
 
+    GameObject objectivePointer;
+
     CharacterController characterController;
     // Start is called before the first frame update
     void Start()
     {
         doorUnlocked = false;
         characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
+
+        objectivePointer = GameObject.Find("ObjectivePointer").transform.GetChild(3).gameObject;
     }
 
     // Update is called once per frame
@@ -25,6 +29,7 @@ public class Level2End : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && doorUnlocked)
         {
+            objectivePointer.GetComponent<SpriteRenderer>().enabled = false;
             SceneManager.LoadScene("Level1", LoadSceneMode.Single);
         }
     }

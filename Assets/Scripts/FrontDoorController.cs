@@ -8,11 +8,15 @@ public class FrontDoorController : MonoBehaviour
     [SerializeField] bool doorUnlocked;
     [SerializeField] string level2;
 
+    GameObject objectivePointer;
+
     // Start is called before the first frame update
     void Start()
     {
         doorUnlocked = false;
         level2 = "Level2";
+
+        objectivePointer = GameObject.Find("ObjectivePointer").transform.GetChild(3).gameObject;
     }
 
     // Update is called once per frame
@@ -29,6 +33,7 @@ public class FrontDoorController : MonoBehaviour
     void loadLevel2()
     {
         SceneManager.LoadScene(level2, LoadSceneMode.Single);
+        objectivePointer.transform.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
