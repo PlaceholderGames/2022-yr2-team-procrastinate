@@ -27,6 +27,7 @@ public class CharacterController : MonoBehaviour
     //Audio
     [SerializeField] public AudioSource audioSource;
     [SerializeField] AudioClip fireGun = null;
+    [SerializeField] AudioClip healFood = null;
 
 
 
@@ -94,6 +95,12 @@ public class CharacterController : MonoBehaviour
     [SerializeField] public int level2Iteration;
 
 
+    //Renderers
+    //public LineRenderer targetLineRenderer;
+
+    public Vector2 pointerDirection;
+    GameObject objectivePointer;
+
     //Delegates
     public delegate void EnemyDied(AIController.enemyType deadEnemyType);
     public static EnemyDied enemyDied;
@@ -112,6 +119,15 @@ public class CharacterController : MonoBehaviour
         GameControllerLevel2 = GameObject.Find("GameController").GetComponent<GameControllerLevel2>();
         movementController = this.gameObject.GetComponent<BasicMovment>();
         statusEffectBarController = GameObject.Find("StatusEffects").GetComponent<StatusEffectBarController>();
+
+        audioSource = this.gameObject.GetComponent<AudioSource>();
+
+        healFood = Resources.Load("Audio/healing4", typeof(AudioClip)) as AudioClip;
+        fireGun = Resources.Load("Audio/GunShot", typeof(AudioClip)) as AudioClip;
+
+        objectivePointer = this.gameObject.transform.GetChild(3).gameObject;
+
+        //targetLineRenderer = this.gameObject.GetComponent<LineRenderer>();
 
         level1Iteration = 0;
         level2Iteration = 0;
@@ -182,6 +198,27 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "CrackOfDawn")
+        {
+            pointerDirection = this.transform.position - GameObject.Find("FrontDoor").transform.position;
+
+            //This code makes a 2D object rotate to face another
+            Vector3 targ = GameObject.Find("FrontDoor").transform.position;
+            targ.z = 0f;
+
+            Vector3 objectPos = this.transform.position;
+            targ.x = targ.x - objectPos.x;
+            targ.y = targ.y - objectPos.y;
+
+            float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
+            objectivePointer.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        }
+        else if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            objectivePointer.transform.rotation = Quaternion.Euler(pointerDirection);
+        }
+
         if (SceneManager.GetActiveScene().name == "Level2")
         {
             GameControllerLevel2 = GameObject.Find("GameController").GetComponent<GameControllerLevel2>();
@@ -410,8 +447,8 @@ public class CharacterController : MonoBehaviour
     {
         if (readyToFire == true)
         {
-            //audioSource.Play();
-
+            audioSource.clip = fireGun;
+            audioSource.Play();
             readyToFire = false;
 
             //Spawning the bullet
@@ -478,6 +515,8 @@ public class CharacterController : MonoBehaviour
     public void healPlayer(float healing)
     {
         healthM += (decimal)healing;
+        audioSource.clip = healFood;
+        audioSource.Play();
         if (healthM > maxHealthM)
         {
             healthM = maxHealthM;
