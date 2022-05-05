@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PotHead
       objectReference: {fileID: 0}
+    - target: {fileID: 5103101924199182750, guid: f9c1387b6d1818c4fa8d2940985cbbbd, type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5103101924199182751, guid: f9c1387b6d1818c4fa8d2940985cbbbd, type: 3}
       propertyPath: m_Size.x
       value: 0.41574

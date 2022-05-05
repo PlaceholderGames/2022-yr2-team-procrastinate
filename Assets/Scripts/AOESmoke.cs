@@ -55,7 +55,7 @@ public class AOESmoke : MonoBehaviour
     //Destroys the smoke after 30 seconds
     IEnumerator fadeSmoke()
     {
-        yield return new WaitForSeconds(30.0f);
+        yield return new WaitForSeconds(20.0f);
         Destroy(this.gameObject);
     }
 
@@ -64,7 +64,7 @@ public class AOESmoke : MonoBehaviour
         if (collision.tag == "Player" && canDamage)
         {
             characterController.potHeadDebuff();
-            characterController.damagePlayer(10.0f);
+            characterController.damagePlayer(5.0f);
             canDamage = false;
             StartCoroutine(rechargeDamage());
         }

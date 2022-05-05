@@ -152,7 +152,7 @@ public class AIController : MonoBehaviour
         }
         if (canMove && !isSleeping)
         {
-            if (Vector2.Distance(this.transform.position, targetPosition) < 0.5f)
+            if (Vector2.Distance(this.transform.position, targetPosition) < 0.3f)
             {
                 playerIsTarget = false;
                 targetPosition = GetRandomPosition();

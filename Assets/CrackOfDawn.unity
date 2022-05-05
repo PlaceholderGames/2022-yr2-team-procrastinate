@@ -26332,7 +26332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 720737231798780106, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -678.0003
+      value: -678.00024
       objectReference: {fileID: 0}
     - target: {fileID: 720737231955683252, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -26399,12 +26399,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 720737232945430878, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 720737232945430878, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
       propertyPath: field of view
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 720737232945430878, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
       propertyPath: far clip plane
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 720737232945430878, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
+      propertyPath: orthographic size
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 720737232945430879, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26416,11 +26424,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 720737233183650852, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
       propertyPath: orthographic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 720737233183650852, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
       propertyPath: field of view
       value: 20.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 720737233183650852, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
+      propertyPath: m_FOVAxisMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 720737233183650852, guid: fdb1da76c8cc05c46a14f7c7961b438a, type: 3}
       propertyPath: far clip plane
