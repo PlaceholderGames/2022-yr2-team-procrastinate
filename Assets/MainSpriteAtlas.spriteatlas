@@ -351,6 +351,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e92cc72aaafa59e4f89e6b7f1aad1729, type: 3}
   - {fileID: 21300000, guid: 67f8d35ad0db60848b65ac99773f48cd, type: 3}
   - {fileID: 21300000, guid: 06e1586ad23ea5341a3bc07527cfffe7, type: 3}
+  - {fileID: 21300000, guid: 3e05f2aa177b5834c9dbb820d0a1fe56, type: 3}
   - {fileID: 5988126927858337243, guid: 43be971baffa9ac4b89ac278702a78ad, type: 3}
   - {fileID: -2061265055855307397, guid: 43be971baffa9ac4b89ac278702a78ad, type: 3}
   - {fileID: 694930020371199453, guid: 43be971baffa9ac4b89ac278702a78ad, type: 3}
@@ -372,6 +373,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 676cd77d7614960429a65b156983c587, type: 3}
   - {fileID: 21300000, guid: 14ddf7ddfdb89494386c788f082286d1, type: 3}
   - {fileID: 21300000, guid: a556311e8673251479425bd4c393fda8, type: 3}
+  - {fileID: 21300000, guid: 2e375d1edbbfe524a8c296d3268b0ee5, type: 3}
   - {fileID: 21300000, guid: 43a2847ebc521124f83cb0535d77a4af, type: 3}
   - {fileID: 21300000, guid: 7a8df68e5cdc0044dae6411865ca91ff, type: 3}
   - {fileID: 21300000, guid: c5bd9fbe10a861044b190d78d65d4875, type: 3}
@@ -682,6 +684,7 @@ SpriteAtlas:
   - binOpenedNoLid
   - backgroundHouse1
   - iconPotHeadSmokeDebuff
+  - Pointer1
   - Alki_attack_right_1
   - Alki_attack_right_0
   - Alki_attack_right_2
@@ -703,6 +706,7 @@ SpriteAtlas:
   - menuControls
   - menuBack
   - iconSmackHeadPoisonDebuff
+  - Pointer2
   - smokeLayer3v3
   - lose_2
   - smokeLayer2
