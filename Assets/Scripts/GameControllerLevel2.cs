@@ -40,6 +40,7 @@ public class GameControllerLevel2 : MonoBehaviour
         CharacterController.enemyDied += enemyDied;
 
         tasksCompleted = 0;
+        characterController.drinkEnergy();
     }
 
     // Update is called once per frame

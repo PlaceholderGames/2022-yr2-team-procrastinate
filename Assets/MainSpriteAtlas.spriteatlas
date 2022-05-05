@@ -347,6 +347,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 702c3e4955b2bd347a4774b953bfe59a, type: 3}
   - {fileID: 21300000, guid: 96be6f59d36ee7944a52a52ce91ba380, type: 3}
   - {fileID: 21300000, guid: f7b803e948564c7429fc62a33c7d2016, type: 3}
+  - {fileID: 21300000, guid: c0eadce93e5e60c4a9d0182e17d7abca, type: 3}
   - {fileID: 21300000, guid: e92cc72aaafa59e4f89e6b7f1aad1729, type: 3}
   - {fileID: 21300000, guid: 67f8d35ad0db60848b65ac99773f48cd, type: 3}
   - {fileID: 21300000, guid: 06e1586ad23ea5341a3bc07527cfffe7, type: 3}
@@ -677,6 +678,7 @@ SpriteAtlas:
   - menuControls2
   - house1_doorless
   - menuLogo
+  - iconEnergyDrinkBuff
   - binOpenedNoLid
   - backgroundHouse1
   - iconPotHeadSmokeDebuff

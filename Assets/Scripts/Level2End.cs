@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 public class Level2End : MonoBehaviour
 {
     [SerializeField] public bool doorUnlocked;
+
+    CharacterController characterController;
     // Start is called before the first frame update
     void Start()
     {
         doorUnlocked = false;
+        characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
     }
 
     // Update is called once per frame

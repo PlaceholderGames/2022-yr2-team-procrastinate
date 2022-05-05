@@ -65,13 +65,14 @@ public class CharacterController : MonoBehaviour
 
     //Status Effects
     StatusEffectBarController statusEffectBarController;
-
+    //PotHead
     GameObject potHeadStatusEffectObject;
     [SerializeField] float potHeadDebuffTime;
     [SerializeField] float currentPotHeadDebuffTime;
     bool potHeadDebuffIconAdded;
     bool potHeadDebuffIconFlashing;
 
+    //SmackHead
     GameObject smackHeadStatusEffectObject;
     [SerializeField] float smackHeadDebuffTime;
     [SerializeField] float currentSmackHeadDebuffTime;
@@ -79,6 +80,14 @@ public class CharacterController : MonoBehaviour
     bool smackHeadDebuffIconFlashing;
     [SerializeField] bool poisonCanDamage;
     [SerializeField] decimal poisonDamage;
+
+    //energy drink
+    GameObject energyDrinkStatusEffectObject;
+    [SerializeField] float energyDrinkBuffTime;
+    [SerializeField] float currentEnergyDrinkBuffTime;
+    bool energyDrinkBuffIconAdded;
+    bool energyDrinkBuffIconFlashing;
+    float energyDrinkBuffedMovementSpeed;
 
     //Levels
     [SerializeField] public int level1Iteration;
@@ -141,6 +150,14 @@ public class CharacterController : MonoBehaviour
 
         potHeadDebuffIconAdded = false;
         potHeadDebuffIconFlashing = false;
+
+
+        //energyDrinkStatusEffectObject;
+        energyDrinkBuffTime = 20.0f;
+        currentEnergyDrinkBuffTime = 0.0f;
+        energyDrinkBuffIconAdded = false;
+        energyDrinkBuffIconFlashing = false;
+        energyDrinkBuffedMovementSpeed = 1.0f;
 
         //Adds an audio source then loads the audio clip
         //fireGun = Resources.Load("Audio/nameHere") as AudioClip;
@@ -242,6 +259,34 @@ public class CharacterController : MonoBehaviour
             print("Flashing pot head effect");
             smackHeadDebuffIconFlashing = true;
             statusEffectBarController.flashEffect(smackHeadStatusEffectObject);
+        }
+
+        //energyDrinkStatusEffectObject
+        //Energy debuff stuff
+        if (currentEnergyDrinkBuffTime > 0.0f)
+        {
+
+            currentEnergyDrinkBuffTime -= Time.deltaTime;
+            if (!energyDrinkBuffIconAdded)
+            {
+                energyDrinkStatusEffectObject = statusEffectBarController.addStatusEffect("Textures/iconEnergyDrinkBuff");
+                energyDrinkBuffIconAdded = true;
+            }
+        }
+        else
+        {
+            if (energyDrinkBuffIconAdded)
+            {
+                movementController.setMovementSpeed(movementSpeed);
+                energyDrinkBuffIconAdded = false;
+                statusEffectBarController.removeStatusEffect(energyDrinkStatusEffectObject);
+            }
+        }
+        if (currentEnergyDrinkBuffTime < energyDrinkBuffTime * 0.25f && !energyDrinkBuffIconFlashing && currentEnergyDrinkBuffTime > 0)
+        {
+            print("Flashing pot head effect");
+            energyDrinkBuffIconFlashing = true;
+            statusEffectBarController.flashEffect(energyDrinkStatusEffectObject);
         }
 
         //Updates the health variable floats, this is for debugging in the editor
@@ -492,5 +537,11 @@ public class CharacterController : MonoBehaviour
             damagePlayer(collision.gameObject.GetComponent<bulletController>().getDamage());
             print("Health: " + healthM + "/100");
         }
+    }
+
+    public void drinkEnergy()
+    {
+        currentEnergyDrinkBuffTime = energyDrinkBuffTime;
+        movementController.setMovementSpeed(currentEnergyDrinkBuffTime);
     }
 }

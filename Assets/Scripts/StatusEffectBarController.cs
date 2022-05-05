@@ -74,7 +74,10 @@ public class StatusEffectBarController : MonoBehaviour
         }
         else if (StatusEffects.Count == 2)
         {
-            instantiatedObject.transform.localPosition = new Vector3(-50, 0, 0);
+            instantiatedObject.transform.localPosition = new Vector3(-25, 0, 0);
+        }else if (StatusEffects.Count == 3)
+        {
+            instantiatedObject.transform.localPosition = new Vector3(-125, 0, 0);
         }
         
         
@@ -90,13 +93,13 @@ public class StatusEffectBarController : MonoBehaviour
         StatusEffects.Remove(objectToRemove);
         effectsToFlash.Remove(objectToRemove);
 
-        //Protection for if the 
+        
         Destroy(statusEffectBar.transform.GetChild(removedObjectIndex).gameObject);
         
 
         for (int i = 0; i < StatusEffects.Count; i++)
         {
-            StatusEffects[i].transform.localPosition = new Vector3(-(i * 100 + 50), 0, 0);
+            StatusEffects[i].transform.localPosition = new Vector3(75 - (i * 100), 0, 0);
         }
     }
 
