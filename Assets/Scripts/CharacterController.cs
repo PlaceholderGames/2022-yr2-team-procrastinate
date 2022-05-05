@@ -209,7 +209,7 @@ public class CharacterController : MonoBehaviour
         }
 
         
-        if (GameControllerLevel1.levelCompleted == true)
+        if (SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "CrackOfDawn" && GameControllerLevel1.levelCompleted == true)
         {
             objectivePointer.GetComponent<SpriteRenderer>().enabled = true;
         }

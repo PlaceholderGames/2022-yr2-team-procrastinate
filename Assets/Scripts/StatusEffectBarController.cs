@@ -31,7 +31,7 @@ public class StatusEffectBarController : MonoBehaviour
 
         if (timeElapsed < 0.25f && effectsToFlash.Count > 0)
         {
-            print("Effects to flash count: " + effectsToFlash.Count);
+            //print("Effects to flash count: " + effectsToFlash.Count);
             for (int i = 0; i < effectsToFlash.Count; i++)
             {
                 if (effectsToFlash[i].gameObject != null)

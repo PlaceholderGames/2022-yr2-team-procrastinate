@@ -47,6 +47,7 @@ public class interactableObjectController : MonoBehaviour
         spriteList.Add(openWithLidSprite);
         open = false;
 
+        this.
 
         foodItemRenderer = GameObject.Find(this.gameObject.name).transform.GetChild(1).GetComponent<SpriteRenderer>();
         foodItem = generateFoodItem();

@@ -40,6 +40,7 @@ public class GameControllerLevel1 : MonoBehaviour
             levelCompleted = true;
             //characterController.payPlayer();
         }
+        totalTasks = GameObject.Find("TaskList").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).childCount;
     }
 
     public void taskComplete()
