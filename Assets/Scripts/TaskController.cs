@@ -28,7 +28,7 @@ public class TaskController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameController = GameObject.Find("GameController").GetComponent<GameControllerLevel1>();
+        GameController = GameObject.Find("GameControllerLevel1").GetComponent<GameControllerLevel1>();
         characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
 
         taskName = "Deliver Toys";

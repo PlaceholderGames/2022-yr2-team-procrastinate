@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] GameControllerLevel2 GameControllerLevel2;
+    [SerializeField] GameControllerLevel1 GameControllerLevel1;
 
     [SerializeField] BasicMovment movementController;
 
@@ -116,7 +117,7 @@ public class CharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameControllerLevel2 = GameObject.Find("GameController").GetComponent<GameControllerLevel2>();
+        GameControllerLevel1 = GameObject.Find("GameControllerLevel1").GetComponent<GameControllerLevel1>();
         movementController = this.gameObject.GetComponent<BasicMovment>();
         statusEffectBarController = GameObject.Find("StatusEffects").GetComponent<StatusEffectBarController>();
 
@@ -173,7 +174,7 @@ public class CharacterController : MonoBehaviour
         currentEnergyDrinkBuffTime = 0.0f;
         energyDrinkBuffIconAdded = false;
         energyDrinkBuffIconFlashing = false;
-        energyDrinkBuffedMovementSpeed = 1.0f;
+        energyDrinkBuffedMovementSpeed = 3.0f;
 
         //Adds an audio source then loads the audio clip
         //fireGun = Resources.Load("Audio/nameHere") as AudioClip;
@@ -198,6 +199,24 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameControllerLevel2 == null && SceneManager.GetActiveScene().name == "Level2")
+        {
+            GameControllerLevel2 = GameObject.Find("GameController").GetComponent<GameControllerLevel2>();
+        }
+        if (GameControllerLevel1 == null && SceneManager.GetActiveScene().name == "Level1")
+        {
+            GameControllerLevel1 = GameObject.Find("GameControllerLevel1").GetComponent<GameControllerLevel1>();
+        }
+
+        
+        if (GameControllerLevel1.levelCompleted == true)
+        {
+            objectivePointer.GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else
+        {
+            objectivePointer.GetComponent<SpriteRenderer>().enabled = false;
+        }
         if (SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "CrackOfDawn")
         {
             pointerDirection = this.transform.position - GameObject.Find("FrontDoor").transform.position;
@@ -216,7 +235,16 @@ public class CharacterController : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Level2")
         {
-            objectivePointer.transform.rotation = Quaternion.Euler(pointerDirection);
+            //This code makes a 2D object rotate to face another
+            Vector3 targ = GameObject.Find("Home").transform.position;
+            targ.z = 0f;
+
+            Vector3 objectPos = this.transform.position;
+            targ.x = targ.x - objectPos.x;
+            targ.y = targ.y - objectPos.y;
+
+            float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
+            objectivePointer.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
 
         if (SceneManager.GetActiveScene().name == "Level2")
@@ -447,8 +475,9 @@ public class CharacterController : MonoBehaviour
     {
         if (readyToFire == true)
         {
+            audioSource.volume = 1.0f;
             audioSource.clip = fireGun;
-            audioSource.Play();
+            audioSource.PlayOneShot(fireGun);
             readyToFire = false;
 
             //Spawning the bullet
@@ -516,7 +545,8 @@ public class CharacterController : MonoBehaviour
     {
         healthM += (decimal)healing;
         audioSource.clip = healFood;
-        audioSource.Play();
+        audioSource.volume = 0.5f;
+        audioSource.PlayOneShot(healFood);
         if (healthM > maxHealthM)
         {
             healthM = maxHealthM;
@@ -581,6 +611,6 @@ public class CharacterController : MonoBehaviour
     public void drinkEnergy()
     {
         currentEnergyDrinkBuffTime = energyDrinkBuffTime;
-        movementController.setMovementSpeed(currentEnergyDrinkBuffTime);
+        movementController.setMovementSpeed(energyDrinkBuffedMovementSpeed);
     }
 }

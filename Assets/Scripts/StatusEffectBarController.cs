@@ -34,14 +34,21 @@ public class StatusEffectBarController : MonoBehaviour
             print("Effects to flash count: " + effectsToFlash.Count);
             for (int i = 0; i < effectsToFlash.Count; i++)
             {
-                effectsToFlash[i].gameObject.GetComponent<Image>().color = Color.red;
+                if (effectsToFlash[i].gameObject != null)
+                {
+                    effectsToFlash[i].gameObject.GetComponent<Image>().color = Color.red;
+                }
+                
             }
         }
         else if (effectsToFlash.Count > 0)
         {
             for (int i = 0; i < effectsToFlash.Count; i++)
             {
-                effectsToFlash[i].gameObject.GetComponent<Image>().color = Color.white;
+                if (effectsToFlash[i].gameObject != null)
+                {
+                    effectsToFlash[i].gameObject.GetComponent<Image>().color = Color.white;
+                }
             }
         }
         
