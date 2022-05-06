@@ -12,6 +12,7 @@ TagManager:
   - bullet
   - enemy
   - AIBullet
+  - AIPoisonBullet
   layers:
   - Default
   - TransparentFX
@@ -19,9 +20,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - bullet
+  - AIBullet
+  - Player
   - 
   - 
   - 

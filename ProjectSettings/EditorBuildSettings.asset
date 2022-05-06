@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/CrackOfDawn.unity
     guid: 4c607415d5cdfb1468b43f8c0fdeee19
+  - enabled: 1
+    path: Assets/Level1.unity
+    guid: e5318d0b20c0eff4d88c03888b573410
   - enabled: 1
     path: Assets/Level2.unity
     guid: 42d4e3735893d6940984089ef6dab881

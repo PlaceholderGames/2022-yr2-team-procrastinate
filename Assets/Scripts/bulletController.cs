@@ -16,18 +16,19 @@ public class bulletController : MonoBehaviour
         {
             damage = characterController.getPlayerDamage();
         }
-        else if (this.tag == "AIBullet")
+        else if (this.tag == "AIBullet" || this.tag == "AIPoisonBullet")
         {
             damage = 10.0f;
         }
-        
+
+
         StartCoroutine(destroyBullet());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //Physics2D.IgnoreCollision(GameObject.Find("Jeremy").GetComponent<Collider2D>(), this.GetComponent<Collider2D>(), true);
     }
 
     IEnumerator destroyBullet()
@@ -42,7 +43,7 @@ public class bulletController : MonoBehaviour
     {
         if (collision.gameObject.tag == "AIBullet")
         {
-            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), this.GetComponent<Collider2D>());
+            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), this.GetComponent<Collider2D>(), true);
         }
 
         if (collision.gameObject.tag == "enemy")
@@ -50,11 +51,17 @@ public class bulletController : MonoBehaviour
             print("Enemy hit!");
             Destroy(this.gameObject);
         }
-        else
+        else if (collision.gameObject.tag == "Wall")
         {
+            print("Destroying bullet!");
             Destroy(this.gameObject);
         }
         
+        if (collision.gameObject.tag == "Player")
+        {
+            print("Hit the player!");
+            Destroy(this.gameObject);
+        }
     }
 
     public float getDamage()

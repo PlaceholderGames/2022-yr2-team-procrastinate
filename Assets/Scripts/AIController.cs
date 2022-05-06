@@ -4,34 +4,51 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
+    //Locations
     [SerializeField] Vector2 startingPosition;
     [SerializeField] Vector2 targetPosition;//Target position to walk towards
     [SerializeField] Vector3 currentPosition;//Target position to walk towards
-    [SerializeField] float movementSpeed;
-    [SerializeField] bool canMove;
+    [SerializeField] Vector2 direction;
 
+    //Movement
     [SerializeField] int movesBeforeSleep;
     [SerializeField] bool isSleeping;
     [SerializeField] int sleepTime;
     [SerializeField] int moves;
+    [SerializeField] float movementSpeed;
+    [SerializeField] bool canMove;
 
-
+    //Player data
     [SerializeField] Vector3 playerPosition;
     [SerializeField] bool playerIsTarget;
     [SerializeField] float distanceToPlayer;
     CharacterController playerControllerScript;
 
-
+    //Stats
     [SerializeField] float AIHealth;
+    [SerializeField] float AIMaxHealth;
     [SerializeField] float AIDamage;
     [SerializeField] bool canAttack;
     [SerializeField] float attackCooldown;
     [SerializeField] float rangedAttackCooldown;
 
+    //Projectile
     [SerializeField] bool readyToFire;
     [SerializeField] int projectileSpeed;
     [SerializeField] Rigidbody2D bulletPrefab;
     [SerializeField] float damage;
+    [SerializeField] float radius;
+    CircleCollider2D circleCollider;
+
+    //Smoke
+    [SerializeField] GameObject AOESmokePrefab;
+    [SerializeField] bool readyToSmoke;
+    [SerializeField] float smokeAttackCooldown;
+
+
+
+    public Animator animator;
+    [SerializeField] bool attackAnimationFinished;
 
     //This line below, and the enum "enemyType" below it are what creates the drop down in the inspector
     public enemyType AIType = new enemyType();
@@ -57,15 +74,25 @@ public class AIController : MonoBehaviour
         playerPosition = GameObject.Find("Jeremy").transform.position;
         playerIsTarget = false;
 
+        attackAnimationFinished = true;
+
         rangedAttackCooldown = 2.0f;
         readyToFire = true;
         projectileSpeed = 450;//450
         damage = 10.0f;
 
+        //For Sphere Collider 2D
+        radius = 2.0f;
+
+        //Smoke
+        readyToSmoke = true;
+        smokeAttackCooldown = 15.0f;
+
         switch (AIType)
         {
             //Tank
             case enemyType.Alcoholic:
+                AIMaxHealth = 200.0f;
                 AIHealth = 200.0f;
                 AIDamage = 30.0f;
                 movementSpeed = 1.5f;
@@ -73,6 +100,7 @@ public class AIController : MonoBehaviour
                 break;
             //Basic
             case enemyType.CrackHead:
+                AIMaxHealth = 100.0f;
                 AIHealth = 100.0f;
                 AIDamage = 10.0f;
                 movementSpeed = 2.0f;
@@ -80,6 +108,7 @@ public class AIController : MonoBehaviour
                 break;
             //Speed
             case enemyType.CokeHead:
+                AIMaxHealth = 75.0f;
                 AIHealth = 75.0f;
                 AIDamage = 10.0f;
                 movementSpeed = 6.0f;
@@ -87,6 +116,7 @@ public class AIController : MonoBehaviour
                 break;
             //Shooting
             case enemyType.SmackHead:
+                AIMaxHealth = 100.0f;
                 AIHealth = 100.0f;
                 AIDamage = 10.0f;
                 movementSpeed = 1.5f;
@@ -95,10 +125,14 @@ public class AIController : MonoBehaviour
                 break;
             //Status Effect
             case enemyType.PotHead:
+                AIMaxHealth = 100.0f;
                 AIHealth = 100.0f;
                 AIDamage = 10.0f;
                 movementSpeed = 2.0f;
                 attackCooldown = 2f;
+                circleCollider = this.gameObject.AddComponent<CircleCollider2D>();
+                circleCollider.radius = radius;
+                circleCollider.isTrigger = true;
                 break;
         }
 
@@ -106,7 +140,7 @@ public class AIController : MonoBehaviour
         canAttack = true;
     }
 
-    
+
 
     // Update is called once per frame
     void Update()
@@ -118,7 +152,7 @@ public class AIController : MonoBehaviour
         }
         if (canMove && !isSleeping)
         {
-            if (Vector2.Distance(this.transform.position, targetPosition) < 0.5f)
+            if (Vector2.Distance(this.transform.position, targetPosition) < 0.3f)
             {
                 playerIsTarget = false;
                 targetPosition = GetRandomPosition();
@@ -129,7 +163,7 @@ public class AIController : MonoBehaviour
                 playerIsTarget = false;
                 StartCoroutine(goToTargetPosition());
             }
-            else if(Vector2.Distance(this.transform.position, playerPosition) < 3.3f)
+            else if (Vector2.Distance(this.transform.position, playerPosition) < 3.3f)
             {
                 playerIsTarget = true;
                 targetPosition = new Vector2(playerPosition.x, playerPosition.y);
@@ -139,24 +173,35 @@ public class AIController : MonoBehaviour
         currentPosition = this.transform.position;
         distanceToPlayer = Vector2.Distance(this.transform.position, playerPosition);
 
-        if(playerIsTarget && readyToFire)
+        if (playerIsTarget && readyToFire && AIType == enemyType.SmackHead)
         {
             rangedAttack();
-            
-
-            
+        }
+        if (playerIsTarget && readyToSmoke && AIType == enemyType.PotHead)
+        {
+            smokeAttack();
         }
 
     }
 
     IEnumerator goToTargetPosition()
     {
+        if (attackAnimationFinished)
+        {
+            animator.SetBool("Attacking", false);
+        }
+        
         canMove = false;
-        Vector2 direction = new Vector2(targetPosition.x, targetPosition.y) - new Vector2(this.transform.position.x, this.transform.position.y);
+        direction = new Vector2(targetPosition.x, targetPosition.y) - new Vector2(this.transform.position.x, this.transform.position.y);
         float speedMultiplier = 3.3f - distanceToPlayer;
         float movementSpeedlocal;
         movementSpeedlocal = movementSpeed;
+
+        animator.SetFloat("Horizontal", direction.x);
+        animator.SetFloat("Vertical", direction.y);
+        animator.SetFloat("Magnitute", direction.magnitude);
         
+
         this.GetComponent<Rigidbody2D>().MovePosition(new Vector2(this.transform.position.x, this.transform.position.y) + direction.normalized * movementSpeed * Time.deltaTime);
 
         yield return new WaitForSeconds(0.01f);
@@ -176,6 +221,8 @@ public class AIController : MonoBehaviour
 
     void rangedAttack()
     {
+        animator.SetBool("Attacking", true);
+        attackAnimationFinished = false;
         Vector2 direction = new Vector2(targetPosition.x, targetPosition.y) - new Vector2(this.transform.position.x, this.transform.position.y);
 
         Rigidbody2D bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation) as Rigidbody2D;
@@ -197,8 +244,23 @@ public class AIController : MonoBehaviour
 
 
         readyToFire = false;
+        StartCoroutine(stopAttackAnimation());
         StartCoroutine(rechargeRangedAttack());
     }
+
+    void smokeAttack()
+    {
+        animator.SetBool("Attacking", true);
+        attackAnimationFinished = false;
+        GameObject AOESmoke = Instantiate(AOESmokePrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation) as GameObject;
+        AOESmoke.GetComponent<AOESmoke>().radius = radius;
+
+        readyToSmoke = false;
+
+        StartCoroutine(stopAttackAnimation());
+        StartCoroutine(rechargeSmokeAttack());
+    }
+
 
 
     //Gets a random direction to walk in
@@ -219,30 +281,39 @@ public class AIController : MonoBehaviour
         if (collision.gameObject.tag == "Player" && canAttack == true)
         {
             print("Attacking Player!");
+            animator.SetBool("Attacking", true);
+            attackAnimationFinished = false;
             canAttack = false;
             playerControllerScript.damagePlayer(AIDamage);
+            StartCoroutine(stopAttackAnimation());
             StartCoroutine(rechargeAttack());
         }
         else if (collision.gameObject.tag == "Player" && canAttack != true)
         {
-            print("Waiting to attack player!");
+            //print("Waiting to attack player!");
         }
         else if (collision.gameObject.tag != "bullet" && collision.gameObject.tag != "Player")
         {
-            print("Finding new target!");
+            //print("Finding new target!");
             targetPosition = GetRandomPosition();
         }
         else if (collision.gameObject.tag == "bullet")
         {
             AIHealth -= collision.gameObject.GetComponent<bulletController>().getDamage();
-            print("Health: " + AIHealth + "/100");
+            print("Health: " + AIHealth + "/" + AIMaxHealth);
             if (AIHealth <= 0.0f)
             {
+                CharacterController.enemyDied(AIType);
                 Destroy(this.gameObject);
             }
         }
+    }
 
-        
+    IEnumerator stopAttackAnimation()
+    {
+        yield return new WaitForSeconds(0.517f);
+        attackAnimationFinished = true;
+        animator.SetBool("Attacking", false);
     }
 
     IEnumerator rechargeAttack()
@@ -256,6 +327,12 @@ public class AIController : MonoBehaviour
         readyToFire = true;
     }
 
+    IEnumerator rechargeSmokeAttack()
+    {
+        yield return new WaitForSeconds(smokeAttackCooldown);
+        readyToSmoke = true;
+    }
+
     //sometimes the AI's new target, after hitting something, is still towards the object
     //so to prevent it getting stuck there this function checks if it stays in the collider for too long then gives it a new target
     private void OnCollisionStay2D(Collision2D collision)
@@ -263,10 +340,13 @@ public class AIController : MonoBehaviour
         
         if (collision.gameObject.tag == "Player" && canAttack == true)
         {
-            print("Attacking Player!");
+            print("Attacking Player Continued!");
+            animator.SetBool("Attacking", true);
+            attackAnimationFinished = false;
             canAttack = false;
             playerControllerScript.damagePlayer(AIDamage);
             StartCoroutine(rechargeAttack());
+            StartCoroutine(stopAttackAnimation());
         }
         else if (collision.gameObject.tag == "Player" && canAttack == false)
         {

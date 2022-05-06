@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BasicMovment : MonoBehaviour
 {
@@ -15,8 +16,9 @@ public class BasicMovment : MonoBehaviour
     [SerializeField] public GameObject connectedObject = null;//this will be what the player pulls
     [SerializeField] float movementSpeed = 2.0f;
     [SerializeField] List<GameObject> NearbyCratesList = new List<GameObject>();
-    [SerializeField] Camera minimapCameraObject = null;
-    Canvas minimapCanvasObject = null;
+
+    [SerializeField] public bool speedDebuffed;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -25,45 +27,38 @@ public class BasicMovment : MonoBehaviour
         playerRigidBody = playerGameObject.GetComponent<Rigidbody2D>();
         playerCollider = playerGameObject.GetComponent<BoxCollider2D>();
         crateDetectorCollider = playerGameObject.GetComponent<CapsuleCollider2D>();
-        minimapCameraObject = GameObject.Find("MiniMapCamera").GetComponent<Camera>();
-        minimapCanvasObject = minimapCameraObject.transform.GetChild(0).GetComponent<Canvas>();
+
+        speedDebuffed = false;
         //connectedObject = playerGameObject.transform.GetChild(1).gameObject;
     }
+    
 
     //This is used here because checking for key presses like below is very unreliable in FixedUpdate()
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            print("G");
-            if (!connectedObject)
+            if (SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "CrackOfDawn")
             {
-                grabObject();
-            }
-            else
-            {
-                releaseObject();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            if (minimapCameraObject.enabled)
-            {
-                minimapCameraObject.enabled = false;
-                minimapCanvasObject.enabled = false;
-            }
-            else
-            {
-                minimapCameraObject.enabled = true;
-                minimapCanvasObject.enabled = true;
+                print("G");
+                if (!connectedObject && NearbyCratesList.Count > 0)
+                {
+                    grabObject();
+                }
+                else if (connectedObject != null)
+                {
+                    releaseObject();
+                }
             }
         }
+        
     }
     // Update is called once per frame
     void FixedUpdate()
     {
         if (playerGameObject == null)
         {
+            Debug.LogWarning("Jeremy not found!");
             playerGameObject = GameObject.Find("Jeremy");
         }
         if (playerRigidBody == null)
@@ -90,15 +85,17 @@ public class BasicMovment : MonoBehaviour
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Magnitute", movement.magnitude);
-
         
+
+
+
 
 
         if (connectedObject)
         {
             movementSpeed = 0.5f;
         }
-        else
+        else if (!speedDebuffed)
         {
             movementSpeed = 2.0f;
         }
@@ -137,16 +134,15 @@ public class BasicMovment : MonoBehaviour
                 connectedObject.transform.localPosition = new Vector3(0.0f, -0.4f, 0.0f);
             }
         }
-
-
-
-            
-        
     }
+
+    
 
     private void grabObject()
     {
+        //Debug.LogWarning(NearbyCratesList[0].name);
         //grabs the first item in the list then attaches it to the player
+        Debug.Log("First item in the nearby list: " + NearbyCratesList[0]);
         connectedObject = NearbyCratesList[0];
         connectedObject.transform.parent = playerGameObject.transform;
     }
@@ -157,10 +153,16 @@ public class BasicMovment : MonoBehaviour
         connectedObject = null;
     }
 
+    public void setMovementSpeed(float Speed)
+    {
+        movementSpeed = Speed;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag != "StaticDeliveryShelf" && collision.tag != "Wall")
+        if (collision.tag == "SuppliesToys" || collision.tag != "SuppliesToiletries")
         {
+            Debug.Log("Adding item to nearby List: " + collision.gameObject.name);
             NearbyCratesList.Add(collision.transform.gameObject);
         }
         //if (collision.gameObject.GetComponent<CircleCollider2D>())
