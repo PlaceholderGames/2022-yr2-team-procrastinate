@@ -10,6 +10,7 @@ public class GameControllerLevel1 : MonoBehaviour
     [SerializeField] int tasksCompleted;
     [SerializeField] int totalTasks;
     [SerializeField] public bool levelCompleted;
+    GameObject ObjectivePointer;
 
 
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class GameControllerLevel1 : MonoBehaviour
 
         GameObject.Find("Jif_Bozos").transform.GetChild(0).GetComponent<Canvas>().worldCamera = GameObject.Find("Jeremy").transform.GetChild(0).GetComponent<Camera>();
         levelCompleted = false;
+        ObjectivePointer = GameObject.Find("ObjectivePointer");
     }
 
     // Update is called once per frame
@@ -33,11 +35,12 @@ public class GameControllerLevel1 : MonoBehaviour
         {
             totalTasks = GameObject.Find("TaskList").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).childCount;
         }
-        if (tasksCompleted >= totalTasks)
+        if (tasksCompleted == totalTasks)
         {
             characterController.level1Complete();
             frontDoorController.unlockDoor();
             levelCompleted = true;
+            ObjectivePointer.GetComponent<SpriteRenderer>().enabled = true;
             //characterController.payPlayer();
         }
         totalTasks = GameObject.Find("TaskList").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).childCount;

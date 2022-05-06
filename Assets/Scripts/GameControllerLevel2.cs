@@ -51,6 +51,9 @@ public class GameControllerLevel2 : MonoBehaviour
             characterController.level2Complete();
             homeController.unlockDoor();
         }
+
+        totalTasks = GameObject.Find("TaskList").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).childCount;
+
     }
 
     public void playerDied()

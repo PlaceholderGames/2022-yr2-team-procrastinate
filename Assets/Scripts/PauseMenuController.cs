@@ -29,10 +29,6 @@ public class PauseMenuController : MonoBehaviour
         controlsCanvas = pauseMenuCanvas.transform.GetChild(2).GetComponent<Canvas>();
     }
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
 
     // Update is called once per frame
     void Update()
@@ -68,7 +64,17 @@ public class PauseMenuController : MonoBehaviour
     //Loads Level1 scene to avoid duplicating Jeremy
     public void retryLevel()
     {
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+        if (SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "CrackOfDawn")
+        {
+            SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+            GameObject.Find("Jeremy").transform.position = new Vector3(-13.8400002f, 0.689999998f, 0f);
+        }
+        else if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            SceneManager.LoadScene("Level2", LoadSceneMode.Single);
+            GameObject.Find("Jeremy").transform.position = new Vector3(-32.4399986f, -0.769999981f, 0);
+        }
+        
     }
 
     //Opens the controls menu

@@ -16,7 +16,7 @@ public class Level2End : MonoBehaviour
         doorUnlocked = false;
         characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
 
-        objectivePointer = GameObject.Find("ObjectivePointer").transform.GetChild(3).gameObject;
+        objectivePointer = GameObject.Find("ObjectivePointer");
     }
 
     // Update is called once per frame

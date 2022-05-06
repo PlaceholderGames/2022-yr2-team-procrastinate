@@ -49,6 +49,7 @@ public class TaskListController : MonoBehaviour
 
     public int addItemToList(GameObject prefab, string name, string description)
     {
+
         int TaskID = 0;
         GameObject prefabToSpawn = Instantiate(prefab);
         while (TaskListObject == null)

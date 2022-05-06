@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -19,6 +20,7 @@ public class killTaskController : MonoBehaviour
     [SerializeField] int taskProgress;
     [SerializeField] int taskTarget;
     [SerializeField] int TaskID = 0;
+    [SerializeField] bool TaskObjectSetup = false;
 
     [SerializeField] public AudioSource audioSource;
 
@@ -36,19 +38,32 @@ public class killTaskController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (SceneManager.GetActiveScene().name == "Level2" && TaskObjectSetup == false)
+        //{
+        //    Debug.LogWarning("Setting up task");
+        //    TaskObjectSetup = true;
+        //    setupTask();
+        //}
+
         if (TaskObject == null)
         {
+            Debug.LogError("Couldn't Find Task Object");
             TaskObject = GameObject.Find("Task" + TaskID);
         }
         if (TotalEnemiesKilledText == null)
         {
             TotalEnemiesKilledText = GameObject.Find("Task" + TaskID).transform.GetChild(3).GetComponent<TMP_Text>();
         }
+        if (GameController == null)
+        {
+            GameController = GameObject.Find("GameController").GetComponent<GameControllerLevel2>();
+        }
 
 
         if (completed == true)
         {
             print("Completed!");
+            Debug.LogWarning("Task stuff: " + TaskObject.transform.GetChild(1).GetComponent<TMP_Text>());
             TaskObject.transform.GetChild(1).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
             TaskObject.transform.GetChild(2).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
             TaskObject.transform.GetChild(4).GetComponent<Image>().color = new Color(0, 255, 0);
@@ -58,6 +73,7 @@ public class killTaskController : MonoBehaviour
 
     public void setupTask()
     {
+        Debug.LogWarning("Setting up task!");
         GameController = GameObject.Find("GameController").GetComponent<GameControllerLevel2>();
 
         CharacterController.enemyDied += enemyDied;

@@ -15307,7 +15307,7 @@ GameObject:
   - component: {fileID: 1045665977}
   - component: {fileID: 1045665976}
   m_Layer: 0
-  m_Name: GameController
+  m_Name: GameControllerLevel1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15327,6 +15327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tasksCompleted: 0
   totalTasks: 0
+  levelCompleted: 0
 --- !u!4 &1045665977
 Transform:
   m_ObjectHideFlags: 0

@@ -72,6 +72,19 @@ public class TaskController : MonoBehaviour
             wrongDeliveryZone = Resources.Load("Audio/WrongDeliveryZone") as AudioClip;
             //wrongDeliveryZone = Resources.Load("F:/Unity/Projects/2022-yr2-team-procrastinate/Assets/Audio/WrongDeliveryZone.wav") as AudioClip;
         }
+
+        if (completed == true)
+        {
+            print("Completed!");
+            TaskObject.transform.GetChild(1).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
+            TaskObject.transform.GetChild(2).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
+            TaskObject.transform.GetChild(4).GetComponent<Image>().color = new Color(0, 255, 0);
+            GameController.taskComplete();
+            characterController.addToPaycheque(totalItemsDelivered * 15);
+            Debug.LogWarning("Adding to Paycheque!");
+            //print("Adding to Paycheque!");
+            this.GetComponent<TaskController>().enabled = false;
+        }
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -99,18 +112,7 @@ public class TaskController : MonoBehaviour
             audioSource.Play();
         }
 
-        if (completed == true)
-        {
-            print("Completed!");
-            TaskObject.transform.GetChild(1).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
-            TaskObject.transform.GetChild(2).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
-            TaskObject.transform.GetChild(4).GetComponent<Image>().color = new Color(0, 255, 0);
-            GameController.taskComplete();
-            characterController.addToPaycheque(totalItemsDelivered * 15);
-            Debug.LogWarning("Adding to Paycheque!");
-            //print("Adding to Paycheque!");
-            this.GetComponent<TaskController>().enabled = false;
-        }
+        
     }
 
     private void OnTriggerExit2D(Collider2D collider)

@@ -440,6 +440,7 @@ SpriteAtlas:
   - {fileID: -6903616169077397000, guid: a2466a9a40f464549bced23a9fce801d, type: 3}
   - {fileID: -8951312829760361084, guid: a2466a9a40f464549bced23a9fce801d, type: 3}
   - {fileID: 21300000, guid: 3e05f2aa177b5834c9dbb820d0a1fe56, type: 3}
+  - {fileID: 21300000, guid: f1eb33bad4d38b641a0319d608be1244, type: 3}
   - {fileID: 3480416630959334141, guid: f12aecea4e002a44ebdb1eaa3e1153e5, type: 3}
   - {fileID: -3494441754838754863, guid: f12aecea4e002a44ebdb1eaa3e1153e5, type: 3}
   - {fileID: 9117818897135830164, guid: f12aecea4e002a44ebdb1eaa3e1153e5, type: 3}
@@ -962,6 +963,7 @@ SpriteAtlas:
   - PotHead_Walk_down_5
   - PotHead_Walk_down_6
   - Pointer1
+  - icon
   - Walking_Left_Jeremy_0
   - Walking_Left_Jeremy_1
   - Walking_Left_Jeremy_2

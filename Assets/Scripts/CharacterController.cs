@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class CharacterController : MonoBehaviour
 {
-    [SerializeField] GameControllerLevel2 GameControllerLevel2;
-    [SerializeField] GameControllerLevel1 GameControllerLevel1;
+    [SerializeField] static GameControllerLevel2 GameControllerLevel2;
+    [SerializeField] static GameControllerLevel1 GameControllerLevel1;
 
-    [SerializeField] BasicMovment movementController;
+    [SerializeField] static BasicMovment movementController;
 
     //High precision used for calculating health and other bits
     [SerializeField] decimal healthM;
@@ -199,15 +199,22 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (GameControllerLevel2 == null && SceneManager.GetActiveScene().name == "Level2")
         {
+            Debug.LogWarning("GameControllerLevel2 not found!");
             GameControllerLevel2 = GameObject.Find("GameController").GetComponent<GameControllerLevel2>();
         }
         if (GameControllerLevel1 == null && SceneManager.GetActiveScene().name == "Level1")
         {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Debug.LogError("Scenes Open: " + SceneManager.GetSceneAt(i).name);
+            }
+            Debug.LogWarning("GameControllerLevel1 not found!");
             GameControllerLevel1 = GameObject.Find("GameControllerLevel1").GetComponent<GameControllerLevel1>();
         }
-
+        
         
         if (SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "CrackOfDawn" && GameControllerLevel1.levelCompleted == true)
         {
