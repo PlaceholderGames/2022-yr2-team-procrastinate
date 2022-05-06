@@ -13,18 +13,30 @@ public class TaskListController : MonoBehaviour
     List<GameObject> TaskList = new List<GameObject>();
 
     [SerializeField] bool forceEmptyList;
-    [SerializeField] bool level1ListItemsCleared;
+    [SerializeField] public bool level1ListItemsCleared;
+    [SerializeField] public bool level2ListItemsCleared;
+    [SerializeField] public bool level1Reset;
+    [SerializeField] public bool level2Reset;
+    [SerializeField] int TaskID = 0;
     // Start is called before the first frame update
     void Start()
     {
         TaskListObject = GameObject.Find("TaskList");
         TaskListContentObject = TaskListObject.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject;
         level1ListItemsCleared = false;
+        level2ListItemsCleared = false;
+        level1Reset = false;
+        level2Reset = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (level1Reset || level2Reset)
+        {
+            TaskID = 0;
+        }
+
         if (TaskListObject == null)
         {
             TaskListObject = GameObject.Find("TaskList"); TaskListObject = GameObject.Find("TaskList");
@@ -39,24 +51,60 @@ public class TaskListController : MonoBehaviour
         {
             print("Level 1 list items cleared!");
             clearList();
-            level1ListItemsCleared = true;
-            for (int i = 0; i < GameObject.Find("Tasks").transform.childCount; i++)
+            
+            //while (TaskListContentObject.transform.childCount != 0)
+            //{
+            //    clearList();
+            //}
+            if (TaskListContentObject.transform.childCount == 0)
             {
-                GameObject.Find("Tasks").transform.GetChild(i).GetComponent<killTaskController>().setupTask();
+                level1ListItemsCleared = true;
+                for (int i = 0; i < GameObject.Find("TasksLevel2").transform.childCount; i++)
+                {
+                    GameObject.Find("TasksLevel2").transform.GetChild(i).GetComponent<killTaskController>().setupTask();
+                }
             }
-        }    
+            
+        }
+
+        if (SceneManager.GetActiveScene().name == "Level2" && level2Reset && !level2ListItemsCleared)
+        {
+            print("Level 2 list items cleared!");
+            clearList();
+            
+            if (TaskListContentObject.transform.childCount == 0)
+            {
+                level2ListItemsCleared = true;
+                for (int i = 0; i < GameObject.Find("TasksLevel2").transform.childCount; i++)
+                {
+                    GameObject.Find("TasksLevel2").transform.GetChild(i).GetComponent<killTaskController>().setupTask();
+                }
+                level2Reset = false;
+            }
+            
+            
+        }
+
+        if (SceneManager.GetActiveScene().name == "Level1" && !level2ListItemsCleared)
+        {
+            print("Level 1 list items cleared!");
+            clearList();
+            level2ListItemsCleared = true;
+
+            GameObject.Find("TasksLevel1").transform.GetChild(0).GetComponent<TaskController>().setupTask();
+            GameObject.Find("TasksLevel1").transform.GetChild(1).GetComponent<TestTask2>().setupTask();
+        }
     }
 
     public int addItemToList(GameObject prefab, string name, string description)
     {
 
-        int TaskID = 0;
         GameObject prefabToSpawn = Instantiate(prefab);
         while (TaskListObject == null)
         {
             TaskListObject = GameObject.Find("TaskList"); TaskListObject = GameObject.Find("TaskList");
         }
-        if (TaskList.Count() == 0)
+        if (TaskListContentObject.transform.childCount == 0)
         {
             TaskID = 0;
             TaskList.Add(prefabToSpawn);
@@ -69,23 +117,38 @@ public class TaskListController : MonoBehaviour
             {
                 prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(125, -25, 0);
             }
-            else
+            else if (SceneManager.GetActiveScene().name == "CrackOfDawn")
             {
                 prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(0, -25, 0);
+            }
+            else
+            {
+                prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(125, -25, 0);
             }
             prefabToSpawn.name = "Task" + TaskID;
             prefabToSpawn.transform.GetChild(1).GetComponent<TMP_Text>().text = name;
             prefabToSpawn.transform.GetChild(2).GetComponent<TMP_Text>().text = description;
         }
-        else if (TaskList.Count() >= 0)
+        else if (TaskListContentObject.transform.childCount > 0)
         {
-            TaskID = TaskList.Count();
+            TaskID = TaskListContentObject.transform.childCount;
             TaskList.Add(prefabToSpawn);
             print("TaskListObject:" + TaskListObject);
             print("TaskList Count = \"> 0\"");
             prefabToSpawn.transform.parent = TaskListObject.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0);
             prefabToSpawn.transform.localScale = new Vector3(1, 0.5f, 0.5f);
             if (SceneManager.GetActiveScene().name == "Level2")
+            {
+                if (TaskID == 1)
+                {
+                    prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(125, (-70), 0);
+                }
+                else
+                {
+                    prefabToSpawn.transform.localPosition = prefabToSpawn.transform.parent.localPosition + new Vector3(125, (-39f + (-39f * (TaskID))), 0);
+                }
+            }
+            else if (SceneManager.GetActiveScene().name == "Level1")
             {
                 if (TaskID == 1)
                 {
@@ -113,21 +176,8 @@ public class TaskListController : MonoBehaviour
             prefabToSpawn.transform.GetChild(1).GetComponent<TMP_Text>().text = name;
             prefabToSpawn.transform.GetChild(2).GetComponent<TMP_Text>().text = description;
         }
-        //else if (TaskList.Count() > 0)
-        //{
-        //    TaskID = TaskList.Count();
-        //    TaskList.Add(prefabToSpawn);
-        //    prefabToSpawn.transform.parent = TaskListObject.transform.GetChild(0);
-        //    prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
-        //    prefabToSpawn.transform.parent = prefabToSpawn.transform.parent.GetChild(0);
-        //    prefabToSpawn.transform.localScale = new Vector3(1, 1, 1);
-        //    prefabToSpawn.transform.localPosition = TaskList[(TaskID - 1)].transform.localPosition + new Vector3(0, -25, 0);
-        //    prefabToSpawn.name = "Task" + TaskID;
-        //    prefabToSpawn.transform.GetChild(1).GetComponent<TMP_Text>().text = name;
-        //    prefabToSpawn.transform.GetChild(2).GetComponent<TMP_Text>().text = description;
-        //}
 
-        print(TaskID);
+        print("New Tasks ID: " + TaskID);
         return TaskID;
     }
 
@@ -140,6 +190,7 @@ public class TaskListController : MonoBehaviour
             
         }
         TaskList.Clear();
+        Debug.LogWarning("List Cleared!");
     }
 
 }

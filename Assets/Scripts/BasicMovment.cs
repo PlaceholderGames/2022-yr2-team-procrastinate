@@ -58,6 +58,7 @@ public class BasicMovment : MonoBehaviour
     {
         if (playerGameObject == null)
         {
+            Debug.LogWarning("Jeremy not found!");
             playerGameObject = GameObject.Find("Jeremy");
         }
         if (playerRigidBody == null)
@@ -133,18 +134,15 @@ public class BasicMovment : MonoBehaviour
                 connectedObject.transform.localPosition = new Vector3(0.0f, -0.4f, 0.0f);
             }
         }
-
-
-
-            
-        
     }
 
     
 
     private void grabObject()
     {
+        //Debug.LogWarning(NearbyCratesList[0].name);
         //grabs the first item in the list then attaches it to the player
+        Debug.Log("First item in the nearby list: " + NearbyCratesList[0]);
         connectedObject = NearbyCratesList[0];
         connectedObject.transform.parent = playerGameObject.transform;
     }
@@ -162,8 +160,9 @@ public class BasicMovment : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag != "StaticDeliveryShelf" && collision.tag != "Wall")
+        if (collision.tag == "SuppliesToys" || collision.tag != "SuppliesToiletries")
         {
+            Debug.Log("Adding item to nearby List: " + collision.gameObject.name);
             NearbyCratesList.Add(collision.transform.gameObject);
         }
         //if (collision.gameObject.GetComponent<CircleCollider2D>())

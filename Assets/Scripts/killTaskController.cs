@@ -50,10 +50,20 @@ public class killTaskController : MonoBehaviour
             Debug.LogError("Couldn't Find Task Object");
             TaskObject = GameObject.Find("Task" + TaskID);
         }
+        else if (TaskObject != null)
+        {
+            Debug.Log("Task Object was found");
+        }
         if (TotalEnemiesKilledText == null)
         {
+            Debug.LogError("Couldn't Find Total enemies killed text");
             TotalEnemiesKilledText = GameObject.Find("Task" + TaskID).transform.GetChild(3).GetComponent<TMP_Text>();
         }
+        else if (TotalEnemiesKilledText != null)
+        {
+            Debug.Log("TotalEnemiesKilledText found!");
+        }
+
         if (GameController == null)
         {
             GameController = GameObject.Find("GameController").GetComponent<GameControllerLevel2>();
@@ -68,7 +78,14 @@ public class killTaskController : MonoBehaviour
             TaskObject.transform.GetChild(2).GetComponent<TMP_Text>().color = new Color(0, 255, 0);
             TaskObject.transform.GetChild(4).GetComponent<Image>().color = new Color(0, 255, 0);
             GameController.taskComplete();
+            this.gameObject.GetComponent<killTaskController>().enabled = false;
         }
+
+        if (totalEnemiesKilled >= taskTarget)
+        {
+            completed = true;
+        }
+
     }
 
     public void setupTask()
@@ -108,11 +125,5 @@ public class killTaskController : MonoBehaviour
             totalEnemiesKilled++;
             TotalEnemiesKilledText.text = "Progress: " + (totalEnemiesKilled + "/" + taskTarget);
         }
-        if (totalEnemiesKilled >= taskTarget)
-        {
-            completed = true;
-        }
-        
     }
-
 }

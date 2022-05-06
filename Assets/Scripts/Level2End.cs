@@ -10,6 +10,7 @@ public class Level2End : MonoBehaviour
     GameObject objectivePointer;
 
     CharacterController characterController;
+    TaskListController taskListController;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,12 +18,24 @@ public class Level2End : MonoBehaviour
         characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
 
         objectivePointer = GameObject.Find("ObjectivePointer");
+        taskListController = GameObject.Find("TaskList").GetComponent<TaskListController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (characterController == null)
+        {
+            characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
+        }
+        if (objectivePointer == null)
+        {
+            objectivePointer = GameObject.Find("ObjectivePointer");
+        }
+        if (taskListController)
+        {
+            taskListController = GameObject.Find("TaskList").GetComponent<TaskListController>();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -30,7 +43,9 @@ public class Level2End : MonoBehaviour
         if (collision.gameObject.tag == "Player" && doorUnlocked)
         {
             objectivePointer.GetComponent<SpriteRenderer>().enabled = false;
+            //taskListController.clearList();
             SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+            GameObject.Find("Jeremy").transform.position = new Vector3(-13.8400002f, 0.689999998f, 0);
         }
     }
 }

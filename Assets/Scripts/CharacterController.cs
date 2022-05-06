@@ -11,6 +11,8 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField] static BasicMovment movementController;
 
+    [SerializeField] bool SceneIsReady;
+
     //High precision used for calculating health and other bits
     [SerializeField] decimal healthM;
     [SerializeField] decimal maxHealthM;
@@ -101,10 +103,13 @@ public class CharacterController : MonoBehaviour
 
     public Vector2 pointerDirection;
     GameObject objectivePointer;
+    [SerializeField] bool objectivePointerShown;
 
     //Delegates
     public delegate void EnemyDied(AIController.enemyType deadEnemyType);
     public static EnemyDied enemyDied;
+
+    
 
     enum direction
     {
@@ -117,7 +122,18 @@ public class CharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameControllerLevel1 = GameObject.Find("GameControllerLevel1").GetComponent<GameControllerLevel1>();
+        SceneManager.sceneLoaded += SceneIsLoaded;
+        
+
+        if (SceneManager.GetActiveScene().name == "Level1")
+        {
+            GameControllerLevel1 = GameObject.Find("GameControllerLevel1").GetComponent<GameControllerLevel1>();
+        }
+        else
+        {
+            GameControllerLevel1 = GameObject.Find("GameControllerCrackOfDawn").GetComponent<GameControllerLevel1>();
+        }
+
         movementController = this.gameObject.GetComponent<BasicMovment>();
         statusEffectBarController = GameObject.Find("StatusEffects").GetComponent<StatusEffectBarController>();
 
@@ -133,15 +149,15 @@ public class CharacterController : MonoBehaviour
         level1Iteration = 0;
         level2Iteration = 0;
 
-        healthM = 90.0M;
+        healthM = 100.0M;
         maxHealthM = 100.0M;
-        healingSpeedM = 0.1M;
+        healingSpeedM = 0.5M;
         damage = 20.0f;
         rateOfFire = 60.0f;
         healed = false;
         aimDirection = 5;
         readyToFire = true;
-        projectileSpeed = 30;
+        projectileSpeed = 40;
         canFire = false;
 
         potHeadDebuffSpeed = 0.75f;
@@ -180,8 +196,7 @@ public class CharacterController : MonoBehaviour
         //fireGun = Resources.Load("Audio/nameHere") as AudioClip;
         //audioSource = this.gameObject.GetComponent<AudioSource>();
         //audioSource.clip = fireGun;
-
-
+        //setUp();
     }
 
 
@@ -199,6 +214,18 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Making sure important stuff is found
+        if (objectivePointer == null)
+        {
+            Debug.LogWarning("Objective Pointer not found!");
+            objectivePointer = GameObject.Find("ObjectivePointer");
+        }
+
+        if (movementController == null)
+        {
+            Debug.LogWarning("MovementController not found!");
+            movementController = this.gameObject.GetComponent<BasicMovment>();
+        }
 
         if (GameControllerLevel2 == null && SceneManager.GetActiveScene().name == "Level2")
         {
@@ -207,19 +234,58 @@ public class CharacterController : MonoBehaviour
         }
         if (GameControllerLevel1 == null && SceneManager.GetActiveScene().name == "Level1")
         {
-            for (int i = 0; i < SceneManager.sceneCount; i++)
-            {
-                Debug.LogError("Scenes Open: " + SceneManager.GetSceneAt(i).name);
-            }
+            //for (int i = 0; i < SceneManager.sceneCount; i++)
+            //{
+            //    Debug.LogError("Scenes Open: " + SceneManager.GetSceneAt(i).name);
+            //}
             Debug.LogWarning("GameControllerLevel1 not found!");
             GameControllerLevel1 = GameObject.Find("GameControllerLevel1").GetComponent<GameControllerLevel1>();
         }
-        
-        
-        if (SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "CrackOfDawn" && GameControllerLevel1.levelCompleted == true)
+        else if (GameControllerLevel1 == null && SceneManager.GetActiveScene().name == "CrackOfDawn")
         {
+            //for (int i = 0; i < SceneManager.sceneCount; i++)
+            //{
+            //    Debug.LogError("Scenes Open: " + SceneManager.GetSceneAt(i).name);
+            //}
+            Debug.LogWarning("GameControllerCrackOfDawn not found!");
+            GameControllerLevel1 = GameObject.Find("GameControllerCrackOfDawn").GetComponent<GameControllerLevel1>();
+        }
+
+        if (healthBarSlider == null)
+        {
+            Debug.LogWarning("Health bar slider not found!");
+            healthBarSlider = GameObject.Find("HealthBarSlider").GetComponent<Slider>();
+        }
+
+
+
+        if (objectivePointer.GetComponent<SpriteRenderer>().enabled == true)
+        {
+            objectivePointerShown = true;
+        }
+        else
+        {
+            objectivePointerShown = false;
+        }
+
+        
+
+
+        
+        
+        
+        if (SceneManager.GetActiveScene().name == "Level1" && GameControllerLevel1.levelCompleted == true)
+        {
+            Debug.LogWarning("Enabling Objective Pointer!");
             objectivePointer.GetComponent<SpriteRenderer>().enabled = true;
         }
+        if (SceneManager.GetActiveScene().name == "CrackOfDawn" && GameControllerLevel1.levelCompleted == true)
+        {
+            Debug.LogWarning("Enabling Objective Pointer!");
+            objectivePointer.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        
         else
         {
             objectivePointer.GetComponent<SpriteRenderer>().enabled = false;
@@ -260,7 +326,7 @@ public class CharacterController : MonoBehaviour
             canFire = true;
         }
         //The player is dead
-        if (healthM <= 0.0M && !unkillable)
+        if (healthM <= 0.0M && !unkillable && SceneManager.GetActiveScene().name == "Level2")
         {
             GameControllerLevel2.playerDied();
         }
@@ -305,6 +371,7 @@ public class CharacterController : MonoBehaviour
         {
             if (poisonCanDamage)
             {
+                Debug.Log("Poisin Damag!");
                 healthM -= poisonDamage;
                 poisonCanDamage = false;
                 StartCoroutine(resetPoisonDamage());
@@ -545,6 +612,7 @@ public class CharacterController : MonoBehaviour
 
     public void damagePlayer(float damage)
     {
+        Debug.Log("Damaging player by: " + damage + " HP!");
         healthM -= (decimal)damage;
     }
 
@@ -620,4 +688,88 @@ public class CharacterController : MonoBehaviour
         currentEnergyDrinkBuffTime = energyDrinkBuffTime;
         movementController.setMovementSpeed(energyDrinkBuffedMovementSpeed);
     }
+
+    public void SceneIsLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        SceneIsReady = true;
+    }
+
+    void setUp()
+    {
+        while (!SceneIsReady)
+        {
+            if (SceneManager.GetActiveScene().name == "Level1")
+            {
+                GameControllerLevel1 = GameObject.Find("GameControllerLevel1").GetComponent<GameControllerLevel1>();
+            }
+            else
+            {
+                GameControllerLevel1 = GameObject.Find("GameControllerCrackOfDawn").GetComponent<GameControllerLevel1>();
+            }
+
+            movementController = this.gameObject.GetComponent<BasicMovment>();
+            statusEffectBarController = GameObject.Find("StatusEffects").GetComponent<StatusEffectBarController>();
+
+            audioSource = this.gameObject.GetComponent<AudioSource>();
+
+            healFood = Resources.Load("Audio/healing4", typeof(AudioClip)) as AudioClip;
+            fireGun = Resources.Load("Audio/GunShot", typeof(AudioClip)) as AudioClip;
+
+            objectivePointer = this.gameObject.transform.GetChild(3).gameObject;
+
+            //targetLineRenderer = this.gameObject.GetComponent<LineRenderer>();
+
+            level1Iteration = 0;
+            level2Iteration = 0;
+
+            healthM = 100.0M;
+            maxHealthM = 100.0M;
+            healingSpeedM = 0.5M;
+            damage = 20.0f;
+            rateOfFire = 60.0f;
+            healed = false;
+            aimDirection = 5;
+            readyToFire = true;
+            projectileSpeed = 40;
+            canFire = false;
+
+            potHeadDebuffSpeed = 0.75f;
+            potHeadDebuffTime = 10.0f;
+            currentPotHeadDebuffTime = 0.0f;
+            movementSpeed = 2.0f;
+
+            smackHeadDebuffTime = 20.0f;
+            poisonCanDamage = false;
+            poisonDamage = 1.0M;
+            smackHeadDebuffIconFlashing = false;
+
+
+            healthBarSlider = GameObject.Find("HealthBarSlider").GetComponent<Slider>();
+
+            enemyDied = addToBloodMoney;
+
+            minimapCameraObject = GameObject.Find("MiniMapCamera").GetComponent<Camera>();
+            minimapCanvasObject = minimapCameraObject.transform.GetChild(0).GetComponent<Canvas>();
+
+            gamePaused = false;
+            miniMapOpen = false;
+
+            potHeadDebuffIconAdded = false;
+            potHeadDebuffIconFlashing = false;
+
+
+            //energyDrinkStatusEffectObject;
+            energyDrinkBuffTime = 20.0f;
+            currentEnergyDrinkBuffTime = 0.0f;
+            energyDrinkBuffIconAdded = false;
+            energyDrinkBuffIconFlashing = false;
+            energyDrinkBuffedMovementSpeed = 3.0f;
+
+            //Adds an audio source then loads the audio clip
+            //fireGun = Resources.Load("Audio/nameHere") as AudioClip;
+            //audioSource = this.gameObject.GetComponent<AudioSource>();
+            //audioSource.clip = fireGun;
+        }
+    }
+        
 }

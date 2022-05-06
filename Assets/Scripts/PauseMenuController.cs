@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour
 {
-    CharacterController characterController;
-    GameObject pauseMenuGameObject;
-    Canvas pauseMenuCanvas;
-    Button resumeButton;
-    Button exitButton;
+    [SerializeField] CharacterController characterController;
+    [SerializeField] GameObject pauseMenuGameObject;
+    [SerializeField] Canvas pauseMenuCanvas;
+    [SerializeField] Button resumeButton;
+    [SerializeField] Button exitButton;
+    [SerializeField] TaskListController taskListController;
 
     //Controls
     Canvas controlsCanvas;
@@ -27,15 +28,23 @@ public class PauseMenuController : MonoBehaviour
         exitButton = pauseMenuGameObject.transform.GetChild(1).transform.GetChild(2).GetComponent<Button>();
 
         controlsCanvas = pauseMenuCanvas.transform.GetChild(2).GetComponent<Canvas>();
+
+        taskListController = GameObject.Find("TaskList").GetComponent<TaskListController>();
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        if (pauseMenuCanvas == null)
+        {
+            Debug.LogWarning("pauseMenuCanvas not found!");
+            pauseMenuCanvas = pauseMenuGameObject.GetComponent<Canvas>();
+        }
         //P is temporary since Escape ends the editor play mode.
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
+            Debug.LogWarning("Pause Menu opened!");
             Time.timeScale = 0;
             pauseMenuCanvas.enabled = true;
             characterController.gamePaused = true;
@@ -50,9 +59,11 @@ public class PauseMenuController : MonoBehaviour
     //Unpauses the game
     public void resumeGame()
     {
-        Time.timeScale = 1;
+        Debug.LogWarning("Resuming game!");
         pauseMenuCanvas.enabled = false;
         characterController.gamePaused = false;
+        Time.timeScale = 1;
+        
 
         if (characterController.miniMapOpen)
         {
@@ -67,12 +78,16 @@ public class PauseMenuController : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "CrackOfDawn")
         {
             SceneManager.LoadScene("Level1", LoadSceneMode.Single);
-            GameObject.Find("Jeremy").transform.position = new Vector3(-13.8400002f, 0.689999998f, 0f);
+            GameObject.Find("Jeremy").transform.position = new Vector3(-13.8400002f, 0.689999998f, 0);
+            //taskListController.clearList();
         }
         else if (SceneManager.GetActiveScene().name == "Level2")
         {
             SceneManager.LoadScene("Level2", LoadSceneMode.Single);
             GameObject.Find("Jeremy").transform.position = new Vector3(-32.4399986f, -0.769999981f, 0);
+            //taskListController.clearList();
+            taskListController.level2Reset = true;
+            taskListController.level2ListItemsCleared = false;
         }
         
     }

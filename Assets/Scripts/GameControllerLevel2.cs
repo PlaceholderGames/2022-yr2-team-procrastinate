@@ -24,7 +24,7 @@ public class GameControllerLevel2 : MonoBehaviour
     //the game loops between level 1 and 2 with increasing difficulty so this is what will track it
     [SerializeField] int levelIteration;
 
-
+    GameObject ObjectivePointer;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +37,8 @@ public class GameControllerLevel2 : MonoBehaviour
         characterController = GameObject.Find("Jeremy").GetComponent<CharacterController>();
         homeController = GameObject.Find("Home").GetComponent<HomeController>();
 
+        ObjectivePointer = GameObject.Find("ObjectivePointer");
+
         CharacterController.enemyDied += enemyDied;
 
         tasksCompleted = 0;
@@ -46,13 +48,26 @@ public class GameControllerLevel2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (tasksCompleted == totalTasks)
+        totalTasks = GameObject.Find("TaskList").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).childCount;
+        if (totalTasks == 0)
         {
-            characterController.level2Complete();
-            homeController.unlockDoor();
+
         }
 
-        totalTasks = GameObject.Find("TaskList").transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).childCount;
+        if (ObjectivePointer == null)
+        {
+            ObjectivePointer = GameObject.Find("ObjectivePointer");
+        }
+        
+
+        if (tasksCompleted == totalTasks)
+        {
+            Debug.LogWarning("Level2 Complete! " + tasksCompleted + "/" + totalTasks);
+            characterController.level2Complete();
+            homeController.unlockDoor();
+            ObjectivePointer.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
 
     }
 
@@ -85,7 +100,7 @@ public class GameControllerLevel2 : MonoBehaviour
         characterController.respawnPlayer(new Vector3(-26.5f, 0.5f, 0f));
         Time.timeScale = 1;
         Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.name);
+        SceneManager.LoadScene("Level2");
         
     }
 
